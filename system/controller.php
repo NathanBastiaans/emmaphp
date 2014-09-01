@@ -12,7 +12,10 @@ abstract class Emma_Controller {
     
     function __construct() {
         
-        $_SESSION["controller"] = $_GET["controller"];
+        if( ! $_SESSION) 
+            session_start();
+            
+        $_SESSION["controller"] = $_GET["c"];
         $this->load = Loader::$linkage;
         self::$instance =& $this;
         
