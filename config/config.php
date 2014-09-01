@@ -1,6 +1,9 @@
 <?php
 
+//Set debug mode
 define("DEBUG_MODE", true);
+
+//Set the default controller
 define("DEFAULT_CONTROLLER", "welcome");
 
 //Debug mode
