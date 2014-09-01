@@ -1,6 +1,6 @@
 <?php
 
-abstract class Emma_Model {
+abstract class EmmaModel {
 
     protected $db;
     

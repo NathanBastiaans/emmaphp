@@ -3,7 +3,7 @@
 /**
  * Base controller of the EmmaPHP MVC Framework
  */
-abstract class Emma_Controller {
+abstract class EmmaController {
     
     static $model;
     static $instance;

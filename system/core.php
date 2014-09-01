@@ -27,7 +27,7 @@ class Core {
 
         require_once("controllers/" . $_GET["c"] . ".php");
 
-        $controller_actual = $_GET["c"] . "_controller";
+        $controller_actual = $_GET["c"] . "Controller";
         
         $this->load = new Loader();
         $this->load->controller($controller_actual);

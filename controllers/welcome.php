@@ -3,7 +3,7 @@
 /**
  * Default Controller of the EmmaPHP MVC Framework
  */
-class Welcome_controller extends Emma_Controller {
+class WelcomeController extends EmmaController {
     
     function __construct() {
         
