@@ -72,6 +72,12 @@ class Loader {
         
     }
     
+    public function table($param_table) {
+        
+        $table_file_name = 
+        
+    }
+    
     public function view($param_view) {
         
         //Load a view
