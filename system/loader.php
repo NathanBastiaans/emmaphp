@@ -80,7 +80,7 @@ class Loader {
         $table_name_actual = ucfirst($param_table) . "Table";
         require_once("tables/" . $table_file_name);
         
-        $this->param_table = new $actual_name_table();
+        $this->param_table = new $table_name_actual();
         
         self::$table =& $this->param_table;
         self::$table_name =& $table_name_actual;
