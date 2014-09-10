@@ -8,6 +8,8 @@ class Loader {
     static $linkage;
     static $model;
     static $model_name;
+    static $table;
+    static $table_name;
     
     function __construct() {
         
@@ -59,7 +61,7 @@ class Loader {
         
         //Find, include and make the model ready.
         $model_file_name = str_replace("Model", "", $param_model);
-        include("models/" . strtolower($model_file_name) . ".php");
+        require_once("models/" . strtolower($model_file_name) . ".php");
         $actual_model = ucfirst($param_model);
         
         //Create the model object
@@ -68,13 +70,21 @@ class Loader {
         //Link the model to the loader to load and initialize it.
         self::$model_name = $actual_model;
         self::$model =& $this->$actual_model;
-        Emma_Controller::init_model();
+        EmmaController::init_model();
         
     }
     
     public function table($param_table) {
         
-        $table_file_name = 
+        $table_file_name = strtolower($param_table) . ".php";
+        $table_name_actual = ucfirst($param_table) . "Table";
+        require_once("tables/" . $table_file_name);
+        
+        $this->param_table = new $actual_name_table();
+        
+        self::$table =& $this->param_table;
+        self::$table_name =& $table_name_actual;
+        EmmaController::init_table();
         
     }
     

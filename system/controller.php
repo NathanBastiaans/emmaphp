@@ -7,6 +7,7 @@ abstract class EmmaController {
     
     static $model;
     static $instance;
+    static $table;
     
     protected $load;
     
@@ -28,6 +29,14 @@ abstract class EmmaController {
         //Link model to controller
         $model_name = Loader::$model_name;
         self::$instance->$model_name = Loader::$model;
+        
+    }
+    
+    static function init_table() {
+        
+        //Link table to controller
+        $table_name = Loader::$table_name;
+        self::$instance->$table_name = Loader::$table;
         
     }
     
