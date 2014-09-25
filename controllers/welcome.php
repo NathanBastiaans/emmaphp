@@ -5,27 +5,27 @@
  */
 class WelcomeController extends EmmaController {
     
-    function __construct() {
+    function __construct () {
         
-        parent::__construct();
-        
-    }
-    
-    public function index() {
-        
-        $this->page();
+        parent::__construct ();
         
     }
     
-    public function page($page = "welcome") {
+    public function index () {
         
-        if(!file_exists("views/pages/" . $page . ".php")) {
+        $this->page ();
+        
+    }
+    
+    public function page ($page = "welcome") {
+        
+        if (!file_exists ("views/pages/" . $page . ".php")) {
             
-            $this->show_404();
+            $this->show_404 ();
             
         } else {
             
-            $this->load->view("pages/" . $page . ".php");
+            $this->load->view ("pages/" . $page . ".php");
             
         }
         

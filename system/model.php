@@ -4,9 +4,9 @@ abstract class EmmaModel {
 
     protected $db;
     
-    function __construct() {
+    function __construct () {
         
-        $this->db = new Database();
+        $this->db = new Database ();
         
     }
 
