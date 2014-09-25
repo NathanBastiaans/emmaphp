@@ -74,19 +74,19 @@ class Loader {
         
     }
     
-    public function table($param_table) {
-        
-        $table_file_name = strtolower($param_table) . ".php";
-        $table_name_actual = ucfirst($param_table) . "Table";
-        require_once("tables/" . $table_file_name);
-        
-        $this->param_table = new $table_name_actual();
-        
-        self::$table =& $this->param_table;
-        self::$table_name =& $table_name_actual;
-        EmmaController::init_table();
-        
-    }
+//    public function table($param_table) {
+//
+//        $table_file_name = strtolower($param_table) . ".php";
+//        $table_name_actual = ucfirst($param_table) . "Table";
+//        require_once("tables/" . $table_file_name);
+//
+//        $this->param_table = new $table_name_actual();
+//
+//        self::$table =& $this->param_table;
+//        self::$table_name =& $table_name_actual;
+//        EmmaController::init_table();
+//
+//    }
     
     public function view($param_view) {
         

@@ -14,7 +14,7 @@ abstract class EmmaController {
     function __construct() {
         
         //Sanity check for session
-        if( ! $_SESSION) 
+        if( ! isset($_SESSION))
             session_start();
             
         //Link controller to loader
@@ -32,13 +32,13 @@ abstract class EmmaController {
         
     }
     
-    static function init_table() {
-        
-        //Link table to controller
-        $table_name = Loader::$table_name;
-        self::$instance->$table_name = Loader::$table;
-        
-    }
+//    static function init_table() {
+//
+//        //Link table to controller
+//        $table_name = Loader::$table_name;
+//        self::$instance->$table_name = Loader::$table;
+//
+//    }
     
     //Abstract function for controllers
     abstract public function index();

@@ -11,7 +11,7 @@ All in all it's pretty good, actually.
 
 Made by Bob Desaunois
 
-Website: www.bobdesaunois.com / emmaphp.bobdesaunois.com
+Website: bobdesaunois.github.io / bobdesaunois.github.io/emmaphp
 
 Email: bobdesaunois@gmail.com
 
