@@ -90,13 +90,13 @@ She's a beaut, isn't she?
                     <h1 class="pink">User Guide Index</h1>
                     <ul>
                         
-                        <li><b>Configuration</b></li>
+                        <li><a href="#configuration"><b>Configuration</b></a></li>
                             <ul>
                                 <li>Files</li>
                             </ul>
                         <br/>
                         
-                        <li><b>Controllers</b></li>
+                        <li><a href="#controllers"><b>Controllers</b></a></li>
                             <ul>
                                 <li>Index</li>
                                 <li>Controller creation</li>
@@ -104,7 +104,7 @@ She's a beaut, isn't she?
                                 <li>Base controller</li>
                             </ul><br/>
                             
-                        <li><b>Models</b></li>
+                        <li><a href="#models"><b>Models</b></a></li>
                             <ul>
                                 <li>Model creation</li>
                                 <li>Naming</li>
@@ -117,12 +117,15 @@ She's a beaut, isn't she?
                                     </ul><br/>
                                 <li>Using your homemade model</li><br/>
                             </ul>
-                        <li><b>Views</b></li>
+                        <li><a href="#views"><b>Views</b></a></li>
                         <ul>
                             <li>View creation</li>
                             <li>Linking CSS & JavaScript</li>
                             <li>Loading views</li>
                         </ul>
+						<br/>
+						<li><a href="#parameters"><b>Parameters</b></a></li>
+						<li><a href="#redirecting"><b>Redirecting</b></a></li>
                     </ul>
                 
                     <!--configuration-->
@@ -485,7 +488,58 @@ public function page($page = "welcome") {
                         
                     </div>
                     <!--views end-->
+
+					
+					<!--parameters-->
+					<div id="parameters" class="ug_item">
+					
+					<h1 class="pink"><b>EmmaPHP::Parameters</b></h1>
+					<br/>
+                    <h2><b>Parameters</b></h2>
+                    <br/>
+					Getting $_POST and $_GET variables goes via methods built into the base controller in <span class="pink">EmmaPHP</span>.<br/>
+					They are always available and do not need to be loaded.
+                    <br/><br/>
+                    <pre>
+public function index () {
+
+    if ($this->getPost ("login_submit")) {
+
+        $this->login ($this->getPost ("username"), $this->getPost ("password"));
+
+    }
+
+    if ($username = $this->getGet ("username")) {
+
+        $this->profile ($username);
+
+    }
+
+}
+                    </pre>
+
+					</div>
+					<!--end parameters-->
                     
+					<!--redirecting-->
+					<div id="redirecting" class="ug_item">
+						
+						<h1 class="pink"><b>EmmaPHP::Redirecting</b></h1><br/>
+						<h2><b>Redirecting</b></h2>
+						<br/>
+						For redirecting there again is a built in function in <span class="pink">EmmaPHP</span>.<br/>
+						Redirecting is always done from out the base url.<br/>
+						<br/>
+						This would redirect to the <span class="pink">WelcomeControllers</span>'s method <span class="pink">page ()</span>.<br/>
+						<br/>
+						<pre>
+$this->redirect ("?c=welcome&m=page");
+						</pre>
+						
+
+					</div>
+					<!--end redirecting-->
+
                     </small>
                     
                     <!--this is so scrub of me but...-->
