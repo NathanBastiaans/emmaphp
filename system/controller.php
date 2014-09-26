@@ -52,7 +52,7 @@ abstract class EmmaController {
 
     }
 
-	protected function getSession ($param_session_name) {
+    protected function getSession ($param_session_name) {
 
         return isset ($_SESSION[$param_session_name]) ? $_SESSION[ (String) $param_session_name] : false;
 
