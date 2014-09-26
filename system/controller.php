@@ -28,6 +28,18 @@ abstract class EmmaController {
         
     }
 
+    protected function generateSalt () {
+
+        return sha1 (openssl_random_pseudo_bytes (100));
+
+    }
+
+    protected function encrypt ($string) {
+
+        return sha1 ($string);
+
+    }
+
     private function do_init_view ($param_view) {
 
         include("views/" . $param_view);
