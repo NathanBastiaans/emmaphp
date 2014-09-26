@@ -70,7 +70,10 @@ class Loader {
         //Link the model to the loader to load and initialize it.
         self::$model_name = $actual_model;
         self::$model =& $this->$actual_model;
-        EmmaController::init_model ();
+
+        //Load and initialize it into the controller as an object
+        $model_name = self::$model_name;
+        EmmaController::$instance->$model_name = self::$model;
 
     }
     
@@ -91,7 +94,7 @@ class Loader {
     public function view ($param_view) {
         
         //Load a view
-        include ("views/" . $param_view);
+        EmmaController::init_view ($param_view);
         
     }
 

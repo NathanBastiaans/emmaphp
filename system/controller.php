@@ -24,11 +24,9 @@ abstract class EmmaController {
         
     }
 
-    static function init_model () {
+    static function init_view ($param_view) {
 
-        //Link model to controller
-        $model_name = Loader::$model_name;
-        self::$instance->$model_name = Loader::$model;
+        include ("views/" . $param_view);
 
     }
 
