@@ -10,6 +10,7 @@ abstract class EmmaController {
     static $table;
     
     protected $load;
+    protected $session;
     
     function __construct () {
         
@@ -21,6 +22,9 @@ abstract class EmmaController {
         $_SESSION["controller"] = $_GET["c"];
         $this->load = Loader::$linkage;
         self::$instance =& $this;
+
+        //create the session object
+        self::$instance->session = new Session ();
         
     }
 
@@ -53,18 +57,6 @@ abstract class EmmaController {
     protected function getGet ($param_getname) {
 
         return isset ($_GET[$param_getname]) ? $_GET[$param_getname] : false;
-
-    }
-
-    protected function getSession ($param_session_name) {
-
-        return isset ($_SESSION[$param_session_name]) ? $_SESSION[$param_session_name] : false;
-
-    }
-
-    protected function setSession ($param_session_name, $value) {
-
-        $_SESSION[$param_session_name] = $value;
 
     }
 

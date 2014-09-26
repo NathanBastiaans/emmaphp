@@ -13,7 +13,8 @@ class Core {
         require_once ("controller.php");
         require_once ("model.php");
         require_once ("table.php");
-        
+        require_once ("session.php");
+
     }
     
     public function run () {
