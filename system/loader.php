@@ -10,6 +10,7 @@ class Loader {
     static $model_name;
     static $table;
     static $table_name;
+    static $controller;
     
     function __construct () {
         
@@ -54,6 +55,8 @@ class Loader {
              */
             if( method_exists ($controller, "index"))
                     $controller->index ();
+
+        self::$controller =& $controller;
         
     }
     
@@ -94,7 +97,7 @@ class Loader {
     public function view ($param_view) {
         
         //Load a view
-        EmmaController::init_view ($param_view);
+        EmmaController::$instance->init_view ($param_view);
         
     }
 

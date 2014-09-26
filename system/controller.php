@@ -24,9 +24,15 @@ abstract class EmmaController {
         
     }
 
+    private function do_init_view ($param_view) {
+
+        include("views/" . $param_view);
+
+    }
+
     static function init_view ($param_view) {
 
-        include ("views/" . $param_view);
+        self::$instance->do_init_view($param_view);
 
     }
 
