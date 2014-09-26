@@ -54,13 +54,13 @@ abstract class EmmaController {
 
     protected function getSession ($param_session_name) {
 
-        return isset ($_SESSION[$param_session_name]) ? $_SESSION[ (String) $param_session_name] : false;
+        return isset ($_SESSION[$param_session_name]) ? $_SESSION[$param_session_name] : false;
 
     }
 
     protected function setSession ($param_session_name, $value) {
 
-        $_SESSION[ (String) $param_session_name] = $value;
+        $_SESSION[$param_session_name] = $value;
 
     }
 
