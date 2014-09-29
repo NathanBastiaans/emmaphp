@@ -76,7 +76,7 @@ abstract class EmmaController {
 
         if (isset ($url)) {
 
-            header ("Location: " . BASEPATH . "/" . $url);
+            header ("Location: " . $url);
             exit (0);
 
         }
