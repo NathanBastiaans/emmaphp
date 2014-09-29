@@ -4,7 +4,7 @@ class Session {
 
     public function get ($var_name) {
 
-        return $_SESSION[$var_name];
+        return isset ($_SESSION[$var_name]) ? $_SESSION[$var_name] : false;
 
     }
 
