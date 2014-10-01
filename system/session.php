@@ -14,4 +14,10 @@ class Session {
 
     }
 
+    public function nullify ($var_name) {
+
+        $_SESSION[$var_name] = null;
+
+    }
+
 }
