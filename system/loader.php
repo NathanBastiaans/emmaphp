@@ -3,9 +3,9 @@
 /**
  * Loader of the EmmaPHP MVC Framework
  */
-class Loader {
+class Loader implements SystemComponent {
     
-    static $linkage;
+    static $instance;
     static $model;
     static $model_name;
     static $table;
@@ -15,7 +15,7 @@ class Loader {
     function __construct () {
         
         //Make a link to the loader object.
-        self::$linkage =& $this;
+        self::$instance =& $this;
         
     }
     

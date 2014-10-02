@@ -3,16 +3,16 @@
 /**
  * Core of the EmmaPHP MVC Framework.
  */
-class Core {
-    
+class Core implements SystemComponent {
+
     function __construct () {
         
         //Include all modules
         require_once ("loader.php");
         require_once ("database.php");
-        require_once ("controller.php");
-        require_once ("model.php");
-        require_once ("table.php");
+        require_once ("emmacontroller.php");
+        require_once ("emmamodel.php");
+        require_once ("emmatable.php");
         require_once ("session.php");
 
     }
@@ -46,5 +46,5 @@ class Core {
         $this->load->controller ($controller_actual);
 
     }
-    
+
 }

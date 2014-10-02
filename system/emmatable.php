@@ -3,7 +3,7 @@
 /**
  * Base Table of the EmmaPHP MVC Framework
  */
-abstract class EmmaTable {
+abstract class EmmaTable implements SystemComponent {
     
     private $_db;
     protected $table_name;

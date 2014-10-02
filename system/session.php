@@ -1,6 +1,6 @@
 <?php
 
-class Session {
+class Session implements SystemComponent {
 
     public function get ($var_name) {
 
@@ -17,6 +17,12 @@ class Session {
     public function nullify ($var_name) {
 
         $_SESSION[$var_name] = null;
+
+    }
+
+    function __construct () {
+
+        //Nothing to do :(
 
     }
 
