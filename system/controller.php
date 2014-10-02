@@ -83,13 +83,13 @@ abstract class EmmaController {
 
     }
     
-    //Abstract function for controllers
-    abstract public function index ();
-    
     protected function show_404 () {
         
         $this->load->view ("fourohfour.php");
         
     }
-    
+ 
+    //Abstract function for controllers
+    abstract public function index ();
+   
 }

@@ -30,12 +30,12 @@ class Loader {
          * we throw an error
          */
         if (isset ($_GET["m"]))
-            if (!method_exists ($controller, $_GET["m"]))
+            if ( ! method_exists ($controller, $_GET["m"]))
                 die ("Couldn't find method: " . $_GET["m"]
                     . " <br/>In controller: " . $_GET["c"] . " :(");
             else {
                 $reflection = new ReflectionMethod ($controller, $_GET["m"]);
-                if (!$reflection->isPublic ())
+                if ( ! $reflection->isPublic ())
                     die("Method: " . $_GET["m"] . " from"
                         . " Controller: " . $_GET["c"]
                         . " is not a public method.");
