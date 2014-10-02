@@ -1,6 +1,6 @@
 <?php
 
-class Database {
+class Database implements SystemComponent {
 
     public $connection;
     
@@ -15,5 +15,10 @@ class Database {
         }
         
     }
-    
+
+    public static function getInstance () {
+
+        return new Database;
+
+    }
 }

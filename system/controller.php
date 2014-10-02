@@ -1,6 +1,6 @@
 <?php
 
-interface Controller () {
+interface Controller {
 
     public function __construct ();
 

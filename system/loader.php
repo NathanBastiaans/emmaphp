@@ -93,7 +93,7 @@ class Loader implements SystemComponent {
 //        EmmaController::init_table ();
 //
 //    }
-    
+
     public function view ($param_view) {
         
         //Load a view
@@ -101,4 +101,9 @@ class Loader implements SystemComponent {
         
     }
 
+    public static function getInstance () {
+
+        return new Loader;
+
+    }
 }

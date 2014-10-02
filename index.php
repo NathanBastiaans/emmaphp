@@ -16,5 +16,5 @@ require_once ("system/core.php");
 
 require_once ("web_config.php");
 
-$emma = new Core ();
+$emma = Core::getInstance ();
 $emma->run ();

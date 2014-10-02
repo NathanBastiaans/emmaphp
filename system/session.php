@@ -26,4 +26,9 @@ class Session implements SystemComponent {
 
     }
 
+    public static function getInstance () {
+
+        return new Session;
+
+    }
 }

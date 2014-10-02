@@ -10,11 +10,11 @@ class WelcomeController extends EmmaController {
         parent::__construct ();
         
     }
-    
+
     public function index () {
-        
+
         $this->page ();
-        
+
     }
     
     public function page ($page = "welcome") {
@@ -30,5 +30,5 @@ class WelcomeController extends EmmaController {
         }
         
     }
-    
+
 }

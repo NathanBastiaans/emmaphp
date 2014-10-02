@@ -1,6 +1,6 @@
 <?php
 
-abstract class EmmaModel implements SystemComponent {
+abstract class EmmaModel implements Model {
 
     protected $db;
     
