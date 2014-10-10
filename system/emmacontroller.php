@@ -11,6 +11,8 @@ abstract class EmmaController implements Controller {
     
     protected $load;
     protected $session;
+    protected $method;
+    protected $arg;
     
     function __construct () {
         
