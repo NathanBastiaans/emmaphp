@@ -29,8 +29,10 @@ abstract class EmmaController implements Controller {
         self::$instance->session = new Session ();
 
         //Method and argument back references.
-        if (isset ($_GET["m"])) $this->method   = $_GET["m"];
-        if (isset ($_GET["a"])) $this->arg      = $_GET["a"];
+        $m = filter_var ($_GET["m"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $a = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (isset ($m)) $this->method   = $_GET["m"];
+        if (isset ($a)) $this->arg      = $_GET["a"];
         
     }
 
@@ -68,13 +70,17 @@ abstract class EmmaController implements Controller {
 
     protected function getPost ($param_postname) {
 
-        return isset ($_POST[$param_postname]) ? $_POST[$param_postname] : false;
+        return isset ($_POST[$param_postname]) 
+            ? filter_var ($_POST[$param_postname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
+        : false;
 
     }
 
     protected function getGet ($param_getname) {
 
-        return isset ($_GET[$param_getname]) ? $_GET[$param_getname] : false;
+        return isset ($_GET[$param_getname]) 
+            ? filter_var ($_GET[$param_getname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
+        : false;
 
     }
 
@@ -94,8 +100,5 @@ abstract class EmmaController implements Controller {
         $this->load->view ("fourohfour.php");
         
     }
- 
-    //Abstract function for controllers
-
    
 }

@@ -10,7 +10,7 @@ class Session implements SystemComponent {
 
     public function set ($var_name, $value) {
 
-        $_SESSION[$var_name] = $value;
+        $_SESSION[$var_name] = filter_var ($value, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
     }
 
