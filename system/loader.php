@@ -77,6 +77,7 @@ class Loader implements SystemComponent {
         //Load and initialize it into the controller as an object
         $model_name = self::$model_name;
         EmmaController::$instance->$model_name = self::$model;
+        EmmaController::$instance->$model_name->db = new Database ();
 
     }
     
