@@ -9,6 +9,8 @@ class WelcomeController extends EmmaController {
         
         parent::__construct ();
         
+        $this->load->model ("WelcomeModel");
+        
     }
 
     public function index () {
@@ -19,7 +21,7 @@ class WelcomeController extends EmmaController {
     
     public function page ($page = "welcome") {
         
-        if (!file_exists ("views/pages/" . $page . ".php")) {
+        if ( ! file_exists ("views/pages/" . $page . ".php")) {
             
             $this->show_404 ();
             
