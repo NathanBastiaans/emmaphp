@@ -25,6 +25,10 @@ abstract class EmmaController implements Controller {
 
         //create the session object
         self::$instance->session = new Session ();
+
+        //Method and argument back references.
+        if (isset ($_GET["m"])) $this->method   = $_GET["m"];
+        if (isset ($_GET["m"])) $this->arg      = $_GET["a"];
         
     }
 
