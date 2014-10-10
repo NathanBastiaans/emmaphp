@@ -28,7 +28,7 @@ abstract class EmmaController implements Controller {
 
         //Method and argument back references.
         if (isset ($_GET["m"])) $this->method   = $_GET["m"];
-        if (isset ($_GET["m"])) $this->arg      = $_GET["a"];
+        if (isset ($_GET["a"])) $this->arg      = $_GET["a"];
         
     }
 
