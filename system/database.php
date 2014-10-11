@@ -6,6 +6,12 @@ class Database implements SystemComponent {
     
     function __construct () {
         
+        $this->initialize ();
+        
+    }
+    
+    private function initialize () {
+        
         if (DB) {
 
             $this->connection =
@@ -21,4 +27,5 @@ class Database implements SystemComponent {
         return new Database;
 
     }
+    
 }

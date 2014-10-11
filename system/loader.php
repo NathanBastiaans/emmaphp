@@ -16,8 +16,17 @@ class Loader implements SystemComponent {
     
     function __construct () {
         
+        $this->initialize ();
+        
+    }
+    
+    private function initialize () {
+        
         //Make a link to the loader object.
         self::$instance =& $this;
+        
+        //Load all mods
+        new Mods ();
         
     }
     
@@ -82,27 +91,6 @@ class Loader implements SystemComponent {
 
     }
     
-    public function mod ($mod_name) {
-        
-        //Ready names
-        $mod_file_name      = strtolower ($mod_name . ".php");
-        $mod_actual_name    = ucfirst ($mod_name);
-        
-        //Load it
-        require_once ("mods/" . $mod_file_name);
-        
-        //Create the mod object
-        $mod_object = new $mod_actual_name ();
-        
-        //Link it to the loader
-        self::$mod_name = $mod_actual_name;
-        self::$mod      =& $mod_object;
-        
-        //Load it into the base controller.
-        EmmaController::$instance->$mod_name =& self::$mod;
-        
-    }
-    
 //    public function table ($param_table) {
 //
 //        $table_file_name = strtolower ($param_table) . ".php";
@@ -129,4 +117,5 @@ class Loader implements SystemComponent {
         return new Loader;
 
     }
+    
 }

@@ -10,11 +10,13 @@ abstract class EmmaTable implements Table {
     
     function __construct () {
     
-        $this->_db = new Db ();
+        $this->initialize ();
         
     }
     
-    private function _init () {
+    private function initialize () {
+        
+        $this->_db = new Db ();
         
         $sql = "SELECT * FROM :tablename;";
         $stmt = $this->db->connection->prepare ($sql);

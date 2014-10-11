@@ -7,6 +7,12 @@ class Core implements SystemComponent {
 
     function __construct () {
 
+        $this->initialize ();
+        
+    }
+    
+    private function initialize () {
+        
         //Include all interfaces
         require_once ("controller.php");
         require_once ("model.php");
@@ -14,12 +20,13 @@ class Core implements SystemComponent {
 
         //Include all components
         require_once ("loader.php"); //loading the loader, CHORTLE CHORTLE CHORTLE.
+        require_once ("mods.php");
         require_once ("database.php");
         require_once ("emmacontroller.php");
         require_once ("emmamodel.php");
         require_once ("emmatable.php");
         require_once ("session.php");
-
+        
     }
     
     public function run () {
@@ -57,4 +64,5 @@ class Core implements SystemComponent {
         return new Core;
 
     }
+    
 }

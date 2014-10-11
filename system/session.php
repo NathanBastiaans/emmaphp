@@ -2,6 +2,18 @@
 
 class Session implements SystemComponent {
 
+    function __construct () {
+
+        //Nothing to do :(
+
+    }
+    
+    private function initialize () {
+        
+        //Again nothing to do.. Q______Q
+        
+    }
+
     public function get ($var_name) {
 
         return isset ($_SESSION[$var_name]) ? $_SESSION[$var_name] : false;
@@ -20,15 +32,11 @@ class Session implements SystemComponent {
 
     }
 
-    function __construct () {
-
-        //Nothing to do :(
-
-    }
 
     public static function getInstance () {
 
         return new Session;
 
     }
+    
 }

@@ -16,7 +16,7 @@ class WelcomeController extends EmmaController {
     public function index () {
 
         $this->page ();
-
+        
     }
     
     public function page ($page = "welcome") {
