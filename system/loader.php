@@ -10,6 +10,8 @@ class Loader implements SystemComponent {
     static $model_name;
     static $table;
     static $table_name;
+    static $mod;
+    static $mod_name;
     static $controller;
     
     function __construct () {
@@ -42,7 +44,7 @@ class Loader implements SystemComponent {
                 else if (isset ($_GET["a"])) {
                     
                     //Check if arguments should be supplied
-                    $args = $_GET["a"];
+                    $args = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     $controller->$_GET["m"] ($args);
                     
                 } else
@@ -65,20 +67,40 @@ class Loader implements SystemComponent {
         //Find, include and make the model ready.
         $model_file_name = str_replace ("Model", "", $param_model);
         require_once ("models/" . strtolower ($model_file_name) . ".php");
-        $actual_model = ucfirst ($param_model);
+        $model_name = ucfirst ($param_model);
         
         //Create the model object
-        $this->$param_model = new $actual_model ();
+        $model_object = new $model_name ();
         
         //Link the model to the loader to load and initialize it.
-        self::$model_name = $actual_model;
-        self::$model =& $this->$actual_model;
+        self::$model        =& $model_object;
+        self::$model_name   = $model_name;
 
         //Load and initialize it into the controller as an object
-        $model_name = self::$model_name;
-        EmmaController::$instance->$model_name = self::$model;
-        EmmaController::$instance->$model_name->db = new Database ();
+        EmmaController::$instance->$model_name      =& self::$model;
+        EmmaController::$instance->$model_name->db  = new Database ();
 
+    }
+    
+    public function mod ($mod_name) {
+        
+        //Ready names
+        $mod_file_name      = strtolower ($mod_name . ".php");
+        $mod_actual_name    = ucfirst ($mod_name);
+        
+        //Load it
+        require_once ("mods/" . $mod_file_name);
+        
+        //Create the mod object
+        $mod_object = new $mod_actual_name ();
+        
+        //Link it to the loader
+        self::$mod_name = $mod_actual_name;
+        self::$mod      =& $mod_object;
+        
+        //Load it into the base controller.
+        EmmaController::$instance->$mod_name =& self::$mod;
+        
     }
     
 //    public function table ($param_table) {
