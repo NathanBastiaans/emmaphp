@@ -2,8 +2,8 @@
 
 interface Controller {
 
-    public function __construct ();
+    function __construct ();
 
-    public function index ();
+    function index ();
 
 }

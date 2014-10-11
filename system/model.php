@@ -2,6 +2,6 @@
 
 interface Model {
 
-    public function __construct ();
+    function __construct ();
 
 }
