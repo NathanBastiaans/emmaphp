@@ -6,6 +6,8 @@ abstract class EmmaModel implements Model {
     
     public $db;
 
+    public function __construct () {}
+    
     /**
      * @todo TEST THESE FUNCTIONS
      */
