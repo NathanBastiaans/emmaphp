@@ -8,9 +8,6 @@ abstract class EmmaModel implements Model {
 
     public function __construct () {}
     
-    /**
-     * @todo TEST THESE FUNCTIONS
-     */
     public function query ($query, $params) {
         
         $stmt = $this->db->connection->prepare ($query);
