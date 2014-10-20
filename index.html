@@ -136,7 +136,7 @@ She's a beaut, isn't she?
                                 <li>Interacting with the Database</li>
                                     <ul>
                                         <li>Using PDO</li>
-                                        <li>Using the database class</li>
+                                        <li>Using the Base Model</li>
                                     </ul><br/>
                                 <li>Using your homemade model</li><br/>
                             </ul>
@@ -149,6 +149,7 @@ She's a beaut, isn't she?
 						<br/>
 						<li><a href="#parameters"><b>Parameters</b></a></li>
 						<li><a href="#redirecting"><b>Redirecting</b></a></li>
+						<li><a href="#sessions"><b>sessions</b></a></li>
                     </ul>
                 
                     <!--configuration-->
@@ -173,29 +174,31 @@ She's a beaut, isn't she?
                         Here's a short example of what a controller would look like<br/>
                         within the <span class="pink">EmmaPHP Framework</span>.<br/><br/>
 <pre>
-class Welcome_controller extends Emma_Controller {
+class WelcomeController extends EmmaController {
     
-    function __construct() {
+    function __construct () {
         
-        parent::__construct();
+        parent::__construct ();
         
     }
     
-    public function index() {
+    public function index () {
         
-        $this->page();
+        $this->page ();
         
     }
     
-    public function page($page = "welcome") {
+    public function page ($page = "welcome") {
         
-        if(!file_exists("views/pages/" . $page . ".php")) {
+        if( ! file_exists ("views/pages/" . $page . ".php")) {
             
-            $this->show_404();
+            $this->show_404 ();
             
         } else {
             
-            $this->load->view("pages/" . $page . ".php");
+            $this->load->view ("templates/header.php");
+            $this->load->view ("pages/" . $page . ".php");
+            $this->load->view ("templates/footer.php");
             
         }
         
@@ -207,43 +210,40 @@ class Welcome_controller extends Emma_Controller {
                         
                         <h2><b>Index</b></h2><br/>
                         If a method was not supplied through the URL then the controller<br/>
-                        will always -- if the method exists, run a public <span class="pink">index()</span>.<br/>
+                        will always -- if exists, run a public <span class="pink">index()</span> method.<br/>
                         Use the <span class="pink">index()</span> method as the index of your controller.<br/>
-                        <b>Note that the <span class="pink">index()</span> method is mandatory, you must have a <i>public</i> index in your controller.</b>
+                        <b>Note that the <span class="pink">index()</span> method is obligatory, you must have a <i>public</i> index method in your controller.</b>
                         <br/>
                         <br/>
                         <h2><b>Naming</b></h2><br/>
                         Both naming of the file and the class of the controller<br/>
                         is very important, this controller is the <span class="pink">Welcome controller</span>.<br/>
                         The file would be named in lower-case <span class="pink">"welcome.php"</span>,<br/>
-                        while the class is named <span class="pink">Welcome_controller</span>.<br/>
+                        while the class is named <span class="pink">WelcomeController</span>.<br/>
                         <br/>
-                        It's very important that the class name starts with a capital<br/>
+                        It's very important that the class name starts with a capitol<br/>
                         like you would do anywhere else.<br/>
-                        And it's important that you add <span class="pink">"_controller"</span> as suffix.<br/>
-                        Whether you write it as <span class="pink">"Welcome_<b>C</b>ontroller"</span> or <br/>
-                        <span class="pink">"Welcome_<b>c</b>ontroller"</span> really doesn't matter.<br/>
+                        And it's important that you add <span class="pink">"Controller"</span> as suffix.<br/>
 <!--                        In contradiction to homemade controllers it <b>does matter</b> when you are extending.<br/>
                         you should never extend <span class="pink">"Emma_<b>c</b>ontroller"</span> but instead <b>always</b> extend <span class="pink">"Emma_<b>C</b>ontroller"</span>-->
                         <br/>
                         
                         <h2><b>Base controller</b></h2><br/>
-                        Then there's adding your homemade controller<br/> as a child to the parent controller <span class="pink">Emma_Controller</span>.<br/>
+                        Then there's adding your homemade controller<br/> as a child to the parent controller <span class="pink">EmmaController</span>.<br/>
                         Believe it or not but your homemade Controller <b>will actually run</b><br/>
-                        if you do not extend it to <span class="pink">Emma_Controller</span>.<br/>
-                        You will however not be able to benefit of any of the system base functions<br/>
-                        that will render a view, load a model or return a 404 page.<br/>
+                        if you do not extend it to <span class="pink">EmmaController</span>.<br/>
+                        You will however not be able to benefit of any of the system's functionallity.<br/>
                         Which ultimately defeats the purpose of using a Framework.<br/>
                         Therefore you should <b>always</b> make sure your homemade controller<br/>
-                        does infact extends the <span class="pink">Emma_Controller</span>.<br/>
+                        does infact extends the <span class="pink">EmmaController</span>.<br/>
                         <br/>
                         Last but not least make sure that you run the parent's constructor<br/>
                         in your homemade controllers constructor before you do anything.<br/>
                         Like so:<br/><br/>
 <pre>
-function __construct() {
+function __construct () {
         
-    parent::__construct();
+    parent::__construct ();
 
 }
 </pre>
@@ -257,30 +257,25 @@ function __construct() {
                         <h1 class='pink'>EmmaPHP::Models</h1><br/>
                         
                         <h2>Model creation</h2><br/>
-                        Consider a model called <span class="pink">Data_model</span>.<br/>
+                        Consider a model called <span class="pink">DataModel</span>.<br/>
                         <br/>
 <pre>
-class Data_model extends Emma_Model {
+class DataModel extends EmmaModel {
     
-    function __construct() {
+    function __construct () {
         
-        parent::__construct();
+        parent::__construct ();
         
     }
     
-    public function getData() {
+    public function getData ($id) {
         
         $sql =    "SELECT information_string "
                 . "FROM DATA "
+                . "WHERE id = ? "
                 . "LIMIT 1;";
         
-        $stmt = $this->db->connection->prepare($sql);
-        $stmt->execute();
-        
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
-        
-        return $result;
+        $this->fetch ($sql, array ($id))
         
     }
 
@@ -290,54 +285,53 @@ class Data_model extends Emma_Model {
                         <h2><b>Naming</b></h2><br/>
                         Much like we would create a controller you would create a model.<br/>
                         The file would be named <span class="pink">"data.php"</span>,<br/>
-                        where as the class name would be <span class="pink">"Data_model"</span>.<br/>
+                        where as the class name would be <span class="pink">"DataModel"</span>.<br/>
                         <br/>
                         Again It's very important that the class name starts with a capital<br/>
                         like you would do anywhere else.<br/>
-                        And it's important that you add <span class="pink">"_model"</span> as suffix.<br/>
-                        Whether you write it as <span class="pink">"Data_<b>M</b>odel"</span> or<br/>
-                        <span class="pink">"Data_<b>m</b>odel"</span> really doesn't matter.<br/>
+                        And it's important that you add <span class="pink">"Model"</span> as suffix.<br/>
+                        <br/>
                         <br/>
                         
                         <h2><b>Base model</b></h2><br/>
                         Then there's adding your homemade model<br/>
-                        as a child to the parent model <span class="pink">Emma_Model</span>.<br/>
+                        as a child to the parent model <span class="pink">EmmaModel</span>.<br/>
                         Believe it or not but your homemade model will actually run<br/>
-                        if you do not extend it to <span class="pink">Emma_Model</span>.<br/>
+                        if you do not extend it to <span class="pink">EmmaModel</span>.<br/>
                         However you will not be able to benefit off of the database<br/>
                         and it's child connection object.<br/>
                         Which ultimately defeats the purpose of using a Model or a Framework.<br/>
                         Therefore you should always make sure your homemade model<br/>
-                        does infact extends the <span class="pink">Emma_Controller</span>.<br/>
+                        does infact extends the <span class="pink">EmmaController</span>.<br/>
                         <br/>
                         Last but not least make sure that you run the parent's constructor<br/>
                         in your homemade models constructor before you do anything.<br/>
                         Like so:<br/><br/>
 <pre>
-function __construct() {
+function __construct () {
         
-    parent::__construct();
+    parent::__construct ();
 
 }
 </pre><br/>
                         <br/>
                         
                         <h2><b>Loading models</b></h2><br/>
-                        We may load models into our controllers by use of a function supplied by the loader: <span class="pink">$this->load</span>.<br/>
-                        Assume we would have created a model called <span class="pink">"User_model"</span>,<br/>
+                        We may load models into our controllers by use of a function supplied by the loader object: <span class="pink">$this->load</span>.<br/>
+                        Assume we would have created a model called <span class="pink">"UserModel"</span>,<br/>
                         this would be it's <b>class name</b> it's filename would be <span class="pink">"user.php"</span>.<br/>
-                        I advice you to load all your models <b>after</b> the parent constructor.<br/>
+                        I advise you to load all your models <b>after</b> the parent constructor.<br/>
                         We do this as following:<br/><br/>
 <pre>
-function __construct() {
+function __construct () {
         
-    parent::__construct();
+    parent::__construct ();
 
-    $this->load->model("User_model");
+    $this->load->model ("UserModel");
 
 }
 </pre><br/>
-                        You would notice that we load by model class name and not by filename.<br/>
+                        You would notice that <b>we load models by class name and not by filename</b>.<br/>
                         <br/>
                         
                         <h2><b>Interacting with the Database</b></h2><br/>
@@ -370,41 +364,88 @@ return $result;
                         <br/>
                         Like stated before; nothing changes except preparing a statement.<br/>
                         You are to retrieve the <span class="pink">db</span> object from the local scope to then retrieve<br/>
-                        it's child object <span class="pink">connection</span> to then use the <span class="pink">prepare()</span> method.<br/>
+                        it's child object <span class="pink">connection</span> to then use the <span class="pink">prepare ()</span> method.<br/>
                         
                         
                         <br/>
-                        <h3><b>Using the database class (UNIMPLEMENTED)</b></h3><br/>
-                        This is yet to be implemented.<br/><br/>
+                        <h3><b>Using the Base Model</b></h3><br/>
+                        Interacting with the Database using the <span class="pink">Base Model</span> makes this task easier than ever.<br/>
+						Your homemade model inherits a set of functions from the <span class="pink">Base Model</span>.<br/>
+						These functions are <span class="pink">query ()</span>, <span class="pink">fetch ()</span> and <span class="pink">fetchAll ()</span>.<br/>
+						They all work exactly the same, you supply a SQL query and the parameters if neccesary.<br/>
+						<br/>
+						Were we to run a query to a database we'd do so as following:<br/><br/>
+<pre>
+$sql = "DELETE * FROM users";
+
+$this->query ($sql);
+</pre>
+
+						<br/>
+						A relatively easy task with EmmaPHP.
+						<br/><br/>
+						Now let's say <b>you want to pass data to the query string</b>.<br/>
+						We have the variables <span class="pink">$firstname</span> and <span class="pink">$lastname</span>.<br/>
+						Let's send them to the Database now, shall we?<br/>
+						<br/>
+<pre>
+$sql = "INSERT INTO users (firstname, lastname) "
+     . "VALUES (?, ?);";
+
+$this->query ($sql, array ($firstname, $lastname));
+</pre>
+<br/>
+						In the above example we use the <span class="pink">?</span> placeholder.<br/>
+						It serves as a placeholder for a variable.<br/>
+						We pass an extra parameter with the <span class="pink">query ()</span> method we inherited from the <span class="pink">Base Model</span><br/>
+						as an array holding all variables we want to pass with the query in the order of the placeholders.<br/>
+						<br/>
+						<b>The same applies for fetching and fetching all rows.</b><br/>
+						<br/>
+						Fetching:<br/><br/>
+<pre>
+$sql = "SELECT * FROM users WHERE firstname = ? AND lastname = ? LIMIT 1;";
+
+$result = $this->fetch ($sql, array ($firstname, $lastname));
+</pre>
+						<br/>
+
+						Fetching all:<br/><br/>
+<pre>
+$sql = "SELECT * FROM users WHERE group = ?;";
+
+$result = $this->fetchAll ($sql, array ($group));
+</pre>
+
                         
-                        <h2><b>Using your homemade model</b></h2><br/>
+                        <br/><h2><b>Using your homemade model</b></h2><br/>
                         So you've loaded in your model, now how do we use it?<br/>
                         Consider the following two files.<br/>
                         <br/>
-                        <b>Welcome_controller</b>
+                        <b>WelcomeController</b>
 <pre>
-class Welcome_controller extends Emma_Controller {
+class WelcomeController extends EmmaController {
     
-    function __construct() {
+    function __construct () {
         
-        parent::__construct();
+        parent::__construct ();
 
-        $this->load->model("Data_model");
+        $this->load->model ("DataModel");
         
     }
     
     public function index() {
         
-        echo $this->User_model->getData();
+        echo $this->DataModel->getData ();
         
     }
     
 }
 </pre><br/>
 <br/>
-                        <b>Data_model</b>
+                        <b>DataModel</b>
 <pre>
-class Data_model extends Emma_Model {
+class DataModel extends EmmaModel {
     
     function __construct() {
         
@@ -418,11 +459,7 @@ class Data_model extends Emma_Model {
                 . "FROM DATA "
                 . "LIMIT 1;";
         
-        $stmt = $this->db->connection->prepare($sql);
-        $stmt->execute();
-        
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        $stmt->closeCursor();
+        $this->fetch ($sql)
         
         return $result;
         
@@ -455,7 +492,7 @@ class Data_model extends Emma_Model {
                         <br/>
                         <pre>
 &lt;head&gt;
-    &lt;title&gt;&lt;?php echo TITLE; ?&gt;&lt;/title&gt;
+    &lt;title&gt;&lt;?=TITLE;?&gt;&lt;/title&gt;
 &lt;/head&gt;
                         </pre>
                         <br/>
@@ -472,6 +509,9 @@ class Data_model extends Emma_Model {
                         <pre>
 &lt;script src=&quot;assets/scripts/yourjavascriptfile.js&quot;&gt;&lt;/script&gt;
                         </pre>
+						<br/>
+						If you for some reason still need a basepath variable to search for your file<br/>
+						please do rely on the <span class="pink">BASEPATH</span> constant which can be used everywhere.
                         <br/><br/>
                         <h2><b>Loading views</b></h2><br/>
                         Loading views happens in the controller.<br/>
@@ -483,29 +523,29 @@ class Data_model extends Emma_Model {
                         <pre>
 public function page($page = "welcome") {
         
-    if(!file_exists("views/pages/" . $page . ".php")) {
+    if( ! file_exists ("views/pages/" . $page . ".php")) {
 
-        $this->show_404();
+        $this->show_404 ();
 
     } else {
 
-        $this->load->view("pages/" . $page . ".php");
+        $this->load->view ("pages/" . $page . ".php");
 
     }
 
 }</pre>
                         <br/>
                         After close examination of the above displayed code<br/>
-                        you would notice that <span class="pink">$this->load->view();</span> is the method that<br/>
+                        you would notice that <span class="pink">$this->load->view ();</span> is the method that<br/>
                         supplies us with a way to return a view to the user through our controllers.<br/>
                         <br/>
                         It's good practice to first <b>check if the file exists before you return the view</b>.<br/>
                         This way you will be sure that the user isn't left with just<br/>
                         a blank screen or a confusing error should <span class="pink">debug mode</span> be on.
                         <br/>
-                        You can easily see how we achieve this with use of the native <span class="pink">file_exists()</span> function<br/>
-                        and the <span class="pink">$this->show_404()</span> method supplied by our base controller.<br/>
-                        Also note how when making use of the <span class="pink">$this->load->view()</span> function we supply a <span class="pink">.php</span><br/>
+                        You can easily see how we achieve this with use of the native <span class="pink">file_exists ()</span> function<br/>
+                        and the <span class="pink">$this->show_404 ()</span> method supplied by our base controller.<br/>
+                        Also note how when making use of the <span class="pink">$this->load->view ()</span> function we supply a <span class="pink">.php</span><br/>
                         extension where as loading models doesn't require us to supply a file extension.<br/>
                         This is done that way so that you may easily load both <span class="pink">PHP</span> and <span class="pink">HTML</span> files.
                         
@@ -558,10 +598,49 @@ public function index () {
 						<pre>
 $this->redirect ("?c=welcome&m=page");
 						</pre>
+<br/><br/>
+						You may also pass an argument to the <span class="pink">page ()</span> method by adding <span class="pink">&a=about</span> to supply "about" as argument or anything else.
 						
 
 					</div>
 					<!--end redirecting-->
+
+					<div id="sessions" class="ug_item">
+
+						<h1 class="pink"><b>EmmaPHP::Sessions</b></h1><br/>
+						<h2><b>Starting the session</b></h2><br/>
+						The session is automatically started at startup so there's no need to worry about that.<br/>
+						<br/>
+						<h2>Setting session variables</h2><br/>
+						To set a session variable we would do the following.<br/><br/>
+<pre>
+$this->session->set ("email", catlover1337@cathost.cat);
+</pre> 
+<br/>
+						This will set the session variable "email" to "catlover1337@cathost.cat".<br/><br/><br/>
+
+						<h2>Getting session variables</h2><br/>
+
+						Now to check if this variable is set and to fetch it we would do this.<br/><br/>
+
+<pre>
+if ($email = $this->session->get ("email")) {
+
+	echo $email;
+
+}
+</pre>
+<br/>
+<br/>
+					<h2>Remove/delete session variables</h2><br/>
+					Done? here's how you nullify the session variable.<br/><br/>
+<pre>
+$this->session->nullify ("email");
+</pre>
+<br/><br/>
+<img src="http://img4.wikia.nocookie.net/__cb20130209022103/adventuretimewithfinnandjake/images/thumb/f/f0/And_its_gone_original.jpg/500px-And_its_gone_original.jpg" />
+
+					</div>
 
                     </small>
                     
