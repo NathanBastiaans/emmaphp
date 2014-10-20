@@ -8,14 +8,14 @@ abstract class EmmaModel implements Model {
 
     public function __construct () {}
     
-    public function query ($query, $params) {
+    public function query ($query, $params = NULL) {
         
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
         
     }
     
-    public function fetch ($query, $params) {
+    public function fetch ($query, $params = NULL) {
         
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
@@ -26,7 +26,7 @@ abstract class EmmaModel implements Model {
         
     }
     
-    public function fetchAll ($query, $params) {
+    public function fetchAll ($query, $params = NULL) {
         
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
