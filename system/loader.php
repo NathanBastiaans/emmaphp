@@ -25,9 +25,6 @@ class Loader implements SystemComponent {
         //Make a link to the loader object.
         self::$instance =& $this;
         
-        //Load all mods
-        new Mods ();
-        
     }
     
     public function controller ($param_controller) {
@@ -68,6 +65,9 @@ class Loader implements SystemComponent {
                     $controller->index ();
 
         self::$controller =& $controller;
+
+        //Load all mods
+        new Mods ();
         
     }
     
