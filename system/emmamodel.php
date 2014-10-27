@@ -9,32 +9,48 @@ abstract class EmmaModel implements Model {
     public function __construct () {}
     
     public function query ($query, $params = NULL) {
-        
+
+        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
-        
+
+        if (DEBUG_MODE)
+            if ($this->db->connection->errorInfo ()[0] != "00000")
+                die (var_dump ($this->db->connection->errorInfo ()));
+
     }
     
     public function fetch ($query, $params = NULL) {
-        
+
+        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
         $result = $stmt->fetch (PDO::FETCH_ASSOC);
         $stmt->closeCursor ();
-        
+
+        if (DEBUG_MODE)
+            if ($this->db->connection->errorInfo ()[0] != "00000")
+                die (var_dump ($this->db->connection->errorInfo ()));
+
         return $result;
         
     }
     
     public function fetchAll ($query, $params = NULL) {
-        
+
+        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
         $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
         $stmt->closeCursor ();
-        
+
+        if (DEBUG_MODE)
+            if ($this->db->connection->errorInfo ()[0] != "00000")
+                die (var_dump ($this->db->connection->errorInfo ()));
+
         return $result;
         
     }
     
 }
+
