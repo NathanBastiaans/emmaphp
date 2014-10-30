@@ -1,6 +1,6 @@
 <?php
 
-$autoload = array ("UserModel", "CheeseModel");
+$autoload = array ();
 
 define ("TITLE",    "EmmaPHP Framework");
 define ("BASEPATH", "http://localhost/emmaphp");

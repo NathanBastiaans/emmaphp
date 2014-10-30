@@ -9,7 +9,8 @@ abstract class EmmaController implements Controller {
     static $instance;
     static $table;
     
-    protected $load;
+    public $load;
+
     protected $session;
     protected $method;
     protected $arg;

@@ -26,6 +26,7 @@ class Core implements SystemComponent {
         require_once ("emmamodel.php");
         require_once ("emmatable.php");
         require_once ("session.php");
+        require_once ("autoloader.php");
         
     }
     
@@ -56,6 +57,8 @@ class Core implements SystemComponent {
         //Load it.
         $this->load = new Loader ();
         $this->load->controller ($controller_actual);
+
+        AutoLoader::getInstance ();
 
     }
 
