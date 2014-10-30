@@ -34,9 +34,9 @@ abstract class EmmaController implements Controller {
         if (isset ($_GET["a"])) 
             $a = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         if (isset ($m)) 
-            $this->method   = $m;
+            $this->method = $m;
         if (isset ($a)) 
-            $this->arg      = $a;
+            $this->arg    = $a;
         
     }
 
