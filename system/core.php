@@ -16,15 +16,16 @@ class Core implements SystemComponent {
         //Include all interfaces
         require_once ("controller.php");
         require_once ("model.php");
-        require_once ("table.php");
+//        require_once ("table.php");
 
         //Include all components
         require_once ("loader.php"); //loading the loader, CHORTLE CHORTLE CHORTLE.
+        require_once ("dataobject.php");
         require_once ("mods.php");
         require_once ("database.php");
         require_once ("emmacontroller.php");
         require_once ("emmamodel.php");
-        require_once ("emmatable.php");
+//        require_once ("emmatable.php");
         require_once ("session.php");
         require_once ("autoloader.php");
         
