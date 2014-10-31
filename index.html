@@ -152,6 +152,7 @@ She's a beaut, isn't she?
 						<li><a href="#redirecting"><b>Redirecting</b></a></li>
 						<li><a href="#sessions"><b>Sessions</b></a></li>
                         <li><a href="#security"><b>Security</b></a></li>
+                        <li><a href="#mods"><b>Mods</b></a></li>
                     </ul>
                 
                     <!--configuration-->
@@ -739,6 +740,56 @@ $autoload = array ("UserModel", "DataModel", "BikiniModel");
                         <br/>
                         On the topic of security it is also very useful to know that <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span><br/>
                         automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span>
+
+                    </div>
+
+                    <div id="mods" class="ug_item">
+                        <h1 class="pink"><b>EmmaPHP::Mods</b></h1><br/>
+
+                        <span class="pink">EmmaPHP</span> also features <span class="pink">Mods</span>.<br/>
+                        <span class="pink">Mods</span> are pretty much libraries though a little more powerful.<br/>
+                        <br/>
+                        <b>What is a mod</b><br/>
+                        For something to be a <span class="pink">mod</span> it just has to be a PHP class.<br/>
+                        Any native PHP class will run perfectly fine within <span class="pink">EmmaPHP</span>.<br/>
+                        Here's an example of a mod:<br/><br/>
+<pre>
+    class EchoBack {
+
+        public function echoBack ($string) {
+
+            echo $string;
+
+        }
+
+    }
+</pre>
+                        <br/>
+                        Now this is just an example and it isn't such a great <span class="pink">mod</span>.<br/>
+                        But this -- nonetheless -- is a perfectly fine mod.<br/>
+                        <br/>
+                        A mod can do anything.<br/>
+                        <br/>
+                        <b>How do I load a mod</b><br/>
+                        Loading a mod is terrifyingly simple.<br/>
+                        All you have to do is drag it into the Mods folder and that's it,<br/>
+                        done, the <span class="pink">Framework</span> will load it automatically.<br/>
+                        <br/>
+                        <b>But what /is/ the difference between a mod and a library?</b><br/>
+                        The difference between a <span class="pink">Mod</span> is that it can be ran anywhere.<br/>
+                        You could mod the entire <span class="pink">Framework</span> to bits using your mods.<br/>
+                        Literaly /anywhere/ in the code you can call to your mod after it's loaded in by the <span class="pink">Core</span>.<br/>
+                        <br/>
+                        <b>How to use my mod</b><br/>
+                        Using a <span class="pink">Mod</span> is like using a class.<br/>
+                        If I were to use the <span class="pink">Mod</span> I made earlier (<span class="pink">EchoBack</span>).<br/>
+                        And I wanted to use it's method <span class="pink">echoBack ()</span> this is how I'd do it:<br/><br/>
+<pre>
+    EchoBack::echoBack ("Hello, Mods!");
+</pre>
+<br/>
+                        It's that easy.<br/>
+                        And remember, you can call a <span class="pink">Mod</span> anywhere after it's been loaded in by the <span class="pink">Core</span>.
 
                     </div>
 
