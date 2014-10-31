@@ -282,7 +282,7 @@ class DataModel extends EmmaModel {
         
         $result = $this->fetch ($sql, array ($id));
 
-        return $result ? $result : false;
+        return $result ? $result->data_column : false;
         
     }
 
@@ -500,7 +500,11 @@ class WelcomeController extends EmmaController {
     
     public function index() {
         
-        echo $this->DataModel->getData ();
+        if ($data = $this->DataModel->getData ()) {
+
+            echo $data;
+
+        }
         
     }
     
@@ -523,9 +527,9 @@ class DataModel extends EmmaModel {
                 . "FROM DATA "
                 . "LIMIT 1;";
         
-        $this->fetch ($sql)
+        $this->fetch ($sql);
         
-        return $result ? $result : false;
+        return $result ? $result->data_column : false;
         
     }
 
