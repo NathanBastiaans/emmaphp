@@ -4,10 +4,10 @@
  * EmmaPHP Model View Controller Framework.
  * @author Bob Desaunois
  * 
- * @version v1.0.X-BETA DEVELOPMENT BUILD
+ * @version v1.X.X-BETA DEVELOPMENT BUILD
  */
 
-define ("VERSION", "v1.0.X-BETA DEVELOPMENT BUILD");
+define ("VERSION", "v1.X.X-BETA DEVELOPMENT BUILD");
 
 require_once ("config/config.php");
 require_once ("config/application_config.php");
