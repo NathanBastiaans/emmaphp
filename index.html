@@ -138,6 +138,7 @@ She's a beaut, isn't she?
                                         <li>Using PDO</li>
                                         <li>Using the Base Model</li>
                                     </ul><br/>
+                                <li>DataObjects</li>
                                 <li>Using your homemade model</li><br/>
                             </ul>
                         <li><a href="#views"><b>Views</b></a></li>
@@ -150,6 +151,7 @@ She's a beaut, isn't she?
 						<li><a href="#parameters"><b>Parameters</b></a></li>
 						<li><a href="#redirecting"><b>Redirecting</b></a></li>
 						<li><a href="#sessions"><b>Sessions</b></a></li>
+                        <li><a href="#security"><b>Security</b></a></li>
                     </ul>
                 
                     <!--configuration-->
@@ -157,13 +159,13 @@ She's a beaut, isn't she?
                         <h1 class="pink">Configuration</h1><br/>
                         <h2><b>Files</b></h2><br/>
                         There are a few files dedicated to holding configuration settings.<br/>
-                        config/config.php is for setting the default controller, debug mode and the session.<br/>
+                        config/application_config.php is for setting the default controller, debug mode and the session.<br/>
                         while config/database.php is for setting all database variables.<br/>
-                        Then there's ./web_config, it's in the root directory for a reason,<br/>
-                        <b>so do not drag it into the config folder.</b><br/>
-                        <br/>
+                        Then there's config/config,<br/>
 						<b>It is very important that the EmmaPHP framework knows where it is.</b><br/>
 						Please set the "BASEPATH" constant to the URL location of the framework.<br/>
+                        You can set the "TITLE" constant to whatever you wish to be the title in the HTML head.<br/>
+                        and then there's the <span class="pink">AutoLoader</span>'s array, more about that in the <span class="pink">AutoLoader</span>'s section.
 
                     </div>
                     <!--configuration end-->
@@ -214,7 +216,8 @@ class WelcomeController extends EmmaController {
                         If a method was not supplied through the URL then the controller<br/>
                         will always -- if exists, run a public <span class="pink">index()</span> method.<br/>
                         Use the <span class="pink">index()</span> method as the index of your controller.<br/>
-                        <b>Note that the <span class="pink">index()</span> method is obligatory, you must have a <i>public</i> index method in your controller.</b>
+                        <b>Note that the <span class="pink">index()</span> method and <span class="pink">constructor</span> are obligatory,<br/>
+                        you must have a <i>public</i> index method in your controller just like you must have a constructor.</b>
                         <br/>
                         <br/>
                         <h2><b>Naming</b></h2><br/>
@@ -277,7 +280,9 @@ class DataModel extends EmmaModel {
                 . "WHERE id = ? "
                 . "LIMIT 1;";
         
-        $this->fetch ($sql, array ($id))
+        $result = $this->fetch ($sql, array ($id));
+
+        return $result ? $result : false;
         
     }
 
@@ -361,7 +366,7 @@ $stmt->execute();
 $result = $stmt->fetch(PDO::FETCH_ASSOC);
 $stmt->closeCursor();
 
-return $result;
+return $result ? $result : false;
 </pre><br/>
                         <br/>
                         Like stated before; nothing changes except preparing a statement.<br/>
@@ -419,7 +424,64 @@ $sql = "SELECT * FROM users WHERE group = ?;";
 $result = $this->fetchAll ($sql, array ($group));
 </pre>
 
-                        
+<br/>
+<h2><b>Data Objects</b></h2>
+
+                        <br/>When you've given the <span class="pink">fetch ()</span> & <span class="pink">fetchAll ()</span> methods a swing,<br/>
+                        You'll notice it doesn't return an array holding the data from the table you've been trying to get your hands on.<br/>
+                        <br/>
+                        Instead it returns an object that holds the data the same way an array does.<br/>
+                        Lets say we ran the query on the above example, and this table named <span class="pink">users</span> has a column named <span class="pink">email</span>.<br/>
+                        The return data from the method is obvicously stored in the <span class="pink">$result</span> variable so the way we'd fetch this email adres would be like this:<br/><br/>
+<pre>
+$result->email;
+</pre>
+                        <br/>
+                        The <span class="pink">fetchAll ()</span> however does returns an array but within that array we got the same <span class="pink">Data Objects</span> like before.<br/>
+                        If we were to fetch more users with <span class="pink">fetchAll ()</span> and we want all their emails displayed this is how we would do it.<br/><br/>
+<pre>
+foreach ($result as $user) {
+    
+    echo $user->email;
+
+}
+</pre>
+                        <br/>
+                        The best thing about <span class="pink">Data Objects</span> however is that it allows us to make hybrid methods in our models.<br/>
+                        Let's say we have this method in our model named <span class="pink">UserModel</span>:<br/></br/>
+<pre>
+
+public function getUser ($id) {
+    
+    sql = "SELECT * FROM user WHERE id = ?;";
+
+    $result = $this->fetch ($sql, array ($id));
+
+    return $result ? $result : false;
+
+}
+
+</pre>
+                        <br/>
+                        This method allows us to fetch all data from a user.<br/>
+                        Now when you only want to fetch let's say the email address, id or fullname<br/>
+                        from someone we'd have to create a whole set of methods that do so.<br/>
+                        However with <span class="pink">Data Objects</span> we can make this method hybrid by using it like so in our controller:<br/><br/>
+<pre>
+
+    //If you only want the email address from the column "email".
+    $this->UserModel->getUser ($id)->email;
+
+    //If you only want the fullname from the column "fullname".
+    $this->UserModle->getUser ($id)->fullname;
+
+    //If you only want the id from the column "id".
+    $this->UserModle->getUser ($id)->id;
+
+</pre>
+                        <br/>Easy, right?
+                        <br/><b>The usage of <span class="pink">Data Objects</span> allows us to write cleaner, more readable and maintainable code.</b><br/> 
+
                         <br/><h2><b>Using your homemade model</b></h2><br/>
                         So you've loaded in your model, now how do we use it?<br/>
                         Consider the following two files.<br/>
@@ -463,7 +525,7 @@ class DataModel extends EmmaModel {
         
         $this->fetch ($sql)
         
-        return $result;
+        return $result ? $result : false;
         
     }
 
@@ -563,7 +625,9 @@ public function page($page = "welcome") {
                     <h2><b>Parameters</b></h2>
                     <br/>
 					Getting $_POST and $_GET variables goes via methods built into the base controller in <span class="pink">EmmaPHP</span>.<br/>
-					They are always available and do not need to be loaded.
+					They are always available and do not need to be loaded.<br/>
+                    <br/>
+                    <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span> automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span><br/>
                     <br/><br/>
                     <pre>
 public function index () {
@@ -643,6 +707,36 @@ $this->session->nullify ("email");
 <img src="http://img4.wikia.nocookie.net/__cb20130209022103/adventuretimewithfinnandjake/images/thumb/f/f0/And_its_gone_original.jpg/500px-And_its_gone_original.jpg" />
 
 					</div>
+
+                    <div id="autoloader" class="ug_item">
+                        <h1 class="pink"><b>EmmaPHP::Autoloader</b></h1><br/>
+                        The autoloader is a System Component that automatically loads models into the controller.<br/>
+                        All it requires is a little configuration done in the <span class="pink">config/config.php</span><br/>
+                        All you need to do is put the names of the <span class="pink">model</span>'s class names into the array like so:<br/>
+                        <br/>
+<pre>
+$autoload = array ("UserModel", "DataModel", "BikiniModel");
+</pre>
+                        <br/>
+                        This will load the <span class="pink">UserModel</span>, the <span class="pink">DataModel</span> and the <span class="pink">BikiniModel</span> if they are present.<br/>
+                        Don't load models that aren't existant for explosions are noisy.
+                    </div>
+
+                    <div id="security" class="ug_item">
+                        <h1 class="pink"><b>EmmaPHP::Security</b></h1><br/>
+                        Stereotypically girls can be quite insecure; <span class="pink">EmmaPHP</span> isn't.<br/>
+                        The framework has a set of methods in the base controller specifically used for security.<br/>
+                        The methods I speak of are the following;<br/>
+                        <br/>
+                        There's <span class="pink">$this->encrypt ()</span> which accepts a string to encrypt, it uses the SHA1 encryption method.<br/>
+                        And then there's the <span class="pink">$this->generateSalt ()</span> method which generates a salt.<br/>
+                        The salt is an encrypted string of 100 random pseudo bytes<br/>
+                        because PHP's <span class="pink">rand ()</span> & <span class="pink">mt_rand ()</span> are not random enough.<br/>
+                        <br/>
+                        On the topic of security it is also very useful to know that <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span><br/>
+                        automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span>
+
+                    </div>
 
                     </small>
                     
