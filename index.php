@@ -7,7 +7,7 @@
  * @version v1.0.1-BETA
  */
 
-define ("VERSION", "v1.0.1-BETA");
+define ("VERSION", "v1.0.X-BETA DEVELOPMENT BUILD");
 
 require_once ("config/config.php");
 require_once ("config/application_config.php");
