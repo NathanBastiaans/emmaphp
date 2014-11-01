@@ -146,6 +146,7 @@ She's a beaut, isn't she?
                             <li>View creation</li>
                             <li>Linking CSS & JavaScript</li>
                             <li>Loading views</li>
+                            <li>Accessing data through views</li>
                         </ul>
 						<br/>
 						<li><a href="#parameters"><b>Parameters</b></a></li>
@@ -606,18 +607,53 @@ public function page($page = "welcome") {
                         <br/>
                         After close examination of the above displayed code<br/>
                         you would notice that <span class="pink">$this->load->view ();</span> is the method that<br/>
-                        supplies us with a way to return a view to the user through our controllers.<br/>
+                        supplies us with a way to return a <span class="pink">View</span> to the user through our <span class="pink">Controller</span>.<br/>
                         <br/>
-                        It's good practice to first <b>check if the file exists before you return the view</b>.<br/>
+                        It's good practice to first <b>check if the file exists before you return the <span class="pink"></span>View</b>.<br/>
                         This way you will be sure that the user isn't left with just<br/>
                         a blank screen or a confusing error should <span class="pink">debug mode</span> be on.
                         <br/>
                         You can easily see how we achieve this with use of the native <span class="pink">file_exists ()</span> function<br/>
-                        and the <span class="pink">$this->show_404 ()</span> method supplied by our base controller.<br/>
+                        and the <span class="pink">$this->show_404 ()</span> method supplied by our <span class="pink">BAseController</span>.<br/>
                         Also note how when making use of the <span class="pink">$this->load->view ()</span> function we supply a <span class="pink">.php</span><br/>
-                        extension where as loading models doesn't require us to supply a file extension.<br/>
-                        This is done that way so that you may easily load both <span class="pink">PHP</span> and <span class="pink">HTML</span> files.
-                        
+                        extension where as loading <span class="pink">Models</span> doesn't require us to supply a file extension.<br/>
+                        This is done that way so that you may easily load both <span class="pink">PHP</span> and <span class="pink">HTML</span> files.<br/>
+                        <br/>
+                        <h2><b>Accessing data through views.</b></h2><br/>
+                        Accessing data stored in your <span class="pink">Controller</span>'s class variables with your <span class="pink">View</span><br/>
+                        for some reason has always been something done through <span class="pink">$data</span> variables.<br/>
+                        If you've ever worked with <a href="https://ellislab.com/codeigniter"><span class="pink">CodeIgniter</span></a> you'll know what I'm talking about.<br/>
+                        In <span class="pink">EmmaPHP</span> this is not the case.<br/>
+                        Accessing data from our <span class="pink">Controller</span> and displaying it on our <span class="pink">View</span> is easily done like this:<br/><br/>
+                        <span class="pink">Controller</span>
+<pre>
+class MyController extends EmmaController {
+
+    protected $email;
+
+    public function __construct () {
+
+        parent::__construct ();
+
+        $this->load->model ("UserModel");
+
+    }
+
+    public function index () {
+
+        $this->email = $this->UserModel->getUser (1)->email;
+
+    }
+
+}
+</pre><br><span class="pink">View</span>
+<pre><code>
+    &lt;p&gt;&lt;?=$this-&gt;email;?&gt;&lt;/p&gt;
+</code></pre><br/>
+                        That's right!<br/>
+                        <span class="pink">Views</span> have scope access to the <span class="pink">Controllers</span> that loaded them in.<br/>
+                        This allows for us to avoid any nasty <span class="pink">$data</span> variables that we have to pass through when we load views.<br/>
+                        Clean, maintainable and readable code!.
                     </div>
                     <!--views end-->
 
