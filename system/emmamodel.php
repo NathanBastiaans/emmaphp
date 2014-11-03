@@ -16,7 +16,7 @@ abstract class EmmaModel implements Model {
 
         if (DEBUG_MODE)
             if ($this->db->connection->errorInfo ()[0] != "00000")
-                die (var_dump ($this->db->connection->errorInfo ()));
+                die ($this->db->connection->errorInfo ());
 
     }
 
@@ -30,7 +30,7 @@ abstract class EmmaModel implements Model {
 
         if (DEBUG_MODE)
             if ($this->db->connection->errorInfo ()[0] != "00000")
-                die (var_dump ($this->db->connection->errorInfo ()));
+                die ($this->db->connection->errorInfo ());
 
         return $result;
 
@@ -46,7 +46,7 @@ abstract class EmmaModel implements Model {
 
         if (DEBUG_MODE)
             if ($this->db->connection->errorInfo ()[0] != "00000")
-                die (var_dump ($this->db->connection->errorInfo ()));
+                die ($this->db->connection->errorInfo ());
 
         return $result;
 
@@ -63,7 +63,7 @@ abstract class EmmaModel implements Model {
 
         if (DEBUG_MODE)
             if ($this->db->connection->errorInfo ()[0] != "00000")
-                die (var_dump ($this->db->connection->errorInfo ()));
+                die ($this->db->connection->errorInfo ());
 
         //Send single data object
         return DataObject::getInstance ($result);
@@ -80,7 +80,7 @@ abstract class EmmaModel implements Model {
 
         if (DEBUG_MODE)
             if ($this->db->connection->errorInfo ()[0] != "00000")
-                die (var_dump ($this->db->connection->errorInfo ()));
+                die ($this->db->connection->errorInfo ());
 
         $data_objects = array ();
         foreach ($results as $result) {
@@ -92,6 +92,18 @@ abstract class EmmaModel implements Model {
         //Send all data objects in an array
         return $data_objects;
         
+    }
+
+    protected function generateSalt () {
+
+        return sha1 (openssl_random_pseudo_bytes (100));
+
+    }
+
+    protected function encrypt ($string) {
+
+        return sha1 ($string);
+
     }
     
 }
