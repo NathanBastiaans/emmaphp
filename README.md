@@ -6,7 +6,7 @@ Follows the MVC architecture
 It does some things as well.
 All in all it's pretty good, actually.
 
-Started 18 June 2014.
+Started 18th of June 2014.
 
 Made by Bob Desaunois
 
