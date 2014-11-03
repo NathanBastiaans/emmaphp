@@ -58,7 +58,6 @@ abstract class EmmaModel implements Model {
         $stmt = $this->db->connection->prepare ($query);
         $stmt->execute ($params);
         $result     = $stmt->fetch (PDO::FETCH_ASSOC);
-        $result_col = $stmt->fetch (PDO::FETCH_COLUMN);
         $stmt->closeCursor ();
 
         if (DEBUG_MODE)
