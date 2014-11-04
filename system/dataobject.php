@@ -6,8 +6,6 @@ class DataObject implements SystemComponentDataCompatible {
 
     function __construct ($data_array) {
 
-        $this->db = Database::getInstance ();
-
         foreach ($data_array as $data) {
 
             $key = key ($data_array);
