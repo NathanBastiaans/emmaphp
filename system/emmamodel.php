@@ -18,57 +18,59 @@ abstract class EmmaModel implements Model {
             $stmt = $this->db->connection->prepare ($query);
             $stmt->execute ($params);
 
+            $error = $this->db->connection->errorInfo ();
+
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()[0] != "00000")
+                if ($error[0] != "00000")
                     die ($this->db->connection->errorInfo ());
 
         }
             
     }
 
-    public function oldFetch ($query, $params = NULL) {
+//    public function oldFetch ($query, $params = NULL) {
+//
+//        if (DB) {
+//
+//            if (DEBUG_MODE)
+//                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//
+//            $stmt = $this->db->connection->prepare ($query);
+//            $stmt->execute ($params);
+//            $result = $stmt->fetch (PDO::FETCH_ASSOC);
+//            $stmt->closeCursor ();
+//
+//            if (DEBUG_MODE)
+//                if ($this->db->connection->errorInfo ()[0] != "00000")
+//                    die ($this->db->connection->errorInfo ());
+//
+//            return $result ? $result : false;
+//
+//        }
+//
+//    }
 
-        if (DB) {
-
-            if (DEBUG_MODE)
-                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $stmt = $this->db->connection->prepare ($query);
-            $stmt->execute ($params);
-            $result = $stmt->fetch (PDO::FETCH_ASSOC);
-            $stmt->closeCursor ();
-
-            if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()[0] != "00000")
-                    die ($this->db->connection->errorInfo ());
-
-            return $result ? $result : false;
-
-        }
-
-    }
-
-    public function oldFetchAll ($query, $params = NULL) {
-
-        if (DB) {
-        
-            if (DEBUG_MODE) 
-                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
-            $stmt = $this->db->connection->prepare ($query);
-            $stmt->execute ($params);
-            $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
-            $stmt->closeCursor ();
-
-            if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()[0] != "00000")
-                    die (print_r ($this->db->connection->errorInfo ()));
-
-            return $result ? $result : false;
-
-        }
-
-    }
+//    public function oldFetchAll ($query, $params = NULL) {
+//
+//        if (DB) {
+//
+//            if (DEBUG_MODE)
+//                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//
+//            $stmt = $this->db->connection->prepare ($query);
+//            $stmt->execute ($params);
+//            $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
+//            $stmt->closeCursor ();
+//
+//            if (DEBUG_MODE)
+//                if ($this->db->connection->errorInfo ()[0] != "00000")
+//                    die (print_r ($this->db->connection->errorInfo ()));
+//
+//            return $result ? $result : false;
+//
+//        }
+//
+//    }
 
     public function fetch ($query, $params = NULL) {
 
@@ -82,8 +84,10 @@ abstract class EmmaModel implements Model {
             $result = $stmt->fetch (PDO::FETCH_ASSOC);
             $stmt->closeCursor ();
 
+            $error = $this->db->connection->errorInfo ();
+
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()[0] != "00000")
+                if ($error[0] != "00000")
                     die (print_r ($this->db->connection->errorInfo ()));
 
             //Send single data object
@@ -105,8 +109,10 @@ abstract class EmmaModel implements Model {
             $results = $stmt->fetchAll (PDO::FETCH_ASSOC);
             $stmt->closeCursor ();
 
+            $error = $this->db->connection->errorInfo ();
+
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()[0] != "00000")
+                if ($error[0] != "00000")
                     die (print_r ($this->db->connection->errorInfo ()));
 
             $data_objects = array ();
