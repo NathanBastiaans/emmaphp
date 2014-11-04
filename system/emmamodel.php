@@ -10,86 +10,116 @@ abstract class EmmaModel implements Model {
     
     public function query ($query, $params = NULL) {
 
-        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $this->db->connection->prepare ($query);
-        $stmt->execute ($params);
+        if (DB) {
+        
+            if (DEBUG_MODE) 
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $this->db->connection->prepare ($query);
+            $stmt->execute ($params);
 
-        if (DEBUG_MODE)
-            if ($this->db->connection->errorInfo ()[0] != "00000")
-                die ($this->db->connection->errorInfo ());
+            if (DEBUG_MODE)
+                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                    die ($this->db->connection->errorInfo ());
 
+        }
+            
     }
 
     public function oldFetch ($query, $params = NULL) {
 
-        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $this->db->connection->prepare ($query);
-        $stmt->execute ($params);
-        $result = $stmt->fetch (PDO::FETCH_ASSOC);
-        $stmt->closeCursor ();
+        if (DB) {
+        
+            if (DEBUG_MODE) 
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        if (DEBUG_MODE)
-            if ($this->db->connection->errorInfo ()[0] != "00000")
-                die ($this->db->connection->errorInfo ());
+            $stmt = $this->db->connection->prepare ($query);
+            $stmt->execute ($params);
+            $result = $stmt->fetch (PDO::FETCH_ASSOC);
+            $stmt->closeCursor ();
 
-        return $result;
+            if (DEBUG_MODE)
+                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                    die ($this->db->connection->errorInfo ());
+
+            return $result;
+
+        }
 
     }
 
     public function oldFetchAll ($query, $params = NULL) {
 
-        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $this->db->connection->prepare ($query);
-        $stmt->execute ($params);
-        $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
-        $stmt->closeCursor ();
+        if (DB) {
+        
+            if (DEBUG_MODE) 
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $this->db->connection->prepare ($query);
+            $stmt->execute ($params);
+            $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
+            $stmt->closeCursor ();
 
-        if (DEBUG_MODE)
-            if ($this->db->connection->errorInfo ()[0] != "00000")
-                die ($this->db->connection->errorInfo ());
+            if (DEBUG_MODE)
+                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                    die ($this->db->connection->errorInfo ());
 
-        return $result;
+            return $result;
+
+        }
 
     }
 
     public function fetch ($query, $params = NULL) {
 
-        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $this->db->connection->prepare ($query);
-        $stmt->execute ($params);
-        $result     = $stmt->fetch (PDO::FETCH_ASSOC);
-        $stmt->closeCursor ();
-
-        if (DEBUG_MODE)
-            if ($this->db->connection->errorInfo ()[0] != "00000")
-                die ($this->db->connection->errorInfo ());
-
-        //Send single data object
-        return DataObject::getInstance ($result);
+        if (DB) {
         
+            if (DEBUG_MODE) 
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            
+            $stmt = $this->db->connection->prepare ($query);
+            $stmt->execute ($params);
+            $result     = $stmt->fetch (PDO::FETCH_ASSOC);
+            $stmt->closeCursor ();
+
+            if (DEBUG_MODE)
+                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                    die ($this->db->connection->errorInfo ());
+
+            //Send single data object
+            return DataObject::getInstance ($result);
+        
+        }
+            
     }
     
     public function fetchAll ($query, $params = NULL) {
 
-        if (DEBUG_MODE) $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $stmt = $this->db->connection->prepare ($query);
-        $stmt->execute ($params);
-        $results = $stmt->fetchAll (PDO::FETCH_ASSOC);
-        $stmt->closeCursor ();
+        if (DB) {
 
-        if (DEBUG_MODE)
-            if ($this->db->connection->errorInfo ()[0] != "00000")
-                die ($this->db->connection->errorInfo ());
+            if (DEBUG_MODE) 
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $data_objects = array ();
-        foreach ($results as $result) {
+            $stmt = $this->db->connection->prepare ($query);
+            $stmt->execute ($params);
+            $results = $stmt->fetchAll (PDO::FETCH_ASSOC);
+            $stmt->closeCursor ();
 
-            array_push ($data_objects, DataObject::getInstance ($result));
+            if (DEBUG_MODE)
+                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                    die ($this->db->connection->errorInfo ());
+
+            $data_objects = array ();
+            foreach ($results as $result) {
+
+                array_push ($data_objects, DataObject::getInstance ($result));
+
+            }
+
+            //Send all data objects in an array
+            return $data_objects;
 
         }
-
-        //Send all data objects in an array
-        return $data_objects;
         
     }
 
