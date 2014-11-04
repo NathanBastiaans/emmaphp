@@ -19,7 +19,7 @@ abstract class EmmaModel implements Model {
             $stmt->execute ($params);
 
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                if ($this->db->connection->errorInfo ()[0] != "00000")
                     die ($this->db->connection->errorInfo ());
 
         }
@@ -29,8 +29,8 @@ abstract class EmmaModel implements Model {
     public function oldFetch ($query, $params = NULL) {
 
         if (DB) {
-        
-            if (DEBUG_MODE) 
+
+            if (DEBUG_MODE)
                 $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             $stmt = $this->db->connection->prepare ($query);
@@ -39,10 +39,10 @@ abstract class EmmaModel implements Model {
             $stmt->closeCursor ();
 
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()) //[0] != "00000"
+                if ($this->db->connection->errorInfo ()[0] != "00000")
                     die ($this->db->connection->errorInfo ());
 
-            return $result;
+            return $result ? $result : false;
 
         }
 
@@ -61,10 +61,10 @@ abstract class EmmaModel implements Model {
             $stmt->closeCursor ();
 
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()) //[0] != "00000"
-                    die ($this->db->connection->errorInfo ());
+                if ($this->db->connection->errorInfo ()[0] != "00000")
+                    die (print_r ($this->db->connection->errorInfo ()));
 
-            return $result;
+            return $result ? $result : false;
 
         }
 
@@ -79,16 +79,16 @@ abstract class EmmaModel implements Model {
             
             $stmt = $this->db->connection->prepare ($query);
             $stmt->execute ($params);
-            $result     = $stmt->fetch (PDO::FETCH_ASSOC);
+            $result = $stmt->fetch (PDO::FETCH_ASSOC);
             $stmt->closeCursor ();
 
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()) //[0] != "00000"
-                    die ($this->db->connection->errorInfo ());
+                if ($this->db->connection->errorInfo ()[0] != "00000")
+                    die (print_r ($this->db->connection->errorInfo ()));
 
             //Send single data object
-            return DataObject::getInstance ($result);
-        
+            return $result ? DataObject::getInstance ($result) : false;
+
         }
             
     }
@@ -106,8 +106,8 @@ abstract class EmmaModel implements Model {
             $stmt->closeCursor ();
 
             if (DEBUG_MODE)
-                if ($this->db->connection->errorInfo ()) //[0] != "00000"
-                    die ($this->db->connection->errorInfo ());
+                if ($this->db->connection->errorInfo ()[0] != "00000")
+                    die (print_r ($this->db->connection->errorInfo ()));
 
             $data_objects = array ();
             foreach ($results as $result) {
@@ -117,7 +117,7 @@ abstract class EmmaModel implements Model {
             }
 
             //Send all data objects in an array
-            return $data_objects;
+            return $result ? $data_objects : false;
 
         }
         
