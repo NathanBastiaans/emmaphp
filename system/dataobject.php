@@ -2,8 +2,6 @@
 
 class DataObject implements SystemComponentDataCompatible {
 
-    private $db;
-
     function __construct ($data_array) {
 
         foreach ($data_array as $data) {
