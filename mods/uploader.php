@@ -2,6 +2,8 @@
 
 //define ("UPLOADS_DIR", BASEPATH . "/assets/uploads");
 
+//This mod is a work in progress.
+
 class Uploader {
     
     
