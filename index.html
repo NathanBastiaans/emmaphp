@@ -312,7 +312,7 @@ class DataModel extends EmmaModel {
                         and it's child connection object.<br/>
                         Which ultimately defeats the purpose of using a Model or a Framework.<br/>
                         Therefore you should always make sure your homemade model<br/>
-                        does infact extends the <span class="pink">EmmaController</span>.<br/>
+                        does infact extends the <span class="pink">EmmaModel</span>.<br/>
                         <br/>
                         Last but not least make sure that you run the parent's constructor<br/>
                         in your homemade models constructor before you do anything.<br/>
@@ -327,7 +327,7 @@ function __construct () {
                         <br/>
                         
                         <h2><b>Loading models</b></h2><br/>
-                        We may load models into our controllers by use of a function supplied by the loader object: <span class="pink">$this->load</span>.<br/>
+                        We may load models into our controllers by use of a method supplied by the loader object: <span class="pink">$this->load</span>.<br/>
                         Assume we would have created a model called <span class="pink">"UserModel"</span>,<br/>
                         this would be it's <b>class name</b> it's filename would be <span class="pink">"user.php"</span>.<br/>
                         I advise you to load all your models <b>after</b> the parent constructor.<br/>
@@ -456,7 +456,7 @@ foreach ($result as $user) {
 
 public function getUser ($id) {
     
-    sql = "SELECT * FROM user WHERE id = ?;";
+    $sql = "SELECT * FROM user WHERE id = ?;";
 
     $result = $this->fetch ($sql, array ($id));
 
