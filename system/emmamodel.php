@@ -91,7 +91,9 @@ abstract class EmmaModel implements Model {
                     die (print_r ($this->db->connection->errorInfo ()));
 
             //Send single data object
-            return $result ? DataObject::getInstance ($result) : false;
+            return $result 
+			    ? DataObject::getInstance ($result) 
+			    : false;
 
         }
             
