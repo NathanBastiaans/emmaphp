@@ -119,13 +119,13 @@ abstract class EmmaModel implements Model {
 
             $data_objects = array ();
             foreach ($results as $result) {
-
+            	
                 array_push ($data_objects, DataObject::getInstance ($result));
 
             }
 
             //Send all data objects in an array
-            return $result ? $data_objects : false;
+            return $results ? $data_objects : false;
 
         }
         
