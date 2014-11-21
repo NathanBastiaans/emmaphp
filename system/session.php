@@ -13,6 +13,15 @@ class Session implements SystemComponent {
         //Again nothing to do.. Q______Q
         
     }
+    
+    public function getAndNullify ($var_name)
+    {
+        
+        $val = $this->get ($var_name);
+        $this->nullify ($var_name);
+        return $val;
+        
+    }
 
     public function get ($var_name) {
 
