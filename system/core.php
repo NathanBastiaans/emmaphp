@@ -46,7 +46,8 @@ class Core implements SystemComponent {
 
         //Check for the controller's actual file.
         if ( ! file_exists ("controllers/" . $_GET["c"] . ".php"))
-            die ("Couldn't find controller: " . $_GET["c"] . " :(");
+            if (DEBUG)
+                die ("Couldn't find controller: " . $_GET["c"] . " :(");
 
         //Get it.
         require_once ("controllers/" . $_GET["c"] . ".php");

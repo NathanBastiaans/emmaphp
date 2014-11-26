@@ -47,7 +47,8 @@ class Loader implements SystemComponent {
             else {
                 $reflection = new ReflectionMethod ($controller, $_GET["m"]);
                 if ( ! $reflection->isPublic ())
-                    die("Method: " . $_GET["m"] . " from"
+                    if (DEBUG)
+                        die("Method: " . $_GET["m"] . " from"
                         . " Controller: " . $_GET["c"]
                         . " is not a public method.");
                 else if (isset ($_GET["a"])) {
