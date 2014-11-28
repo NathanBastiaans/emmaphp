@@ -1,8 +1,10 @@
 <?php
 
-class WelcomeTable extends EmmaTable {
+class WelcomeTable extends EmmaTable
+{
 
-    function __construct () {
+    function __construct ()
+    {
         
         parent::__construct ();
 

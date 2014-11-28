@@ -1,10 +1,12 @@
 <?php
 
-class WelcomeModel extends EmmaModel {
+class WelcomeModel extends EmmaModel
+{
 
-    function __construct() {
+    function __construct()
+    {
         
-        parent::__construct();
+        parent::__construct ();
 
     }
 

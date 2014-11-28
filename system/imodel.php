@@ -1,6 +1,6 @@
 <?php
 
-interface ITable
+interface IModel
 {
 
     function __construct ();

@@ -1,8 +1,10 @@
 <?php
 
-class AutoLoader implements SystemComponent {
+class AutoLoader implements ISystemComponent
+{
 
-    function __construct () {
+    function __construct ()
+    {
 
         global $autoload;
 
@@ -11,7 +13,8 @@ class AutoLoader implements SystemComponent {
 
     }
 
-    public static function getInstance () {
+    public static function getInstance ()
+    {
 
         return new AutoLoader ();
 

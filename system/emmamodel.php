@@ -1,16 +1,20 @@
 <?php
 
-abstract class EmmaModel implements Model {
+abstract class EmmaModel implements IModel
+{
     
     static $instance;
     
     public $db;
 
-    public function __construct () {}
+    public function __construct ()
+    {}
     
-    public function query ($query, $params = NULL) {
+    public function query ($query, $params = NULL)
+    {
 
-        if (DB) {
+        if (DB)
+        {
         
             if (DEBUG_MODE) 
                 $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -28,9 +32,11 @@ abstract class EmmaModel implements Model {
             
     }
 
-//    public function oldFetch ($query, $params = NULL) {
+//    public function oldFetch ($query, $params = NULL)
+//    {
 //
-//        if (DB) {
+//        if (DB)
+//        {
 //
 //            if (DEBUG_MODE)
 //                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -50,9 +56,11 @@ abstract class EmmaModel implements Model {
 //
 //    }
 
-//    public function oldFetchAll ($query, $params = NULL) {
+//    public function oldFetchAll ($query, $params = NULL)
+//    {
 //
-//        if (DB) {
+//        if (DB)
+//        {
 //
 //            if (DEBUG_MODE)
 //                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -72,9 +80,11 @@ abstract class EmmaModel implements Model {
 //
 //    }
 
-    public function fetch ($query, $params = NULL) {
+    public function fetch ($query, $params = NULL)
+    {
 
-        if (DB) {
+        if (DB)
+        {
         
             if (DEBUG_MODE) 
                 $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -92,16 +102,18 @@ abstract class EmmaModel implements Model {
 
             //Send single data object
             return $result 
-			    ? DataObject::getInstance ($result) 
+			    ? DataObjectI::getInstance ($result)
 			    : false;
 
         }
             
     }
     
-    public function fetchAll ($query, $params = NULL) {
+    public function fetchAll ($query, $params = NULL)
+    {
 
-        if (DB) {
+        if (DB)
+        {
 
             if (DEBUG_MODE) 
                 $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -118,11 +130,8 @@ abstract class EmmaModel implements Model {
                     die (print_r ($this->db->connection->errorInfo ()));
 
             $data_objects = array ();
-            foreach ($results as $result) {
-            	
-                array_push ($data_objects, DataObject::getInstance ($result));
-
-            }
+            foreach ($results as $result)
+                array_push ($data_objects, DataObjectI::getInstance ($result));
 
             //Send all data objects in an array
             return $results ? $data_objects : false;
@@ -131,13 +140,15 @@ abstract class EmmaModel implements Model {
         
     }
 
-    protected function generateSalt () {
+    protected function generateSalt ()
+    {
 
         return sha1 (openssl_random_pseudo_bytes (100));
 
     }
 
-    protected function encrypt ($string) {
+    protected function encrypt ($string)
+    {
 
         return sha1 ($string);
 

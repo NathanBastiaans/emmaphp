@@ -3,24 +3,32 @@
 /**
  * Base Table of the EmmaPHP MVC Framework
  */
-abstract class EmmaTable implements Table {
+abstract class EmmaTable implements ITable
+{
     
     private $_db;
     protected $table_name;
     
-    function __construct () {
+    function __construct ()
+    {
     
         $this->initialize ();
         
     }
     
-    private function initialize () {
+    private function initialize ()
+    {
         
         $this->_db = new Db ();
         
         $sql = "SELECT * FROM :tablename;";
         $stmt = $this->db->connection->prepare ($sql);
-        $stmt->bindParam (":tablename", $this->table_name, PDO::PARAM_STRING);
+        $stmt->bindParam
+        (
+            ":tablename",
+            $this->table_name,
+            PDO::PARAM_STRING
+        );
         $stmt->execute ();
         
         $result = $stmt->fetch (PDO::FETCH_CLASS, "EmmaTable");

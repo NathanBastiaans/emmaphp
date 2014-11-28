@@ -13,8 +13,8 @@ require_once ("config/config.php");
 require_once ("config/application_config.php");
 require_once ("config/database.php");
 
-require_once ("system/systemcomponent.php");
-require_once ("system/systemcomponentdatacompatible.php");
+require_once ("system/isystemcomponent.php");
+require_once ("system/isystemcomponentdatacompatible.php");
 require_once ("system/core.php");
 
 

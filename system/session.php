@@ -1,18 +1,17 @@
 <?php
 
-class Session implements SystemComponent {
+class Session implements ISystemComponent
+{
 
-    function __construct () {
+    function __construct ()
+    {
 
-        //Nothing to do :(
+        $this->initialize ();
 
     }
     
-    private function initialize () {
-        
-        //Again nothing to do.. Q______Q
-        
-    }
+    private function initialize ()
+    {}
     
     public function getAndNullify ($var_name)
     {
@@ -23,26 +22,30 @@ class Session implements SystemComponent {
         
     }
 
-    public function get ($var_name) {
+    public function get ($var_name)
+    {
 
         return isset ($_SESSION[$var_name]) ? $_SESSION[$var_name] : false;
 
     }
 
-    public function set ($var_name, $value) {
+    public function set ($var_name, $value)
+    {
 
         $_SESSION[$var_name] = $value;
 
     }
 
-    public function nullify ($var_name) {
+    public function nullify ($var_name)
+    {
 
         $_SESSION[$var_name] = null;
 
     }
 
 
-    public static function getInstance () {
+    public static function getInstance ()
+    {
 
         return new Session;
 

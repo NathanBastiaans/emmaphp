@@ -4,10 +4,12 @@
 
 //This mod is a work in progress.
 
-class Uploader {
+class Uploader
+{
     
     
-    static function uploadFile ($file) {
+    static function uploadFile ($file)
+    {
         
         $file_name = $file["tmp_name"];
         

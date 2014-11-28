@@ -3,7 +3,7 @@
 /**
  * Core of the EmmaPHP MVC Framework.
  */
-class Core implements SystemComponent {
+class Core implements ISystemComponent {
 
     function __construct () {
 
@@ -14,9 +14,9 @@ class Core implements SystemComponent {
     private function initialize () {
         
         //Include all interfaces
-        require_once ("controller.php");
-        require_once ("model.php");
-//        require_once ("table.php");
+        require_once("icontroller.php");
+        require_once("imodel.php");
+//        require_once ("itable.php");
 
         //Include all components
         require_once ("loader.php"); //loading the loader, CHORTLE CHORTLE CHORTLE.

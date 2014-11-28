@@ -3,7 +3,7 @@
 /**
  * Base controller of the EmmaPHP MVC Framework
  */
-abstract class EmmaController implements Controller {
+abstract class EmmaController implements IController {
     
     static $model;
     static $instance;
@@ -15,7 +15,8 @@ abstract class EmmaController implements Controller {
     protected $method;
     protected $arg;
     
-    function __construct () {
+    function __construct ()
+    {
         
         //Sanity check for session
         if ( ! isset ($_SESSION))
@@ -41,31 +42,36 @@ abstract class EmmaController implements Controller {
         
     }
 
-    protected function generateSalt () {
+    protected function generateSalt ()
+    {
 
         return sha1 (openssl_random_pseudo_bytes (100));
 
     }
 
-    protected function encrypt ($string) {
+    protected function encrypt ($string)
+    {
 
         return sha1 ($string);
 
     }
 
-    private function do_init_view ($param_view) {
+    private function do_init_view ($param_view)
+    {
 
         include("views/" . $param_view);
 
     }
 
-    static function init_view ($param_view) {
+    static function init_view ($param_view)
+    {
 
         self::$instance->do_init_view($param_view);
 
     }
 
-//    static function init_table () {
+//    static function init_table ()
+//    {
 //
 //        //Link table to controller
 //        $table_name = Loader::$table_name;
@@ -73,25 +79,29 @@ abstract class EmmaController implements Controller {
 //
 //    }
 
-    protected function getPost ($param_postname) {
+    protected function getPost ($param_postname)
+    {
 
         return isset ($_POST[$param_postname]) 
             ? filter_var ($_POST[$param_postname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
-        : false;
+            : false;
 
     }
 
-    protected function getGet ($param_getname) {
+    protected function getGet ($param_getname)
+    {
 
         return isset ($_GET[$param_getname]) 
             ? filter_var ($_GET[$param_getname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
-        : false;
+            : false;
 
     }
 
-    protected function redirect ($url) {
+    protected function redirect ($url)
+    {
 
-        if (isset ($url)) {
+        if (isset ($url))
+        {
 
             header ("Location: " . $url);
             exit (0);
@@ -100,7 +110,8 @@ abstract class EmmaController implements Controller {
 
     }
     
-    protected function show_404 () {
+    protected function show_404 ()
+    {
         
         $this->load->view ("fourohfour.php");
         

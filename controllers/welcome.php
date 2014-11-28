@@ -3,9 +3,11 @@
 /**
  * Default Controller of the EmmaPHP MVC Framework
  */
-class WelcomeController extends EmmaController {
+class WelcomeController extends EmmaController
+{
     
-    function __construct () {
+    function __construct ()
+    {
         
         parent::__construct ();
         
@@ -13,19 +15,24 @@ class WelcomeController extends EmmaController {
         
     }
 
-    public function index () {
+    public function index ()
+    {
 
         $this->page ();
 
     }
     
-    public function page ($page = "welcome") {
+    public function page ($page = "welcome")
+    {
         
-        if ( ! file_exists ("views/pages/" . $page . ".php")) {
+        if ( ! file_exists ("views/pages/" . $page . ".php"))
+        {
             
             $this->show_404 ();
             
-        } else {
+        }
+        else
+        {
             
             $this->load->view ("templates/header.php");
             $this->load->view ("pages/" . $page . ".php");

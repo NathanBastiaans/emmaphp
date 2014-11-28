@@ -1,28 +1,36 @@
 <?php
 
-class Database implements SystemComponent {
+class Database implements ISystemComponent
+{
 
     public $connection;
     
-    function __construct () {
+    function __construct ()
+    {
         
         $this->initialize ();
         
     }
     
-    private function initialize () {
+    private function initialize ()
+    {
         
-        if (DB) {
+        if (DB)
+        {
 
-            $this->connection =
-                $link = new PDO ("mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";",
-                                 DB_USERNAME, DB_PASSWORD);
+            $this->connection = $link = new PDO
+            (
 
-        }
+                "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";",
+                DB_USERNAME,
+                DB_PASSWORD);
+
+            }
         
     }
 
-    public static function getInstance () {
+    public static function getInstance ()
+    {
 
         return new Database;
 

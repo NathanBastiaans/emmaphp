@@ -1,20 +1,24 @@
 <?php
 
-class Mods implements SystemComponent {
+class Mods implements ISystemComponent
+{
     
-    public function __construct() {
+    public function __construct()
+    {
         
         $this->initialize ();
         
     }
     
-    private function initialize () {
+    private function initialize ()
+    {
         
         $this->loadAllMods ();
         
     }
     
-    private function loadAllMods () {
+    private function loadAllMods ()
+    {
         
         $mod_files = scandir ("mods");
         
@@ -26,7 +30,8 @@ class Mods implements SystemComponent {
         
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         
         return new Mods ();
         

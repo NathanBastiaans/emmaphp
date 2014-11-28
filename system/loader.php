@@ -3,7 +3,8 @@
 /**
  * Loader of the EmmaPHP MVC Framework
  */
-class Loader implements SystemComponent {
+class Loader implements ISystemComponent
+{
     
     static $instance;
     static $model;
@@ -14,13 +15,15 @@ class Loader implements SystemComponent {
     static $mod_name;
     static $controller;
     
-    function __construct () {
+    function __construct ()
+    {
         
         $this->initialize ();
         
     }
     
-    private function initialize () {
+    private function initialize ()
+    {
         
         //Make a link to the loader object.
         self::$instance =& $this;
@@ -30,7 +33,8 @@ class Loader implements SystemComponent {
         
     }
     
-    public function controller ($param_controller) {
+    public function controller ($param_controller)
+    {
         
         //create given controller object
         $controller = new $param_controller ();
@@ -44,27 +48,28 @@ class Loader implements SystemComponent {
             if ( ! method_exists ($controller, $_GET["m"]))
                 die ("Couldn't find method: " . $_GET["m"]
                     . " <br/>In controller: " . $_GET["c"] . " :(");
-            else {
+            else
+            {
                 $reflection = new ReflectionMethod ($controller, $_GET["m"]);
                 if ( ! $reflection->isPublic ())
                     if (DEBUG)
                         die("Method: " . $_GET["m"] . " from"
                         . " Controller: " . $_GET["c"]
                         . " is not a public method.");
-                else if (isset ($_GET["a"])) {
+                else if (isset ($_GET["a"]))
+                {
                     
                     //Check if arguments should be supplied
                     $args = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     $controller->$_GET["m"] ($args);
                     
-                } else
+                }
+                else
                     $controller->$_GET["m"] ();
             }
-        else
-            /* 
-             * If the index method exists 
-             * within the controller, we run it.
-             */
+        else // if $_GET["m"] isn't set
+
+            // If the index method exists within the controller, we run it.
             if( method_exists ($controller, "index"))
                     $controller->index ();
 
@@ -72,13 +77,14 @@ class Loader implements SystemComponent {
         
     }
     
-    public function model ($param_model) {
+    public function model ($param_model)
+    {
         
         //Find, include and make the model ready.
         $model_file_name = str_replace ("Model", "", $param_model);
+        $model_name      = ucfirst ($param_model);
         require_once ("models/" . strtolower ($model_file_name) . ".php");
-        $model_name = ucfirst ($param_model);
-        
+
         //Create the model object
         $model_object = new $model_name ();
         
@@ -92,7 +98,8 @@ class Loader implements SystemComponent {
 
     }
     
-//    public function table ($param_table) {
+//    public function table ($param_table)
+//    {
 //
 //        $table_file_name = strtolower ($param_table) . ".php";
 //        $table_name_actual = ucfirst ($param_table) . "Table";
@@ -106,14 +113,16 @@ class Loader implements SystemComponent {
 //
 //    }
 
-    public function view ($param_view) {
+    public function view ($param_view)
+    {
         
         //Load a view
         EmmaController::$instance->init_view ($param_view);
         
     }
 
-    public static function getInstance () {
+    public static function getInstance ()
+    {
 
         return new Loader;
 
