@@ -3,15 +3,18 @@
 /**
  * Core of the EmmaPHP MVC Framework.
  */
-class Core implements ISystemComponent {
+class Core implements ISystemComponent
+{
 
-    function __construct () {
+    function __construct ()
+    {
 
         $this->initialize ();
         
     }
     
-    private function initialize () {
+    private function initialize ()
+    {
         
         //Include all interfaces
         require_once("icontroller.php");
@@ -31,7 +34,8 @@ class Core implements ISystemComponent {
         
     }
     
-    public function run () {
+    public function run ()
+    {
         
         /*
          * If controller is not set default to
@@ -64,7 +68,8 @@ class Core implements ISystemComponent {
 
     }
 
-    public static function getInstance () {
+    public static function getInstance ()
+    {
 
         return new Core;
 
