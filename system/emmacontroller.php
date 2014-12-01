@@ -79,6 +79,14 @@ abstract class EmmaController implements IController {
 //
 //    }
 
+    protected function getPostArray ($param_postname) {
+
+        return isset ($_POST[$param_postname]) 
+            ? $_POST[$param_postname]
+        : false;
+
+    }
+
     protected function getPost ($param_postname)
     {
 
@@ -96,7 +104,15 @@ abstract class EmmaController implements IController {
             : false;
 
     }
+    
+    protected function getGetArray ($param_getname)
+    {
 
+        return isset ($_GET[$param_getname]) 
+            ? $_GET[$param_getname]
+            : false;
+
+    }
     protected function redirect ($url)
     {
 
