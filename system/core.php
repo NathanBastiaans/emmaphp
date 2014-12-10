@@ -50,7 +50,7 @@ class Core implements ISystemComponent
 
         //Check for the controller's actual file.
         if ( ! file_exists ("controllers/" . $_GET["c"] . ".php"))
-            if (DEBUG)
+            if (DEBUG_MODE)
                 die ("Couldn't find controller: " . $_GET["c"] . " :(");
 
         //Get it.
