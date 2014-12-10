@@ -45,33 +45,48 @@ class Loader implements ISystemComponent
          * we throw an error
          */
         if (isset ($_GET["m"]))
+        {
+
             if ( ! method_exists ($controller, $_GET["m"]))
                 die ("Couldn't find method: " . $_GET["m"]
                     . " <br/>In controller: " . $_GET["c"] . " :(");
             else
             {
+
                 $reflection = new ReflectionMethod ($controller, $_GET["m"]);
                 if ( ! $reflection->isPublic ())
+                {
+
                     if (DEBUG_MODE)
                         die("Method: " . $_GET["m"] . " from"
                         . " Controller: " . $_GET["c"]
                         . " is not a public method.");
+
+                }
                 else if (isset ($_GET["a"]))
                 {
                     
                     //Check if arguments should be supplied
                     $args = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
                     $controller->$_GET["m"] ($args);
-                    
+
                 }
                 else
+                {
+
                     $controller->$_GET["m"] ();
+
+                }
+
             }
-        else // if $_GET["m"] isn't set
+
+        } else { // if $_GET["m"] isn't set
 
             // If the index method exists within the controller, we run it.
-            if( method_exists ($controller, "index"))
-                    $controller->index ();
+            if (method_exists($controller, "index"))
+                $controller->index();
+
+        }
 
         self::$controller =& $controller;
         
