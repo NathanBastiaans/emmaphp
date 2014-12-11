@@ -1,6 +1,6 @@
 <?php
 
-class DataObjectI implements ISystemComponentDataCompatible
+class DataObject implements ISystemComponentDataCompatible
 {
 
     function __construct ($data_array)
@@ -20,7 +20,7 @@ class DataObjectI implements ISystemComponentDataCompatible
     public static function getInstance ($data_array)
     {
 
-        return new DataObjectI ($data_array);
+        return new DataObject ($data_array);
 
     }
 
