@@ -3,6 +3,6 @@
 interface ITable
 {
 
-    function __construct ($tableName);
+    function __construct ();
 
 }

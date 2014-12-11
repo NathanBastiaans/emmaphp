@@ -3,26 +3,33 @@
 /**
  * Base Table of the EmmaPHP MVC Framework
  */
-abstract class EmmaTable implements ITable
+abstract class EmmaTable extends EmmaModel implements ITable
 {
 
-    protected $tableName;
-
-    private $db;
-
-    function __construct ($tableName)
+    function __construct ()
     {
 
         parent::__construct ();
-
-        $this->initialize ();
         
     }
     
-    private function initialize ()
+    public function initialize ($tableName)
     {
-        
-        $this->db = Database::getInstance();
+
+        $this->fetch
+        (
+            <<<SQL
+            SELECT *
+                FROM ?;
+SQL
+            ,
+            array
+            (
+                $tableName
+            )
+        );
+
+
         
     }
     

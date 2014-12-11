@@ -122,7 +122,7 @@ class Loader implements ISystemComponent
         // Find the file and include it
         $table_file_name = str_replace ("Table", "", $param_table);
         $table_name_actual = ucfirst ($param_table);
-        require_once ("tables/" . $table_file_name);
+        require_once ("tables/" . strtolower ($table_file_name) . ".php");
 
         // Create Table object
         $table_object = new $table_name_actual ($table_name_actual);
@@ -133,6 +133,7 @@ class Loader implements ISystemComponent
 
         // Load and initialize the table into the controller as an object
         EmmaController::$instance->$table_name_actual =& self::$table;
+        EmmaController::$instance->$table_name_actual->initialize ($table_file_name);
 
     }
 
