@@ -5,13 +5,16 @@
  */
 abstract class EmmaTable implements ITable
 {
-    
-    private $_db;
-    protected $table_name;
-    
-    function __construct ()
+
+    protected $tableName;
+
+    private $db;
+
+    function __construct ($tableName)
     {
-    
+
+        parent::__construct ();
+
         $this->initialize ();
         
     }
@@ -19,23 +22,7 @@ abstract class EmmaTable implements ITable
     private function initialize ()
     {
         
-        $this->_db = new Db ();
-        
-        $sql = "SELECT * FROM :tablename;";
-        $stmt = $this->db->connection->prepare ($sql);
-        $stmt->bindParam
-        (
-            ":tablename",
-            $this->table_name,
-            PDO::PARAM_STRING
-        );
-        $stmt->execute ();
-        
-        $result = $stmt->fetch (PDO::FETCH_CLASS, "EmmaTable");
-        
-        die (var_dump ($result));
-        
-//        return $result;
+        $this->db = Database::getInstance();
         
     }
     
