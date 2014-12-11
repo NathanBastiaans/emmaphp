@@ -6,6 +6,8 @@
 class Core implements ISystemComponent
 {
 
+    static $instance;
+
     function __construct ()
     {
 
@@ -19,16 +21,16 @@ class Core implements ISystemComponent
         //Include all interfaces
         require_once("icontroller.php");
         require_once("imodel.php");
-//        require_once ("itable.php");
+        require_once ("itable.php");
 
         //Include all components
         require_once ("loader.php"); //loading the loader, CHORTLE CHORTLE CHORTLE.
-        require_once ("dataobject.php");
+        require_once("dataobject.php");
         require_once ("mods.php");
         require_once ("database.php");
         require_once ("emmacontroller.php");
         require_once ("emmamodel.php");
-//        require_once ("emmatable.php");
+        require_once ("emmatable.php");
         require_once ("session.php");
         require_once ("autoloader.php");
         
@@ -71,7 +73,9 @@ class Core implements ISystemComponent
     public static function getInstance ()
     {
 
-        return new Core;
+        return self::$instance === null
+            ? new self ()
+            : false;
 
     }
     

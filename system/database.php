@@ -1,16 +1,18 @@
 <?php
 
-class Database implements ISystemComponent
+class Database
 {
 
     public $connection;
-    
-    function __construct ()
+
+    private final function __construct ()
     {
         
         $this->initialize ();
         
     }
+
+    private final function __clone () {}
     
     private function initialize ()
     {
@@ -32,7 +34,9 @@ class Database implements ISystemComponent
     public static function getInstance ()
     {
 
-        return new Database;
+        return Loader::$database === null
+            ? new self ()
+            : $databaseReference =& Loader::$database;
 
     }
     

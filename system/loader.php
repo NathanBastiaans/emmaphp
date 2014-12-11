@@ -14,17 +14,21 @@ class Loader implements ISystemComponent
     static $mod;
     static $mod_name;
     static $controller;
+    static $database;
     
     function __construct ()
     {
         
         $this->initialize ();
-        
+
     }
     
     private function initialize ()
     {
-        
+
+        // Load database
+        self::$database = Database::getInstance();
+
         //Make a link to the loader object.
         self::$instance =& $this;
         
@@ -95,7 +99,7 @@ class Loader implements ISystemComponent
     public function model ($param_model)
     {
         
-        //Find, include and make the model ready.
+        //Find, include and make the model ready
         $model_file_name = str_replace ("Model", "", $param_model);
         $model_name      = ucfirst ($param_model);
         require_once ("models/" . strtolower ($model_file_name) . ".php");
@@ -103,30 +107,34 @@ class Loader implements ISystemComponent
         //Create the model object
         $model_object = new $model_name ();
         
-        //Link the model to the loader to load and initialize it.
+        //Link the model to the loader to load and initialize it
         self::$model        =& $model_object;
-        self::$model_name   = $model_name;
+        self::$model_name   =  $model_name;
 
         //Load and initialize it into the controller as an object
-        EmmaController::$instance->$model_name      =& self::$model;
-        EmmaController::$instance->$model_name->db  = new Database ();
+        EmmaController::$instance->$model_name =& self::$model;
 
     }
     
-//    public function table ($param_table)
-//    {
-//
-//        $table_file_name = strtolower ($param_table) . ".php";
-//        $table_name_actual = ucfirst ($param_table) . "Table";
-//        require_once ("tables/" . $table_file_name);
-//
-//        $this->param_table = new $table_name_actual ();
-//
-//        self::$table =& $this->param_table;
-//        self::$table_name =& $table_name_actual;
-//        EmmaController::init_table ();
-//
-//    }
+    public function table ($param_table)
+    {
+
+        // Find the file and include it
+        $table_file_name = str_replace ("Table", "", $param_table);
+        $table_name_actual = ucfirst ($param_table);
+        require_once ("tables/" . $table_file_name);
+
+        // Create Table object
+        $table_object = new $table_name_actual ($table_name_actual);
+
+        // Link the table to the loader to load and initialize it
+        self::$table        =& $table_object;
+        self::$table_name   =  $table_name_actual;
+
+        // Load and initialize the table into the controller as an object
+        EmmaController::$instance->$table_name_actual =& self::$table;
+
+    }
 
     public function view ($param_view)
     {

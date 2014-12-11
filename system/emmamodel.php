@@ -3,12 +3,16 @@
 abstract class EmmaModel implements IModel
 {
     
-    static $instance;
+    static $instance; // @todo why is this here?
     
     public $db;
 
     public function __construct ()
-    {}
+    {
+
+        $this->db = Database::getInstance();
+
+    }
     
     public function query ($query, $params = NULL)
     {
@@ -102,7 +106,7 @@ abstract class EmmaModel implements IModel
 
             //Send single data object
             return $result 
-			    ? DataObjectI::getInstance ($result)
+			    ? DataObject::getInstance ($result)
 			    : false;
 
         }
@@ -131,7 +135,7 @@ abstract class EmmaModel implements IModel
 
             $data_objects = array ();
             foreach ($results as $result)
-                array_push ($data_objects, DataObjectI::getInstance ($result));
+                array_push ($data_objects, DataObject::getInstance ($result));
 
             //Send all data objects in an array
             return $results ? $data_objects : false;
