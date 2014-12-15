@@ -133,7 +133,7 @@ class Loader implements ISystemComponent
 
         // Load and initialize the table into the controller as an object
         EmmaController::$instance->$table_name_actual =& self::$table;
-        EmmaController::$instance->$table_name_actual->initialize ($table_file_name);
+//        EmmaController::$instance->$table_name_actual->initialize ($table_file_name);
 
     }
 
