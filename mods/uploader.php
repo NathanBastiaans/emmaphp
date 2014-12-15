@@ -17,6 +17,7 @@ class EmmaUploader
     static function addExtensions ($array)
     {
 
+        // Foreach extension add it to the extension array
         foreach ($array as $key)
             array_push  (self::$allowedExtensions, strtolower ($key));
 
@@ -25,13 +26,12 @@ class EmmaUploader
     static function uploadFile ($file)
     {
 
+        // If no extensions supplied
         if (empty (self::$allowedExtensions))
-        {
-
             die ("[EmmaUploader] FATAL: The allowedExtensions array is empty while running uploadFile ().");
 
-        }
 
+        // Get the extension
         $temp = explode(".", $file["name"]);
         $extension = end($temp);
 
@@ -45,7 +45,7 @@ class EmmaUploader
         // Assume location of the file once uploaded
         $assumedLocation = self::UPLOADS_DIR . $prefix . "_" . $file["name"];
 
-        // Return 1 on success, 2 on failure
+        // Return location of the file on success, 2 on failure
         return move_uploaded_file
         (
             $file["tmp_name"],
