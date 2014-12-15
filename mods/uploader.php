@@ -4,7 +4,7 @@
  * @author Bob Desaunois <bobdesaunois@gmail.com>
  *
  * Returns 0 when extension isn't supported
- * Returns 1 when successfully uploaded
+ * Returns a String with the location of the uploaded file when successfully uploaded
  * Returns 2 when couldn't upload for any other reason
  */
 
@@ -42,13 +42,16 @@ class EmmaUploader
         // Prefix file for unique naming
         $prefix = substr (md5 (mt_rand (0, 100)), 0, 8);
 
+        // Assume location of the file once uploaded
+        $assumedLocation = self::UPLOADS_DIR . $prefix . "_" . $file["name"];
+
         // Return 1 on success, 2 on failure
         return move_uploaded_file
         (
             $file["tmp_name"],
-            self::UPLOADS_DIR . $prefix . "_" . $file["name"]
+            $assumedLocation
         )
-            ? 1
+            ? $assumedLocation
             : 2;
 
     }
