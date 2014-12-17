@@ -17,6 +17,7 @@ class EmmaUploader
     static function addExtensions ($array)
     {
 
+	// Foreach extension make them lowercase
         foreach ($array as $key)
             array_push  (self::$allowedExtensions, strtolower ($key));
 
@@ -25,6 +26,7 @@ class EmmaUploader
     static function uploadFile ($file , $uploadDir = UPLOADS_DIR)
     {
 
+	// If no extensions were set
         if (empty (self::$allowedExtensions))
         {
 
@@ -32,6 +34,7 @@ class EmmaUploader
 
         }
 		
+		// If the given path does not end on a slash
 		if ( substr ( $uploadDir , -1 ) != "/" )
 		{
 		
@@ -39,6 +42,7 @@ class EmmaUploader
 		
 		}
 
+	// Get the extension
         $temp = explode(".", $file["name"]);
         $extension = end($temp);
 
@@ -49,8 +53,10 @@ class EmmaUploader
 		$file["name"] = str_replace(" ", "-", $file["name"]);
 		$file["name"] = preg_replace('/[^A-Za-z0-9._\-]/', '', $file["name"]); 
 
+	// Assume the location where the file is stored
         $assumedLocation = $uploadDir . $file["name"];
 		
+		// If the assumed location exists
 		if( file_exists($assumedLocation) ) {
 
 			// Prefix file for unique naming
@@ -60,7 +66,7 @@ class EmmaUploader
 		
 		}
 
-        // Return 1 on success, 2 on failure
+        // Return path to file on success, 2 on failure
         return move_uploaded_file
         (
             $file["tmp_name"],
