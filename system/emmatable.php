@@ -6,87 +6,70 @@
 abstract class EmmaTable extends EmmaModel implements ITable
 {
 
-    private $db;
+    private $tableName;
 
     function __construct ()
     {
 
-        $this->db = Database::getInstance ();
+        parent::__construct ();
 
     }
 
-    public function getTable ()
+    public function getTableName () { return $this->tableName; }
+
+    public function initialize ($name)
     {
 
-        $i = 2;
-        $tableNameArray = str_split (__CLASS__);
-        function getProperTableName ($tableNameArray, $i)
+        $this->tableName = $name;
+
+    }
+
+    public function find ($column, $key)
+    {
+
+        $sql = <<<SQL
+        SELECT *
+          FROM $this->tableName
+
+          WHERE $column = ?
+          LIMIT 1;
+SQL;
+
+        if (DB)
         {
 
-            // Lowercase the first letter
-            array_splice
-            (
-                $tableNameArray,
-                0,
-                1,
-                strtolower ($tableNameArray[0])
-            );
+            if (DEBUG_MODE)
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            // If Array index is a capitol
-            if (ctype_upper ($tableNameArray[$i]))
+            $stmt = $this->db->connection->prepare ($sql);
+            $stmt->execute
+            (
+                array
+                (
+                    $key
+                )
+            );
+            $result = $stmt->fetch (PDO::FETCH_ASSOC);
+            $stmt->closeCursor ();
+
+            $error = $this->db->connection->errorInfo ();
+
+            if (DEBUG_MODE)
+                if ($error[0] != "00000")
+                    die (print_r ($this->db->connection->errorInfo ()));
+
+            die (var_dump ($result));
+
+            foreach ($result as $data)
             {
 
-                // Add an underscore before that index
-                array_splice
-                (
-                    $tableNameArray,
-                    $i,
-                    0,
-                    "_"
-                );
-
-                // Lowercase the index
-                array_splice
-                (
-                    $tableNameArray,
-                    $i + 1,
-                    1,
-                    strtolower ($tableNameArray[$i + 1])
-                );
-                $i++;
+                $key        = key ($results);
+                $this->$key = $data;
+                next ($results);
 
             }
 
-            return $i < (count ($tableNameArray) - 1)
-                ? getProperTableName ($tableNameArray, ++$i)
-                : implode ($tableNameArray);
-
         }
-        return getProperTableName ($tableNameArray, $i);
-
-    }
-
-    protected function find ($column, $key)
-    {
-
-        $dataobject = $this->fetch
-        (
-            <<<SQL
-          SELECT *
-            FROM ?
-
-            WHERE ? = ?
-            LIMIT 1;
-SQL
-            ,
-            array
-            (
-                $this->getTable (),
-                $column,
-                $key
-            )
-        );
-
 
     }
     

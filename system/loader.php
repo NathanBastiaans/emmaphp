@@ -36,6 +36,57 @@ class Loader implements ISystemComponent
         new Mods ();
         
     }
+
+    public function getTable ($tableName)
+    {
+
+        $i = 2;
+        $tableNameArray = str_split ($tableName);
+        function getProperTableName ($tableNameArray, $i)
+        {
+
+            // Lowercase the first letter
+            array_splice
+            (
+                $tableNameArray,
+                0,
+                1,
+                strtolower ($tableNameArray[0])
+            );
+
+            // If Array index is a capitol
+            if (ctype_upper ($tableNameArray[$i]))
+            {
+
+                // Add an underscore before that index
+                array_splice
+                (
+                    $tableNameArray,
+                    $i,
+                    0,
+                    "_"
+                );
+
+                // Lowercase the index
+                array_splice
+                (
+                    $tableNameArray,
+                    $i + 1,
+                    1,
+                    strtolower ($tableNameArray[$i + 1])
+                );
+                $i++;
+
+            }
+
+            return $i < (count ($tableNameArray) - 1)
+                ? getProperTableName ($tableNameArray, ++$i)
+                : str_replace ("_table", "", implode ($tableNameArray));
+
+        }
+        return getProperTableName ($tableNameArray, $i);
+
+    }
     
     public function controller ($param_controller)
     {
@@ -115,7 +166,7 @@ class Loader implements ISystemComponent
         EmmaController::$instance->$model_name =& self::$model;
 
     }
-    
+
     public function table ($param_table)
     {
 
@@ -133,7 +184,7 @@ class Loader implements ISystemComponent
 
         // Load and initialize the table into the controller as an object
         EmmaController::$instance->$table_name_actual =& self::$table;
-//        EmmaController::$instance->$table_name_actual->initialize ($table_file_name);
+        EmmaController::$instance->$table_name_actual->initialize ($this->getTable ($param_table));
 
     }
 

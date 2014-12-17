@@ -36,63 +36,15 @@ abstract class EmmaModel implements IModel
             
     }
 
-//    public function oldFetch ($query, $params = NULL)
-//    {
-//
-//        if (DB)
-//        {
-//
-//            if (DEBUG_MODE)
-//                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//
-//            $stmt = $this->db->connection->prepare ($query);
-//            $stmt->execute ($params);
-//            $result = $stmt->fetch (PDO::FETCH_ASSOC);
-//            $stmt->closeCursor ();
-//
-//            if (DEBUG_MODE)
-//                if ($this->db->connection->errorInfo ()[0] != "00000")
-//                    die ($this->db->connection->errorInfo ());
-//
-//            return $result ? $result : false;
-//
-//        }
-//
-//    }
-
-//    public function oldFetchAll ($query, $params = NULL)
-//    {
-//
-//        if (DB)
-//        {
-//
-//            if (DEBUG_MODE)
-//                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-//
-//            $stmt = $this->db->connection->prepare ($query);
-//            $stmt->execute ($params);
-//            $result = $stmt->fetchAll (PDO::FETCH_ASSOC);
-//            $stmt->closeCursor ();
-//
-//            if (DEBUG_MODE)
-//                if ($this->db->connection->errorInfo ()[0] != "00000")
-//                    die (print_r ($this->db->connection->errorInfo ()));
-//
-//            return $result ? $result : false;
-//
-//        }
-//
-//    }
-
     public function fetch ($query, $params = NULL)
     {
 
         if (DB)
         {
         
-            if (DEBUG_MODE) 
+            if (DEBUG_MODE)
                 $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            
+
             $stmt = $this->db->connection->prepare ($query);
             $stmt->execute ($params);
             $result = $stmt->fetch (PDO::FETCH_ASSOC);
