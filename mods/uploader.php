@@ -7,7 +7,7 @@
  * Returns a String with the location of the uploaded file when successfully uploaded
  * Returns 2 when couldn't upload for any other reason
  */
-
+ 
 class EmmaUploader
 {
 
@@ -17,35 +17,56 @@ class EmmaUploader
     static function addExtensions ($array)
     {
 
-        // Foreach extension add it to the extension array
+	// Foreach extension make them lowercase
         foreach ($array as $key)
             array_push  (self::$allowedExtensions, strtolower ($key));
 
     }
 
-    static function uploadFile ($file)
+    static function uploadFile ($file , $uploadDir = UPLOADS_DIR)
     {
 
-        // If no extensions supplied
+	// If no extensions were set
         if (empty (self::$allowedExtensions))
+        {
+
             die ("[EmmaUploader] FATAL: The allowedExtensions array is empty while running uploadFile ().");
 
+        }
+		
+		// If the given path does not end on a slash
+		if ( substr ( $uploadDir , -1 ) != "/" )
+		{
+		
+			$uploadDir.= "/";
+		
+		}
 
-        // Get the extension
+	// Get the extension
         $temp = explode(".", $file["name"]);
         $extension = end($temp);
 
         // Check if extension is allowed
         if ( ! in_array (strtolower ($extension), self::$allowedExtensions))
             return 0;
+			
+		$file["name"] = str_replace(" ", "-", $file["name"]);
+		$file["name"] = preg_replace('/[^A-Za-z0-9._\-]/', '', $file["name"]); 
 
-        // Prefix file for unique naming
-        $prefix = substr (md5 (mt_rand (0, 100)), 0, 8);
+	// Assume the location where the file is stored
+        $assumedLocation = $uploadDir . $file["name"];
+		
+		// If the assumed location exists
+		if( file_exists($assumedLocation) ) {
 
-        // Assume location of the file once uploaded
-        $assumedLocation = self::UPLOADS_DIR . $prefix . "_" . $file["name"];
+			// Prefix file for unique naming
+			$prefix = substr (md5 (mt_rand (0, 100)), 0, 8);
 
-        // Return location of the file on success, 2 on failure
+			$assumedLocation = $uploadDir . $prefix . "_" . $file["name"];
+		
+		}
+
+        // Return path to file on success, 2 on failure
         return move_uploaded_file
         (
             $file["tmp_name"],
