@@ -39,11 +39,19 @@ class EmmaUploader
         if ( ! in_array (strtolower ($extension), self::$allowedExtensions))
             return 0;
 
-        // Prefix file for unique naming
-        $prefix = substr (md5 (mt_rand (0, 100)), 0, 8);
+        $file["name"] = str_replace(" ", "-", $file["name"]);
+		$file["name"] = preg_replace('/[^A-Za-z0-9._\-]/', '', $file["name"]); 
 
-        // Assume location of the file once uploaded
-        $assumedLocation = self::UPLOADS_DIR . $prefix . "_" . $file["name"];
+        $assumedLocation = self::UPLOADS_DIR . $file["name"];
+		
+		if( file_exists($assumedLocation) ) {
+
+			// Prefix file for unique naming
+			$prefix = substr (md5 (mt_rand (0, 100)), 0, 8);
+
+			$assumedLocation = self::UPLOADS_DIR . $prefix . "_" . $file["name"];
+		
+		}
 
         // Return location of the file on success, 2 on failure
         return move_uploaded_file
