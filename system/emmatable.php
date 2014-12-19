@@ -3,15 +3,16 @@
 /**
  * Base Table of the EmmaPHP MVC Framework
  */
-abstract class EmmaTable extends EmmaModel implements ITable
+abstract class EmmaTable implements ITable
 {
 
     private $tableName;
+    private $db;
 
     function __construct ()
     {
 
-        parent::__construct ();
+        $this->db = Database::getInstance ();
 
     }
 
@@ -49,25 +50,43 @@ SQL;
                     $key
                 )
             );
-            $result = $stmt->fetch (PDO::FETCH_ASSOC);
+            $data_array = $stmt->fetch (PDO::FETCH_ASSOC);
             $stmt->closeCursor ();
 
             $error = $this->db->connection->errorInfo ();
 
-            if (DEBUG_MODE)
-                if ($error[0] != "00000")
-                    die (print_r ($this->db->connection->errorInfo ()));
+            if
+            (
+                DEBUG_MODE
+             && $error[0] != "00000"
+            )
+                die (print_r ($this->db->connection->errorInfo ()));
 
-//            die (var_dump ($result));
-
-            foreach ($result as $data)
+            // If query returned result
+            if ($data_array)
             {
 
-                $key        = key ($result);
-                $this->$key = $data;
-                next ($result);
+                $ran = 0;
+
+                $this->properties = array ();
+
+                foreach ($data_array as $data)
+                {
+
+                    $ran++ == 0 ? prev ($data_array) : false;
+
+                    $key        = key ($data_array);
+                    array_push ($this->properties, $key);
+                    $this->$key = $data;
+                    next ($data_array);
+
+                }
+
+                return $ref =& $this;
 
             }
+
+            return false;
 
         }
 
