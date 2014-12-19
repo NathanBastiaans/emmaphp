@@ -58,14 +58,14 @@ SQL;
                 if ($error[0] != "00000")
                     die (print_r ($this->db->connection->errorInfo ()));
 
-            die (var_dump ($result));
+//            die (var_dump ($result));
 
             foreach ($result as $data)
             {
 
-                $key        = key ($results);
+                $key        = key ($result);
                 $this->$key = $data;
-                next ($results);
+                next ($result);
 
             }
 
