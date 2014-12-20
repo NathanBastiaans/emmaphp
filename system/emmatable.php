@@ -28,10 +28,61 @@ abstract class EmmaTable implements ITable
 
     }
 
-    public function insert ()
+    public function insert ($dataArray)
     {
 
-        die ("[EmmaTables] ERROR: Called unimplemented method insert ()");
+        // Get all keys from the array so we may use them in the query
+        $keyArray = array_keys($dataArray);
+
+        $query = "INSERT INTO " . $this->tableName . " ";
+
+        $query .= "(";
+
+        // Add key to the query and add a comma only
+        // if current index is not last in the array
+        $i = 0;
+        foreach ($keyArray as $key)
+            ++$i < count($keyArray)
+                ? $query .= $key . ", "
+                : $query .= $key . ")";
+
+        $query .= " VALUES (";
+
+        // Add key to the query and add a comma only
+        // if current index is not last in the array
+        $i = 0;
+        foreach ($dataArray as $data)
+            ++$i < count($dataArray)
+                ? $query .= "?" . ", "
+                : $query .= "?" . ")";
+
+        // Copy the array and clear it of its keys for use in execute ()
+        $valuesArray = array_values ($dataArray);
+
+        if (DB)
+        {
+
+            if (DEBUG_MODE)
+                $this->db->connection->setAttribute
+                (
+                    PDO::ATTR_ERRMODE,
+                    PDO::ERRMODE_EXCEPTION
+                );
+
+            $stmt = $this->db->connection->prepare ($query);
+
+            $stmt->execute ($valuesArray);
+
+            $error = $this->db->connection->errorInfo ();
+
+            if
+            (
+                DEBUG_MODE
+                && $error[0] != "00000"
+            )
+                die (print_r ($this->db->connection->errorInfo ()));
+
+        }
 
     }
 
