@@ -6,8 +6,8 @@ interface ITable
     function __construct ();
 
     function getTableName ();
-    function find ();
-    function insert ();
+    function find ($column, $key);
+    function insert ($dataArray);
     function save ();
 
 }
