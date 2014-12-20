@@ -9,6 +9,9 @@ abstract class EmmaTable implements ITable
     private $tableName;
     private $db;
 
+    private $key;
+    private $keyValue;
+
     function __construct ()
     {
 
@@ -25,8 +28,81 @@ abstract class EmmaTable implements ITable
 
     }
 
+    public function insert ()
+    {
+
+        die ("[EmmaTables] ERROR: Called unimplemented method insert ()");
+
+    }
+
+    public function save ()
+    {
+
+        $query = "UPDATE " . $this->tableName . " SET ";
+
+        // Add all properties to the "UPDATE SET"
+        $i = 0;
+        foreach ($this->properties as $prop)
+            if ($prop != "id")
+                $i++ == 0
+                    ? $query .= "$prop = ?"
+                    : $query .= ", $prop = ? ";
+
+        // Update by the supplied key via the find () method
+        $query .= "WHERE " . $this->key . " = " . $this->keyValue;
+
+        $query .= " LIMIT 1;";
+
+        if (DB)
+        {
+
+            if (DEBUG_MODE)
+                $this->db->connection->setAttribute
+                (
+                    PDO::ATTR_ERRMODE,
+                    PDO::ERRMODE_EXCEPTION
+                );
+
+            $stmt = $this->db->connection->prepare ($query);
+
+            $propertiesArray = array ();
+            $valuesArray     = array ();
+
+            foreach ($this->properties as $prop)
+            {
+
+                if ($prop != "id")
+                {
+
+                    array_push ($propertiesArray, $prop);
+                    array_push ($valuesArray, $this->$prop);
+
+                }
+
+            }
+
+
+            die (var_dump ($query));
+            $stmt->execute ($valuesArray);
+
+            $error = $this->db->connection->errorInfo ();
+
+            if
+            (
+                DEBUG_MODE
+             && $error[0] != "00000"
+            )
+                die (print_r ($this->db->connection->errorInfo ()));
+
+        }
+
+    }
+
     public function find ($column, $key)
     {
+
+        $this->key      = $column;
+        $this->keyValue = $key;
 
         $sql = <<<SQL
         SELECT *
