@@ -1,9 +1,8 @@
 EmmaPHP
 =======
 
-Extremely lightweight PHP Framework.
-Follows the MVC architecture
-It does some things as well.
+Extremely Lightweight PHP Framework 
+focusing on rapid development of complex applications using as little code as possible.
 All in all it's pretty good, actually.
 
 Started 18th of June 2014.
