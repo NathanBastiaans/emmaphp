@@ -22,12 +22,12 @@ class Database
 
             $this->connection = $link = new PDO
             (
-
                 "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME . ";",
                 DB_USERNAME,
-                DB_PASSWORD);
+                DB_PASSWORD
+            );
 
-            }
+        }
         
     }
 
