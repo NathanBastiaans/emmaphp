@@ -70,15 +70,6 @@ abstract class EmmaController implements IController {
 
     }
 
-//    static function init_table ()
-//    {
-//
-//        //Link table to controller
-//        $table_name = Loader::$table_name;
-//        self::$instance->$table_name = Loader::$table;
-//
-//    }
-
     protected function getPostArray ($param_postname) {
 
         return isset ($_POST[$param_postname]) 
