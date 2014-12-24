@@ -24,7 +24,7 @@ class Core implements ISystemComponent
         require_once ("itable.php");
 
         //Include all components
-        require_once ("loader.php"); //loading the loader, CHORTLE CHORTLE CHORTLE.
+        require_once ("loader.php");
         require_once("dataobject.php");
         require_once ("mods.php");
         require_once ("database.php");
