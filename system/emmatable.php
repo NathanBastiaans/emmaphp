@@ -12,7 +12,7 @@ abstract class EmmaTable implements ITable
     private $key;
     private $keyValue;
 
-    function __construct ()
+    function constructor ()
     {
 
         $this->db = Database::getInstance ();
@@ -132,8 +132,6 @@ abstract class EmmaTable implements ITable
 
             }
 
-
-            die (var_dump ($query));
             $stmt->execute ($valuesArray);
 
             $error = $this->db->connection->errorInfo ();

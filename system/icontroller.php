@@ -3,6 +3,6 @@
 interface IController
 {
 
-    function __construct ();
+    function constructor ();
 
 }

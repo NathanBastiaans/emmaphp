@@ -29,7 +29,7 @@ class Loader implements ISystemComponent
         // Load database
         self::$database = Database::getInstance();
 
-        //Make a link to the loader object.
+        // Link an instance of the loader to itself
         self::$instance =& $this;
         
         //Load all mods
@@ -91,8 +91,11 @@ class Loader implements ISystemComponent
     public function controller ($param_controller)
     {
         
-        //create given controller object
+        // Create given controller object
         $controller = new $param_controller ();
+        $controller->constructor ();
+        if (method_exists ($controller, "init"))
+            $controller->init ();
 
         /*
          * Check for a supplied method with the GET
@@ -108,6 +111,7 @@ class Loader implements ISystemComponent
             else
             {
 
+                // Check if the supplied method is public
                 $reflection = new ReflectionMethod ($controller, $_GET["m"]);
                 if ( ! $reflection->isPublic ())
                 {
@@ -157,7 +161,10 @@ class Loader implements ISystemComponent
 
         //Create the model object
         $model_object = new $model_name ();
-        
+        $model_object->constructor ();
+        if (method_exists ($model_object, "init"))
+            $model_object->init ();
+
         //Link the model to the loader to load and initialize it
         self::$model        =& $model_object;
         self::$model_name   =  $model_name;
@@ -177,6 +184,9 @@ class Loader implements ISystemComponent
 
         // Create Table object
         $table_object = new $table_name_actual ($table_name_actual);
+        $table_object->constructor ();
+        if (method_exists($table_object, "init"))
+            $table_object->init ();
 
         // Link the table to the loader to load and initialize it
         self::$table        =& $table_object;
@@ -192,7 +202,7 @@ class Loader implements ISystemComponent
     {
         
         //Load a view
-        EmmaController::$instance->init_view ($param_view);
+        EmmaController::$instance->initView ($param_view);
         
     }
 

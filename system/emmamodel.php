@@ -7,7 +7,7 @@ abstract class EmmaModel implements IModel
     
     public $db;
 
-    public function __construct ()
+    public function constructor ()
     {
 
         $this->db = Database::getInstance();

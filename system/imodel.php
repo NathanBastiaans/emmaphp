@@ -3,6 +3,6 @@
 interface IModel
 {
 
-    function __construct ();
+    function constructor ();
 
 }

@@ -14,8 +14,8 @@ abstract class EmmaController implements IController {
     protected $session;
     protected $method;
     protected $arg;
-    
-    function __construct ()
+
+    public function constructor ()
     {
         
         //Sanity check for session
@@ -56,17 +56,17 @@ abstract class EmmaController implements IController {
 
     }
 
-    private function do_init_view ($param_view)
+    private function doInitView ($param_view)
     {
 
-        include("views/" . $param_view);
+        include ("views/" . $param_view);
 
     }
 
-    static function init_view ($param_view)
+    static function initView ($param_view)
     {
 
-        self::$instance->do_init_view($param_view);
+        self::$instance->doInitView ($param_view);
 
     }
 
@@ -104,6 +104,7 @@ abstract class EmmaController implements IController {
             : false;
 
     }
+
     protected function redirect ($url)
     {
 

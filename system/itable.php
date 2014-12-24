@@ -3,7 +3,7 @@
 interface ITable
 {
 
-    function __construct ();
+    function constructor ();
 
     function getTableName ();
     function find ($column, $key);
