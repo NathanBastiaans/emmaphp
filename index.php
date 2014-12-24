@@ -10,6 +10,7 @@
 define ("VERSION", "v1.0.0");
 
 require_once ("config/config.php");
+require_once ("config/autoload.php");
 require_once ("config/application_config.php");
 require_once ("config/database.php");
 
