@@ -7,7 +7,7 @@
  * @version v2.X.X-BETA INDEV
  */
 
-define ("VERSION", "v2.X.X-BETA INDEV");
+define ("VERSION", "v1.0.0");
 
 require_once ("config/config.php");
 require_once ("config/application_config.php");
