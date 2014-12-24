@@ -4,7 +4,7 @@
  * EmmaPHP Model View Controller Framework.
  * @author Bob Desaunois
  * 
- * @version v2.X.X-BETA INDEV
+ * @version v1.0.0
  */
 
 define ("VERSION", "v1.0.0");
