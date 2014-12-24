@@ -6,10 +6,14 @@ class AutoLoader implements ISystemComponent
     function __construct ()
     {
 
-        global $autoload;
+        global $autoloadModels;
+        global $autoloadTables;
 
-        foreach ($autoload as $model)
+        foreach ($autoloadModels as $model)
             Loader::$controller->load->model ($model);
+
+        foreach ($autoloadTables as $table)
+            Loader::$controller->load->table ($model);
 
     }
 
