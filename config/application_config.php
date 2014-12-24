@@ -4,7 +4,7 @@
 define ("DEBUG_MODE", true);
 
 // Set the default controller
-define ("DEFAULT_CONTROLLER", "welcome");
+define ("DEFAULT_CONTROLLER", "index");
 
 // Debug mode
 if (DEBUG_MODE)
