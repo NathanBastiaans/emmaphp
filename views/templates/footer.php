@@ -1,6 +1,5 @@
-            </div>
-            
-        </div>
-        
-    </body>
+</div>
+<!--wrapper end-->
+
+</body>
 </html>

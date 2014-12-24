@@ -1,10 +1,30 @@
-<h1>
-    Welcome to EmmaPHP!
-</h1>
 
-Enjoy your stay.<br/>
-<br/>
-Configure at config/config.php<br/>
-and config/application_config.php.<br/>
-If you have a database configure at<br/>
-config/database.php.
+
+    <!--section_1-->
+    <div class="section" id="section_1">
+
+        Version <b><?= VERSION ?></b>
+
+        <!--section_1_content-->
+        <div class="content" id="section_1_content">
+
+            <!--title-->
+            <div class="center" id="title">EmmaPHP</div>
+            <!--title end-->
+
+            <!--description-->
+            <div class="center" id="description">
+                The cutest PHP MVC Framework out there.
+            </div>
+            <!--description end-->
+            <br/>
+            <div class="center">
+                <h1>Welcome !</h1>
+            </div>
+
+        </div>
+        <!--section_1_content end-->
+
+    </div>
+    <!--section_1 end-->
+
