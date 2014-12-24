@@ -10,10 +10,10 @@ class AutoLoader implements ISystemComponent
         global $autoloadTables;
 
         foreach ($autoloadModels as $model)
-            Loader::$controller->load->model ($model);
+            EmmaController::$instance->load->model ($model);
 
         foreach ($autoloadTables as $table)
-            Loader::$controller->load->table ($model);
+            EmmaController::$instance->load->table ($table);
 
     }
 

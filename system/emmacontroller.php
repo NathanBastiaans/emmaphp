@@ -22,7 +22,8 @@ abstract class EmmaController implements IController {
         if ( ! isset ($_SESSION))
             session_start ();
             
-        //Link controller to loader
+        // Link loader to controller
+        // and the controller instance to itself
         $_SESSION["controller"] = $_GET["c"];
         $this->load = Loader::$instance;
         self::$instance =& $this;
@@ -39,6 +40,8 @@ abstract class EmmaController implements IController {
             $this->method = $m;
         if (isset ($a)) 
             $this->arg    = $a;
+
+        AutoLoader::getInstance ();
         
     }
 

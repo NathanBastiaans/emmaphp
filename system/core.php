@@ -66,8 +66,6 @@ class Core implements ISystemComponent
         $this->load = new Loader ();
         $this->load->controller ($controller_actual);
 
-        AutoLoader::getInstance ();
-
     }
 
     public static function getInstance ()
