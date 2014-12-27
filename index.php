@@ -1,7 +1,7 @@
 <?php
 
 /*
- * EmmaPHP Model View Controller Framework.
+ * EmmaPHP Model View Table Controller Framework.
  * @author Bob Desaunois
  * 
  * @version v1.0.0

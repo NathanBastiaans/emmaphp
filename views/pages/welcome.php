@@ -14,7 +14,7 @@
 
             <!--description-->
             <div class="center" id="description">
-                The cutest PHP MVC Framework out there.
+                The cutest PHP MVTC Framework out there.
             </div>
             <!--description end-->
             <br/>

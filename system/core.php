@@ -66,7 +66,6 @@ class Core implements ISystemComponent
         // Define the loader
         $this->load = new Loader ();
         
-        
         // Use the loader to load the controller
         Core::$controller = $this->load->controller ($controller_actual);
 
