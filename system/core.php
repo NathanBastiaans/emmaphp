@@ -7,6 +7,7 @@ class Core implements ISystemComponent
 {
 
     static $instance;
+    static $controller;
 
     function __construct ()
     {
@@ -19,13 +20,13 @@ class Core implements ISystemComponent
     {
         
         //Include all interfaces
-        require_once("icontroller.php");
-        require_once("imodel.php");
+        require_once ("icontroller.php");
+        require_once ("imodel.php");
         require_once ("itable.php");
 
         //Include all components
         require_once ("loader.php");
-        require_once("dataobject.php");
+        require_once ("dataobject.php");
         require_once ("mods.php");
         require_once ("database.php");
         require_once ("emmacontroller.php");
@@ -50,21 +51,24 @@ class Core implements ISystemComponent
             else
                 $_GET["c"] = DEFAULT_CONTROLLER;
 
-        //Check for the controller's actual file.
+        // Check for the controller's actual file.
         if ( ! file_exists ("controllers/" . $_GET["c"] . ".php"))
             if (DEBUG_MODE)
                 die ("Couldn't find controller: " . $_GET["c"] . " :(");
 
-        //Get it.
+        // Get it.
         require_once ("controllers/" . $_GET["c"] . ".php");
 
-        //Link it, detach the GET request and add the Controller affix.
+        // Link it, detach the GET request and add the Controller affix.
         $controller_actual = $_GET["c"] . "Controller";
         $_GET["c"] = null;
         
-        //Load it.
+        // Define the loader
         $this->load = new Loader ();
-        $this->load->controller ($controller_actual);
+        
+        
+        // Use the loader to load the controller
+        Core::$controller = $this->load->controller ($controller_actual);
 
     }
 

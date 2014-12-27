@@ -147,7 +147,11 @@ class Loader implements ISystemComponent
 
         }
 
+        // Link the controller to the loader
         self::$controller =& $controller;
+        
+        // Return the reference to the controller instance back to the Core
+        return self::$controller;
         
     }
     
