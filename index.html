@@ -72,7 +72,7 @@ She's a beaut, isn't she?
             <!--section_1-->
             <div class="section" id="section_1">
                 
-                Version <b>2.1.1 Beta</b>
+                Version <b>1.0.0</b>
                 
                 <!--section_1_content-->
                 <div class="content" id="section_1_content">
@@ -83,7 +83,7 @@ She's a beaut, isn't she?
                     
                     <!--description-->
                     <div class="center" id="description">
-                        The cutest PHP MVC Framework out there.
+                        The cutest PHP MVTC Framework out there.
                     </div>
                     <!--description end-->
                     
@@ -121,8 +121,8 @@ She's a beaut, isn't she?
                         
                         <li><a href="#controllers"><b>Controllers</b></a></li>
                             <ul>
-                                <li>Index</li>
                                 <li>Controller creation</li>
+                                <li>Index</li>
                                 <li>Naming</li>
                                 <li>Base controller</li>
                             </ul><br/>
@@ -139,8 +139,10 @@ She's a beaut, isn't she?
                                         <li>Using the Base Model</li>
                                     </ul><br/>
                                 <li>DataObjects</li>
+                                <li>EmmaTables</li>
                                 <li>Using your homemade model</li><br/>
                             </ul>
+                        <li><a href="#tables"><b>Tables</b></a></li>
                         <li><a href="#views"><b>Views</b></a></li>
                         <ul>
                             <li>View creation</li>
@@ -149,7 +151,7 @@ She's a beaut, isn't she?
                             <li>Accessing data through views</li>
                         </ul>
 						<br/>
-						<li><a href="#parameters"><b>Parameters</b></a></li>
+						<li><a href="#requests"><b>Requests</b></a></li>
 						<li><a href="#redirecting"><b>Redirecting</b></a></li>
 						<li><a href="#sessions"><b>Sessions</b></a></li>
                         <li><a href="#autoloader"><b>Autoloader</b></a></li>
@@ -168,7 +170,9 @@ She's a beaut, isn't she?
 						<b>It is very important that the EmmaPHP framework knows where it is.</b><br/>
 						Please set the "BASEPATH" constant to the URL location of the framework.<br/>
                         You can set the "TITLE" constant to whatever you wish to be the title in the HTML head.<br/>
-                        and then there's the <span class="pink">AutoLoader</span>'s array, more about that in the <span class="pink">AutoLoader</span>'s section.
+                        and then there's autoload.php, this is the configuration file for the <span class="pink">AutoLoader</span><br/>
+                        The <span class="pink">AutoLoader</span> is configured with two separate autoloading arrays.<br/>
+                        More about those arrays in the <span class="pink">AutoLoader</span> section.
 
                     </div>
                     <!--configuration end-->
@@ -181,27 +185,26 @@ She's a beaut, isn't she?
                         Here's a short example of what a controller would look like<br/>
                         within the <span class="pink">EmmaPHP Framework</span>.<br/><br/>
 <pre>
-class WelcomeController extends EmmaController {
+class IndexController extends EmmaController
+{
     
-    function __construct () {
-        
-        parent::__construct ();
-        
-    }
-    
-    public function index () {
+    public function index ()
+    {
         
         $this->page ();
         
     }
     
-    public function page ($page = "welcome") {
+    public function page ($page = "welcome")
+    {
         
-        if( ! file_exists ("views/pages/" . $page . ".php")) {
+        if ( ! file_exists ("views/pages/" . $page . ".php")) {
             
             $this->show_404 ();
             
-        } else {
+        } 
+        else
+        {
             
             $this->load->view ("templates/header.php");
             $this->load->view ("pages/" . $page . ".php");
@@ -217,35 +220,38 @@ class WelcomeController extends EmmaController {
                         
                         <h2><b>Index</b></h2><br/>
                         If a method was not supplied through the URL then the controller<br/>
-                        will always -- if exists, run a public <span class="pink">index()</span> method.<br/>
+                        will always -- if exists, search for and run a public <span class="pink">index()</span> method.<br/>
                         Use the <span class="pink">index()</span> method as the index of your controller.<br/>
-                        <b>Note that the <span class="pink">index()</span> method and <span class="pink">constructor</span> are obligatory,<br/>
-                        you must have a <i>public</i> index method in your controller just like you must have a constructor.</b>
+                        <b>Note that the <span class="pink">index()</span> is mandatory,<br/>
+                        you must have a <i>public</i> index method in your controller.</b><br/>
+                        <br/>
+                        If you feel like you need something done before running the <span class="pink">index()</span> method,<br/>
+                        or a method you've supplied in the URL.<br/>
+                        Please define a public method named <span class="pink">init()</span>.<br/>
+                        <b>Do not use PHP's magic function <span class="pink">__construct ()</span>.</b>
                         <br/>
                         <br/>
                         <h2><b>Naming</b></h2><br/>
                         Both naming of the file and the class of the controller<br/>
-                        is very important, this controller is the <span class="pink">Welcome controller</span>.<br/>
-                        The file would be named in lower-case <span class="pink">"welcome.php"</span>,<br/>
-                        while the class is named <span class="pink">WelcomeController</span>.<br/>
+                        is very important, this controller is the <span class="pink">IndexController</span>.<br/>
+                        The file would be named in lower-case <span class="pink">index.php</span>,<br/>
+                        while the class is named <span class="pink">IndexController</span>.<br/>
                         <br/>
                         It's very important that the class name starts with a capitol<br/>
                         like you would do anywhere else.<br/>
                         And it's important that you add <span class="pink">"Controller"</span> as suffix.<br/>
-<!--                        In contradiction to homemade controllers it <b>does matter</b> when you are extending.<br/>
-                        you should never extend <span class="pink">"Emma_<b>c</b>ontroller"</span> but instead <b>always</b> extend <span class="pink">"Emma_<b>C</b>ontroller"</span>-->
                         <br/>
                         
                         <h2><b>Base controller</b></h2><br/>
                         Then there's adding your homemade controller<br/> as a child to the parent controller <span class="pink">EmmaController</span>.<br/>
                         Believe it or not but your homemade Controller <b>will actually run</b><br/>
                         if you do not extend it to <span class="pink">EmmaController</span>.<br/>
-                        You will however not be able to benefit of any of the system's functionallity.<br/>
+                        You will however not be able to benefit off of any of the system's functionallity.<br/>
                         Which ultimately defeats the purpose of using a Framework.<br/>
                         Therefore you should <b>always</b> make sure your homemade controller<br/>
-                        does infact extends the <span class="pink">EmmaController</span>.<br/>
+                        does infact extend the <span class="pink">EmmaController</span>.<br/>
                         <br/>
-                        Last but not least make sure that you run the parent's constructor<br/>
+                        <!-- Last but not least make sure that you run the parent's constructor<br/>
                         in your homemade controllers constructor before you do anything.<br/>
                         Like so:<br/><br/>
 <pre>
@@ -254,7 +260,7 @@ function __construct () {
     parent::__construct ();
 
 }
-</pre>
+</pre> -->
                         
                     </div>
                     <!--controllers end-->
@@ -268,15 +274,11 @@ function __construct () {
                         Consider a model called <span class="pink">DataModel</span>.<br/>
                         <br/>
 <pre>
-class DataModel extends EmmaModel {
+class DataModel extends EmmaModel 
+{
     
-    function __construct () {
-        
-        parent::__construct ();
-        
-    }
-    
-    public function getData ($id) {
+    public function getData ($id) 
+    {
         
         $sql =    "SELECT information_string "
                 . "FROM DATA "
@@ -285,7 +287,7 @@ class DataModel extends EmmaModel {
         
         $result = $this->fetch ($sql, array ($id));
 
-        return $result ? $result->data_column : false;
+        return $result->dataColumn;
         
     }
 
@@ -314,7 +316,7 @@ class DataModel extends EmmaModel {
                         Therefore you should always make sure your homemade model<br/>
                         does infact extends the <span class="pink">EmmaModel</span>.<br/>
                         <br/>
-                        Last but not least make sure that you run the parent's constructor<br/>
+                        <!-- st but not least make sure that you run the parent's constructor<br/>
                         in your homemade models constructor before you do anything.<br/>
                         Like so:<br/><br/>
 <pre>
@@ -323,59 +325,59 @@ function __construct () {
     parent::__construct ();
 
 }
-</pre><br/>
+</pre><br/> -->
                         <br/>
                         
                         <h2><b>Loading models</b></h2><br/>
                         We may load models into our controllers by use of a method supplied by the loader object: <span class="pink">$this->load</span>.<br/>
                         Assume we would have created a model called <span class="pink">"UserModel"</span>,<br/>
                         this would be it's <b>class name</b> it's filename would be <span class="pink">"user.php"</span>.<br/>
-                        I advise you to load all your models <b>after</b> the parent constructor.<br/>
+                        I advise you to load all your models in the <span class="pink">init ()</span> method.<br/>
                         We do this as following:<br/><br/>
 <pre>
-function __construct () {
+public function init () 
+{
         
-    parent::__construct ();
-
     $this->load->model ("UserModel");
 
 }
 </pre><br/>
                         You would notice that <b>we load models by class name and not by filename</b>.<br/>
                         <br/>
+                        <b><i>However</i> please note that the proper way of loading models is by using the <span class="pink">AutoLoader</span>.<br/>
+                            The only scenario in which loading a model inside a controller is justified,<br/>
+                            is when you need a model specifically in that and <i>only</i> that controller.</b><br/>
+                            <br/>
                         
                         <h2><b>Interacting with the Database</b></h2><br/>
                         
-                        There are two ways of interacting with the Database<br/>
+                        There are three ways of interacting with the Database<br/>
                         within the <span class="pink">EmmaPHP Framework</span>.<br/>
-                        There's <b>using the database class</b> and <b>using PDO</b>.<br/>
+                        There's <b>using the database class</b>, <span class="pink">EmmaTables</span> and <b>using PDO</b>.<br/>
                         The <span class="pink">EmmaPHP Framework</span> does <b>NOT</b> use MySQL or MySQLi extensions.<br/>
-                        That is for a good reason and you shouldn't be using them either.<br/>
+                        That is with good reason and you shouldn't be using them either.<br/>
                         <br/>
                         <h3><b>Using PDO</b></h3><br/>
                         You can apply PDO within your model just like you would<br/>
                         anywhere else.<br/>
                         The only thing that would change is preparing statements.<br/>
-                        You are to retrieve the <span class="pink">db</span> object and it's child <span class="pink">connection</span> object before you do so.<br/>
+                        You are to retrieve the <span class="pink">db</span> object and it's child <span class="pink">connection</span> object which is an instance of the PDO class.<br/>
                         Consider the following code:<br/><br/>
 <pre>
 $sql =    "SELECT information_string "
         . "FROM DATA "
         . "LIMIT 1;";
 
-$stmt = $this->db->connection->prepare($sql);
-$stmt->execute();
+$stmt = $this->db->connection->prepare ($sql);
+$stmt->execute ();
 
-$result = $stmt->fetch(PDO::FETCH_ASSOC);
-$stmt->closeCursor();
+$result = $stmt->fetch (PDO::FETCH_ASSOC);
+$stmt->closeCursor ();
 
-return $result ? $result : false;
+return $result;
 </pre><br/>
                         <br/>
                         Like stated before; nothing changes except preparing a statement.<br/>
-                        You are to retrieve the <span class="pink">db</span> object from the local scope to then retrieve<br/>
-                        it's child object <span class="pink">connection</span> to then use the <span class="pink">prepare ()</span> method.<br/>
-                        
                         
                         <br/>
                         <h3><b>Using the Base Model</b></h3><br/>
@@ -443,7 +445,8 @@ $result->email;
                         The <span class="pink">fetchAll ()</span> however does returns an array but within that array we got the same <span class="pink">Data Objects</span> like before.<br/>
                         If we were to fetch more users with <span class="pink">fetchAll ()</span> and we want all their emails displayed this is how we would do it.<br/><br/>
 <pre>
-foreach ($result as $user) {
+foreach ($result as $user) 
+{
     
     echo $user->email;
 
@@ -454,7 +457,8 @@ foreach ($result as $user) {
                         Let's say we have this method in our model named <span class="pink">UserModel</span>:<br/></br/>
 <pre>
 
-public function getUser ($id) {
+public function getUser ($id) 
+{
     
     $sql = "SELECT * FROM user WHERE id = ?;";
 
@@ -472,38 +476,45 @@ public function getUser ($id) {
                         However with <span class="pink">Data Objects</span> we can make this method hybrid by using it like so in our controller:<br/><br/>
 <pre>
 
-    //If you only want the email address from the column "email".
-    $this->UserModel->getUser ($id)->email;
+//If you only want the email address from the column "email".
+$this->UserModel->getUser ($id)->email;
 
-    //If you only want the fullname from the column "fullname".
-    $this->UserModel->getUser ($id)->fullname;
+//If you only want the fullname from the column "fullname".
+$this->UserModel->getUser ($id)->fullname;
 
-    //If you only want the id from the column "id".
-    $this->UserModel->getUser ($id)->id;
+//If you only want the id from the column "id".
+$this->UserModel->getUser ($id)->id;
 
 </pre>
                         <br/>Easy, right?
-                        <br/><b>The usage of <span class="pink">Data Objects</span> allows us to write cleaner, more readable and maintainable code.</b><br/> 
+                        <br/><b>The usage of <span class="pink">Data Objects</span> allows us to quickly write clean, readable and maintainable code.</b><br/> 
+
+                        <br/><h2><b>EmmaTables</b></h2><br/>
+                        The quickest and easiest way of handling small database related tasks is using <span class="pink">EmmaTables</span>.<br/>
+                        You can read more about <span class="pink">EmmaTables</span> in their respective section.<br/>
+                        <br/>
 
                         <br/><h2><b>Using your homemade model</b></h2><br/>
                         So you've loaded in your model, now how do we use it?<br/>
                         Consider the following two files.<br/>
                         <br/>
-                        <b>WelcomeController</b>
+                        <b>IndexController</b>
 <pre>
-class WelcomeController extends EmmaController {
-    
-    function __construct () {
-        
-        parent::__construct ();
+class IndexController extends EmmaController 
+{
+
+    public function init () 
+    {
 
         $this->load->model ("DataModel");
         
     }
     
-    public function index() {
+    public function index() 
+    {
         
-        if ($data = $this->DataModel->getData ()) {
+        if ($data = $this->DataModel->getData ()) 
+        {
 
             echo $data;
 
@@ -516,15 +527,11 @@ class WelcomeController extends EmmaController {
 <br/>
                         <b>DataModel</b>
 <pre>
-class DataModel extends EmmaModel {
+class DataModel extends EmmaModel 
+{
     
-    function __construct() {
-        
-        parent::__construct();
-        
-    }
-    
-    public function getData() {
+    public function getData() 
+    {
         
         $sql =    "SELECT information_string "
                 . "FROM DATA "
@@ -542,12 +549,191 @@ class DataModel extends EmmaModel {
                         After examinating the code you will notice that<br/>
                         a loaded model will be dynamically created into an object in the local scope.<br/>
                         You may access your homemade model instance through <span class="pink">$this->DataModel</span>, or whatever you named it.<br/>
-                        <b>Note that your homemade models have public access modifiers,<br/>
-                            so /do not/ forget to make sensetive data private.</b>
                         
                     </div>
                     <!--models end-->
                         
+                    <!--tables-->
+                    <div class="ug_item" id="tables">
+                    
+                        <h1 class="pink"><b>EmmaPHP::Tables</b></h1>
+                        <br/>
+
+                        <br/><h2><b>EmmaTables</b></h2><br/>
+                        The quickest and easiest way of handling Database actions is using <span class="pink">EmmaTables</span>.<br/>
+                        <span class="pink">EmmaTables</span> is the quickest solution for small database tasks.<br/>
+                        Sure, using <span class="pink">DataObjects</span> with the <span class="pink">Database Class</span> takes away a lot of work and allows for rapid development.<br/>
+                        But things can always get faster.<br/>
+                        <br/>
+                        That's where <span class="pink">EmmaTables</span> come in.<br/>
+                        <span class="pink">EmmaTables</span> works as following; it allows you to fetch a row from the database,<br/>
+                        to then -- if you so please, edit the data and update it in the database <b>in no less than <i>two</i> lines.</b><br/>
+                        <br/>
+                        
+                        <h2><b>Table creation</b></h2><br/>
+                        <span class="pink">EmmaTables</span> are defined by defining a class in the tables folder.<br/>
+                        Unlike <span class="pink">Controllers</span> and <span class="pink">Models</span> there are even stricter naming rules on <span class="pink">EmmaTables</span>.<br/>
+                        When an <span class="pink">EmmaTable</span> is defined it will link itself to a database table upon definition.<br/>
+                        It does this simply by sharing the same name, <br>
+                        if I am to possess a database with a table named "users" and I am to define an <span class="pink">EmmaTable</span> for this database table.<br/>
+                        Then this is how it would be done:<br/>
+                        <br/>
+<pre>
+class UsersTable extends EmmaTable
+{}
+</pre>
+<br/>
+                        As you would notice the class defintion it's body is empty,<br/>
+                        that is because <span class="pink">EmmaTables</span> simply do not need any setup or actions done within their class defintion.<br/>
+                        All work is done in the desired <span class="pink">Controller</span>.
+                        <br/>
+                        If you do wish to create methods inside your <span class="pink">EmmaTable</span> you can,<br/>
+                        but please keep in mind that <span class="pink">EmmaTables</span> were made with simplicity in mind and it's focus on small tasks.<br/>
+                        You should <i>only</i> use <span class="pink">EmmaTables</span> for relatively small tasks.<br/>
+                        Therefore you should never over-complicate an <span class="pink">EmmaTable</span>.<br/>
+                        <br/>
+                        <h2><b>Loading a Table</b></h2><br/>
+                        Now that we've defined an <span class="pink">EmmaTable</span> we should load it where necessary.<br/>
+                        You can load an <span class="pink">EmmaTable</span> at any given time with the following code:<br/>
+                        <br/>
+<pre>
+$this->load->table ("UsersTable");
+</pre>
+<br/>
+                        <b><i>However</i> please note that the proper way of loading tables is by using the <span class="pink">AutoLoader</span>.<br/>
+                        The only scenario in which loading a table inside a controller is justified,<br/>
+                        is when you need a table specifically in that and <i>only</i> that controller.</b><br/>
+                        <br/>
+
+                        <br/><h2><b>Fetching data with tables</b></h2>
+                        <br/>
+                        Theres a few ways of using an <span class="pink">EmmaTable</span>.<br/>
+                        With <span class="pink">EmmaTables</span> you can find data, update data and insert data.<br/>
+                        <br/>
+                        <b>Finding data</b>
+                        <br/>
+                        The first step to doing anything with <span class="pink">EmmaTables</span> is to find data.<br/>
+                        There is however something you need before you can go and look for data, and that is a key.<br/>
+                        A key can be anything in a database table, any column can be a key,<br/>
+                        though most would rely on using the ID column,<br/>
+                        you are free to use anything else like an email or maybe a name.<br/>
+                        Anything you do with <span class="pink">EmmaTables</span> is done in a single line, and so is finding data.<br/>
+                        Here's how to do it.<br/>
+                        <br/>
+                        If I wanted to search for data in the Users table I could search by the users their ID like so:<br/>
+                        <br/>
+<pre>
+$this->UsersTable->find ("id", 3);
+</pre>
+                        <br/>
+                        When issued this command your <span class="pink">EmmaTable</span> will go and search the database<br/>
+                        for a row with a column <b>"id"</b> that has the value <b>3</b>.<br/>
+                        <br/>
+                        If let's say I'm searching for the one user that has the email address <b>"cool_girl1337@gmail.com"</b>.<br/>
+                        This is how I'd find him:<br/>
+                        <br/>
+<pre>
+$this->UsersTable->find ("email", "cool_girl1337@gmail.com");
+</pre>
+                        <br/>
+                        <b>Returned Table object</b><br/>
+                        What this returns is something that resembles a <span class="pink">DataObject</span>,<br/>
+                        though upon close investigation you will notice it's a little more complex.<br/>
+                        Just like <span class="pink">DataObjects</span> the object contains properties with the names<br/>
+                        of the database columns they came from and the values of these columns the row holds in the database.<br/>
+                        Though aside from that it also holds data about the <span class="pink">Table</span> itself.<br/>
+                        <br/>
+                        The object returned holds an array named <b>"properties"</b> holding the names of all columns,<br/>
+                        the key which you chose named <b>"key"</b>, in this case <b>"email"</b>,<br/>
+                        the key it's value named <b>"keyValue"</b>, in this case <b>"cool_dude1337@gmail.com"</b>,<br/>
+                        A reference to an instance of the <span class="pink">Database Class</span>, sort of a swiss knife<br/>
+                        and a property named <b>"tableName"</b>, in this case <b>"users"</b>.<br/>
+                        <br/>
+                        <br/><h2><b>Updating data</b></h2>
+                        <br/>
+                        Updating data is very easy.<br/>
+                        Once you've got a <span class="pink">Table</span> object from using <span class="pink">find ()</span>,<br/>
+                        it's a matter of changing a property and then saving the changes you made.<br/>
+                        Changing data is as simple as changing the value of a property.<br/>
+                        If let's say the object has a property named <b>"fullname"</b> and carries the value <b>"Jane Doe"</b>,<br/>
+                        this is how you would update it:<br/>
+                        <br/>
+<pre>
+$user = $this->UsersTable->find ("email", "cool_girl1337@gmail.com");
+
+$user->fullname = "Emma Awesome";
+
+$user->save ();
+</pre>
+                        <br/>
+                        <br/>
+                        When you've changed the property <b>"fullname"</b> it's value, all there is left to do is save your changes.<br/>
+                        Like displayed above you can save your changes using <span class="pink">save ()</span>.<br/>
+                        <br/>
+                        You could even do this in 2 lines like so!<br/>
+                        <br/>
+<pre>
+$this->UsersTable->find ("email", "cool_girl1337@gmail.com")->fullname = "Emma Awesome";
+
+$this->UsersTable->save ();
+</pre>
+                        <br/>
+                        <b>Please do note that there are a set of rules when it comes down to editing table data.</b><br/>
+                        <br/>
+                        <b>EmmaTables cannot update their key property</b><br/>
+                        Updating a key property can't be done as of yet, it's a thing that's still being worked on.<br/>
+                        <br/>
+                        <b>EmmaTables cannot fetch more than one row</b><br/>
+                        This one should be obvious since it has been stressed enough; <b>never use <span class="pink">EmmaTables</span> for big tasks.</b><br/>
+                        <br/>
+                        <b>EmmaTables shouldn't replace models</b><br/>
+                        Like the rule stated before; do not over complicate.<br/>
+                        EmmaTables should only be used if you need to quickly fetch an account,<br/>
+                        register a single user account or maybe delete one.<br/>
+                        And other small simple tasks like logging in and out or updating a setting.<br/>
+                        <br/>
+                        <b>Don't make Tables and Models work on the same tasks</b><br/>
+                        I feel like this shouldn't need explaining but it's a userguide so here goes;<br/>
+                        Don't do this because it'll end up in a really big mess.<br/>
+                        When engaging in a task decide whether it's simple enough for using a <span class="pink">Table</span>,<br/>
+                        if not then don't use them.<br/>
+                        Don't force <span class="pink">Models</span> and <span class="pink">Tables</span> to work together because<br/>
+                        things get really awkward with those two in the same room.<br/>
+                        <br/>
+
+                        <br/><h2><b>Inserting data</b></h2><br/>
+                        
+                        Inserting data with <span class="pink">EmmaTables</span> is a thing.<br/>
+                        And here is how it's done.<br/>
+                        Let's say our <b>"users"</b> <span class="pink">Table</span> has four columns in the database.<br/>
+                        Id, fullname, email address and age.<br/>
+                        Assuming the Id automatically increments we're not going to include that in our insert statement.<br/>
+                        So this is how it would happen:<br/>
+                        <br/>
+<pre>
+$this->UsersTable->insert 
+(
+    array
+    (
+        "fullname" => "Emma Awesome",
+        "email"    => "cool_girl1337@gmail.com",
+        "age"      => 20
+    )
+);
+</pre>
+                        <br/>
+                        As you can tell what you want to do is create an associative array.<br/>
+                        The keys in the array should be the column names you want to fill in <br/>
+                        and the values should be the values you want in them.<br/>
+                        <br/>
+                        Done, that's all.<br/>
+                        You've created a new row in the <span class="pink">Table</span> and sent it right to the database.<br/>
+                        And that in one line!
+
+                    </div>
+                    <!--tables end-->
+
+
                     <!--views-->
                     <div id="views" class="ug_item">
                     
@@ -563,7 +749,7 @@ class DataModel extends EmmaModel {
                         <br/>
                         <pre>
 &lt;head&gt;
-    &lt;title&gt;&lt;?=TITLE;?&gt;&lt;/title&gt;
+    &lt;title&gt;&lt;?= TITLE ;?&gt;&lt;/title&gt;
 &lt;/head&gt;
                         </pre>
                         <br/>
@@ -592,13 +778,17 @@ class DataModel extends EmmaModel {
                         Consider the following code to load a view within a controller:<br/>
                         <br/>
                         <pre>
-public function page($page = "welcome") {
+public function page($page = "welcome") 
+{
         
-    if( ! file_exists ("views/pages/" . $page . ".php")) {
+    if( ! file_exists ("views/pages/" . $page . ".php")) 
+    {
 
         $this->show_404 ();
 
-    } else {
+    } 
+    else 
+    {
 
         $this->load->view ("pages/" . $page . ".php");
 
@@ -628,19 +818,20 @@ public function page($page = "welcome") {
                         Accessing data from our <span class="pink">Controller</span> and displaying it on our <span class="pink">View</span> is easily done like this:<br/><br/>
                         <span class="pink">Controller</span>
 <pre>
-class MyController extends EmmaController {
+class MyController extends EmmaController 
+{
 
     protected $email;
 
-    public function __construct () {
-
-        parent::__construct ();
+    public function init () 
+    {
 
         $this->load->model ("UserModel");
 
     }
 
-    public function index () {
+    public function index () 
+    {
 
         $this->email = $this->UserModel->getUser (1)->email;
 
@@ -659,12 +850,12 @@ class MyController extends EmmaController {
                     <!--views end-->
 
 					
-					<!--parameters-->
-					<div id="parameters" class="ug_item">
+					<!--requests-->
+					<div id="requests" class="ug_item">
 					
-					<h1 class="pink"><b>EmmaPHP::Parameters</b></h1>
+					<h1 class="pink"><b>EmmaPHP::Requests</b></h1>
 					<br/>
-                    <h2><b>Parameters</b></h2>
+                    <h2><b>Requests</b></h2>
                     <br/>
 					Getting $_POST and $_GET variables goes via methods built into the base controller in <span class="pink">EmmaPHP</span>.<br/>
 					They are always available and do not need to be loaded.<br/>
@@ -672,15 +863,18 @@ class MyController extends EmmaController {
                     <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span> automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span><br/>
                     <br/><br/>
                     <pre>
-public function index () {
+public function index () 
+{
 
-    if ($this->getPost ("login_submit")) {
+    if ($this->getPost ("login_submit")) 
+    {
 
         $this->login ($this->getPost ("username"), $this->getPost ("password"));
 
     }
 
-    if ($username = $this->getGet ("username")) {
+    if ($username = $this->getGet ("username")) 
+    {
 
         $this->profile ($username);
 
@@ -690,7 +884,7 @@ public function index () {
                     </pre>
 
 					</div>
-					<!--end parameters-->
+					<!--end requests-->
                     
 					<!--redirecting-->
 					<div id="redirecting" class="ug_item">
@@ -732,7 +926,8 @@ $this->session->set ("email", catlover1337@cathost.cat);
 						Now to check if this variable is set and to fetch it we would do this.<br/><br/>
 
 <pre>
-if ($email = $this->session->get ("email")) {
+if ($email = $this->session->get ("email")) 
+{
 
 	echo $email;
 
@@ -791,15 +986,17 @@ $autoload = array ("UserModel", "DataModel", "BikiniModel");
                         Any native PHP class will run perfectly fine within <span class="pink">EmmaPHP</span>.<br/>
                         Here's an example of a <span class="pink">Mod</span>:<br/><br/>
 <pre>
-    class EchoBack {
+class EchoBack 
+{
 
-        public function echoBack ($string) {
+    public function echoBack ($string) 
+    {
 
-            echo $string;
-
-        }
+        echo $string;
 
     }
+
+}
 </pre>
                         <br/>
                         Now this is just an example and it isn't such a great <span class="pink">Mod</span>.<br/>
@@ -808,7 +1005,7 @@ $autoload = array ("UserModel", "DataModel", "BikiniModel");
                         A <span class="pink">Mod</span> can do anything.<br/>
                         <br/>
                         <b>How do I load a mod</b><br/>
-                        Loading a <span class="pink">Mod</span> is terrifyingly simple.<br/>
+                        Loading a <span class="pink">Mod</span> is very simple.<br/>
                         All you have to do is drag it into the <span class="pink">Mods</span> folder and that's it,<br/>
                         done, the <span class="pink">Framework</span> will load it automatically.<br/>
                         <br/>
@@ -824,7 +1021,7 @@ $autoload = array ("UserModel", "DataModel", "BikiniModel");
                         If I were to use the <span class="pink">Mod</span> I made earlier (<span class="pink">EchoBack</span>).<br/>
                         And I wanted to use it's method <span class="pink">echoBack ()</span> this is how I'd do it:<br/><br/>
 <pre>
-    EchoBack::echoBack ("Hello, Mods!");
+EchoBack::echoBack ("Hello, Mods!");
 </pre>
 <br/>
                         It's that easy.<br/>
