@@ -955,16 +955,31 @@ $this->session->nullify ("email");
 
                     <div id="autoloader" class="ug_item">
                         <h1 class="pink"><b>EmmaPHP::Autoloader</b></h1><br/>
-                        The autoloader is a System Component that automatically loads models into the controller.<br/>
-                        All it requires is a little configuration done in the <span class="pink">config/config.php</span><br/>
-                        All you need to do is put the names of the <span class="pink">model</span>'s class names into the array like so:<br/>
+                        The autoloader is a System Component that automatically loads models and tables into the controller.<br/>
+                        All it requires is a little configuration done in the <span class="pink">config/autoload.php</span><br/>
+                        All you need to do is put the names of the <span class="pink">Models</span> and <span class="pink">Tables</span> their class names into the array like so:<br/>
                         <br/>
 <pre>
-$autoload = array ("UserModel", "DataModel", "BikiniModel");
+$autoloadModels = array 
+(
+    "UserModel", 
+    "DataModel", 
+    "BikiniModel"
+);
+
+$autoloadTables = array 
+(
+    "UsersTable",
+    "ClientsTable",
+    "ProductsTable"
+);
 </pre>
                         <br/>
                         This will load the <span class="pink">UserModel</span>, the <span class="pink">DataModel</span> and the <span class="pink">BikiniModel</span> if they are present.<br/>
-                        Don't load models that aren't existant for explosions are noisy.
+                        Next to that it also loads the <span class="pink">UsersTable</span>, <span class="pink">ClientsTable</span> and the <span class="pink">ProductsTable</span>.<br/>
+                        <br/>
+                        <b>Please make sure you make good use of the <span class="pink">AutoLoader</span>.<br/>
+                            It helps keep <span class="pink">Controllers</span> clean and readable.</b>
                     </div>
 
                     <div id="security" class="ug_item">
