@@ -51,7 +51,7 @@ abstract class EmmaTable implements ITable
         // Add key to the query and add a comma only
         // if current index is not last in the array
         $i = 0;
-        foreach ($dataArray as $data)
+        foreach ($dataArray as $data) // Just using foreach as an increment
             ++$i < count($dataArray)
                 ? $query .= "?" . ", "
                 : $query .= "?" . ")";
@@ -100,7 +100,7 @@ abstract class EmmaTable implements ITable
                     : $query .= ", $prop = ? ";
 
         // Update by the supplied key via the find () method
-        $query .= "WHERE " . $this->key . " = " . $this->keyValue;
+        $query .= "WHERE " . $this->key . " = '" . $this->keyValue . "'";
 
         $query .= " LIMIT 1;";
 
@@ -126,12 +126,13 @@ abstract class EmmaTable implements ITable
                 {
 
                     array_push ($propertiesArray, $prop);
-                    array_push ($valuesArray, $this->$prop);
+                    array_push ($valuesArray,     $this->$prop);
 
                 }
 
             }
 
+//        die (var_dump ($query));
             $stmt->execute ($valuesArray);
 
             $error = $this->db->connection->errorInfo ();
@@ -145,6 +146,7 @@ abstract class EmmaTable implements ITable
 
         }
 
+        
     }
 
     public function find ($column, $key)
@@ -157,7 +159,7 @@ abstract class EmmaTable implements ITable
         SELECT *
           FROM $this->tableName
 
-          WHERE $column = ?
+          WHERE $this->key = ?
           LIMIT 1;
 SQL;
 
@@ -172,7 +174,7 @@ SQL;
             (
                 array
                 (
-                    $key
+                    $this->keyValue
                 )
             );
             $data_array = $stmt->fetch (PDO::FETCH_ASSOC);
