@@ -3,13 +3,13 @@
 /**
  * Core of the EmmaPHP MVC Framework.
  */
-class Core implements ISystemComponent
+class Core
 {
 
     static $instance;
     static $controller;
 
-    function __construct ()
+    private final function __construct ()
     {
 
         $this->initialize ();
@@ -19,12 +19,19 @@ class Core implements ISystemComponent
     private function initialize ()
     {
         
-        //Include all interfaces
+        // Include all configurations
+        require_once ("config/config.php");
+        require_once ("config/database.php");
+        require_once ("config/autoload.php");
+
+        // Include all interfaces
+        require_once ("system/isystemcomponent.php");
+        require_once ("system/isystemcomponentdatacompatible.php");
         require_once ("icontroller.php");
         require_once ("imodel.php");
         require_once ("itable.php");
 
-        //Include all components
+        // Include all components
         require_once ("loader.php");
         require_once ("dataobject.php");
         require_once ("mods.php");
@@ -73,10 +80,10 @@ class Core implements ISystemComponent
 
     public static function getInstance ()
     {
-
+        
         return self::$instance === null
-            ? new self ()
-            : false;
+            ?  self::$instance = new Core ()
+            :  $ref =& self::$instance;
 
     }
     

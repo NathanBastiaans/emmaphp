@@ -7,17 +7,15 @@
  * @version v1.0.0
  */
 
+// Define version
 define ("VERSION", "v1.0.0");
 
-require_once ("config/config.php");
-require_once ("config/autoload.php");
+// Include application config
 require_once ("config/application_config.php");
-require_once ("config/database.php");
 
-require_once ("system/isystemcomponent.php");
-require_once ("system/isystemcomponentdatacompatible.php");
+// Include core
 require_once ("system/core.php");
 
-
+// Run core
 $emma = Core::getInstance ();
 $emma->run ();

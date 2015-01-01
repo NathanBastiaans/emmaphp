@@ -36,7 +36,7 @@ class Database
 
         return Loader::$database === null
             ? new self ()
-            : $databaseReference =& Loader::$database;
+            : $ref =& Loader::$database;
 
     }
     
