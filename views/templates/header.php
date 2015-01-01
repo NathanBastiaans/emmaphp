@@ -46,10 +46,8 @@
 
             background-color: #DD1144;
             color: #FAFAFA;
-            /*z-index: 100;*/
             height: 100vh;
-            box-shadow: inset 0px 0px 100px rgba(0, 0, 0, 0.3);
-
+            
         }
 
         .content {
