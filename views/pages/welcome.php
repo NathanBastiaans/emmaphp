@@ -3,7 +3,7 @@
     <!--section_1-->
     <div class="section" id="section_1">
 
-        Version <b><?= VERSION ?></b>
+        <b><?= VERSION ?></b>
 
         <!--section_1_content-->
         <div class="content" id="section_1_content">
