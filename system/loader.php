@@ -36,55 +36,57 @@ class Loader implements ISystemComponent
         new Mods ();
         
     }
+    
+    private function getProperTableName ($tableNameArray, $i)
+    {
+
+        // Lowercase the first letter
+        array_splice
+        (
+            $tableNameArray,
+            0,
+            1,
+            strtolower ($tableNameArray[0])
+        );
+
+        // If Array index is a capitol
+        if (ctype_upper ($tableNameArray[$i]))
+        {
+
+            // Add an underscore before that index
+            array_splice
+            (
+                $tableNameArray,
+                $i,
+                0,
+                "_"
+            );
+
+            // Lowercase the index
+            array_splice
+            (
+                $tableNameArray,
+                $i + 1,
+                1,
+                strtolower ($tableNameArray[$i + 1])
+            );
+            $i++;
+
+        }
+
+        return $i < (count ($tableNameArray) - 1)
+            ? $this->getProperTableName ($tableNameArray, ++$i)
+            : str_replace ("_table", "", implode ($tableNameArray));
+
+    }
 
     public function getTable ($tableName)
     {
 
         $i = 2;
         $tableNameArray = str_split ($tableName);
-        function getProperTableName ($tableNameArray, $i)
-        {
-
-            // Lowercase the first letter
-            array_splice
-            (
-                $tableNameArray,
-                0,
-                1,
-                strtolower ($tableNameArray[0])
-            );
-
-            // If Array index is a capitol
-            if (ctype_upper ($tableNameArray[$i]))
-            {
-
-                // Add an underscore before that index
-                array_splice
-                (
-                    $tableNameArray,
-                    $i,
-                    0,
-                    "_"
-                );
-
-                // Lowercase the index
-                array_splice
-                (
-                    $tableNameArray,
-                    $i + 1,
-                    1,
-                    strtolower ($tableNameArray[$i + 1])
-                );
-                $i++;
-
-            }
-
-            return $i < (count ($tableNameArray) - 1)
-                ? getProperTableName ($tableNameArray, ++$i)
-                : str_replace ("_table", "", implode ($tableNameArray));
-
-        }
-        return getProperTableName ($tableNameArray, $i);
+        
+        return $this->getProperTableName ($tableNameArray, $i);
 
     }
     
