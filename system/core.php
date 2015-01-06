@@ -22,7 +22,7 @@ class Core
         // Include all configurations
         require_once ("config/config.php");
         require_once ("config/database.php");
-        require_once ("config/autoload.php");
+
 
         // Include all interfaces
         require_once ("system/isystemcomponent.php");
