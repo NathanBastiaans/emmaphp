@@ -219,4 +219,42 @@ SQL;
 
     }
     
+    public function count ($tablerow)
+    {
+        $this->tableRow = $tablerow;
+        
+        $sql = <<<SQL
+        SELECT
+          $this->tableRow
+
+        FROM $this->tableName
+SQL;
+        
+        if (DB)
+        {
+
+            if (DEBUG_MODE)
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $this->db->connection->prepare ($sql);
+            $stmt->execute();
+            $data = $stmt->rowCount ();
+            $stmt->closeCursor ();
+
+            $error = $this->db->connection->errorInfo ();
+
+            if
+            (
+                DEBUG_MODE
+             && $error[0] != "00000"
+            )
+                die (print_r ($this->db->connection->errorInfo ()));
+            
+            // If query returned result
+            return $data;
+
+        }
+        
+    }
+    
 }
