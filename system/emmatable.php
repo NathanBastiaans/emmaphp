@@ -257,4 +257,41 @@ SQL;
         
     }
     
+    public function delete ($column, $key)
+    {
+
+        $this->key      = $column;
+        $this->keyValue = $key;
+
+        $sql = <<<SQL
+        DELETE
+          FROM $this->tableName
+
+          WHERE $this->key = ?
+          LIMIT 1;
+SQL;
+
+        if (DB)
+        {
+
+            if (DEBUG_MODE)
+                $this->db->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+            $stmt = $this->db->connection->prepare ($sql);
+            $stmt->execute(array ($key));
+            $stmt->closeCursor ();
+
+            $error = $this->db->connection->errorInfo ();
+
+            if
+            (
+                DEBUG_MODE
+             && $error[0] != "00000"
+            )
+                die (print_r ($this->db->connection->errorInfo ()));
+
+        }
+
+    }
+    
 }
