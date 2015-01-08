@@ -23,7 +23,7 @@ class EmmaUploader
 
     }
 
-    static function uploadFile ($file , $uploadDir = UPLOADS_DIR)
+    static function uploadFile ($file , $uploadDir = self::UPLOADS_DIR)
     {
 
 	    // If no extensions were set
