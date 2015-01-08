@@ -11,6 +11,7 @@ abstract class EmmaTable implements ITable
 
     private $key;
     private $keyValue;
+    private $joinsString;
 
     function constructor ()
     {
@@ -89,7 +90,7 @@ abstract class EmmaTable implements ITable
     public function save ()
     {
 
-        $query = "UPDATE " . $this->tableName . " SET ";
+        $query = "UPDATE " . $this->tableName . " $this->joinsString SET ";
 
         // Add all properties to the "UPDATE SET"
         $i = 0;
@@ -100,9 +101,11 @@ abstract class EmmaTable implements ITable
                     : $query .= ", $prop = ? ";
 
         // Update by the supplied key via the find () method
-        $query .= "WHERE " . $this->key . " = '" . $this->keyValue . "'";
+        $query .= " WHERE $this->tableName." . $this->key . " = '" . $this->keyValue . "'";
 
-        $query .= " LIMIT 1;";
+//        $query .= " LIMIT 1;";
+
+//        die (var_dump ($query));
 
         if (DB)
         {
@@ -132,7 +135,6 @@ abstract class EmmaTable implements ITable
 
             }
 
-//        die (var_dump ($query));
             $stmt->execute ($valuesArray);
 
             $error = $this->db->connection->errorInfo ();
@@ -146,7 +148,44 @@ abstract class EmmaTable implements ITable
 
         }
 
-        
+
+    }
+
+    public function join ($table, $on, $thisOn)
+    {
+
+        $this->joinsString .= <<<SQL
+            JOIN $table ON $table.$on = $this->tableName.$thisOn
+SQL;
+
+    }
+
+    public function leftJoin ($table, $on, $thisOn)
+    {
+
+        $this->joinsString .= <<<SQL
+            LEFT JOIN $table ON $table.$on = $this->tableName.$thisOn
+SQL;
+
+    }
+
+    public function rightJoin ($table, $on, $thisOn)
+    {
+
+        $this->joinsString .= <<<SQL
+            RIGHT JOIN $table ON $table.$on = $this->tableName.$thisOn
+SQL;
+
+    }
+
+    public function innerJoin ($table, $on, $thisOn)
+    {
+
+        $this->joinsString .= <<<SQL
+            INNER JOIN $table ON $on = $thisOn
+
+SQL;
+
     }
 
     public function find ($column, $key)
@@ -158,6 +197,8 @@ abstract class EmmaTable implements ITable
         $sql = <<<SQL
         SELECT *
           FROM $this->tableName
+
+          $this->joinsString
 
           WHERE $this->key = ?
           LIMIT 1;
@@ -218,18 +259,18 @@ SQL;
         }
 
     }
-    
+
     public function count ($tablerow)
     {
         $this->tableRow = $tablerow;
-        
+
         $sql = <<<SQL
         SELECT
           $this->tableRow
 
         FROM $this->tableName
 SQL;
-        
+
         if (DB)
         {
 
@@ -249,14 +290,14 @@ SQL;
              && $error[0] != "00000"
             )
                 die (print_r ($this->db->connection->errorInfo ()));
-            
+
             // If query returned result
             return $data;
 
         }
-        
+
     }
-    
+
     public function delete ($column, $key)
     {
 
@@ -293,5 +334,5 @@ SQL;
         }
 
     }
-    
+
 }
