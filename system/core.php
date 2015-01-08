@@ -3,20 +3,12 @@
 /**
  * Core of the EmmaPHP MVC Framework.
  */
-class Core
+final class Core
 {
 
-    static $instance;
     static $controller;
 
-    private final function __construct ()
-    {
-
-        $this->initialize ();
-        
-    }
-    
-    private function initialize ()
+    public function __construct ()
     {
         
         // Include all configurations
@@ -41,11 +33,6 @@ class Core
         require_once ("emmatable.php");
         require_once ("session.php");
         require_once ("autoloader.php");
-        
-    }
-    
-    public function run ()
-    {
         
         /*
          * If controller is not set default to
@@ -75,15 +62,6 @@ class Core
         
         // Use the loader to load the controller
         Core::$controller = $this->load->controller ($controller_actual);
-
-    }
-
-    public static function getInstance ()
-    {
-        
-        return self::$instance === null
-            ?  self::$instance = new Core ()
-            :  $ref =& self::$instance;
 
     }
     

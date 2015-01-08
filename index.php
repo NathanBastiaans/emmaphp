@@ -4,7 +4,7 @@
  * EmmaPHP Model View Table Controller Framework.
  * @author Bob Desaunois
  * 
- * @version v1.0.0
+ * @version v1.0.3
  */
 
 // Define version
@@ -17,5 +17,4 @@ require_once ("config/application_config.php");
 require_once ("system/core.php");
 
 // Run core
-$emma = Core::getInstance ();
-$emma->run ();
+new Core ();
