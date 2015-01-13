@@ -4,7 +4,7 @@ interface ITable
 {
 
     function __construct ();
-    function initialize ();
+    function initialize ($name);
 
     function getTable ($tableName);
     function getTableName ();

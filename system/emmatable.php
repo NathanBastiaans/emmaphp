@@ -21,7 +21,7 @@ abstract class EmmaTable implements ITable
 
     }
 
-    private function getProperTableName ($tableNameArray, $i)
+    public function getProperTableName ($tableNameArray, $i)
     {
 
         // Lowercase the first letter
