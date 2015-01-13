@@ -6,15 +6,20 @@ class AutoLoader implements ISystemComponent
     function __construct ()
     {
 
-        require_once ("config/autoload.php");
+        include ("config/autoload.php");
 
         if (count ($autoloadModels) > 0)
             foreach ($autoloadModels as $model)
                 EmmaController::$instance->load->model ($model);
 
-        if (count ($autoloadTables) > 0)
-            foreach ($autoloadTables as $table)
-                EmmaController::$instance->load->table ($table);
+        // Load all tables
+        $table_files = scandir ("tables");
+
+        for ($i = 0; $i <= 2; $i++)
+            array_splice ($table_files, 0, 1);
+
+        foreach ($table_files as $file)
+            require_once ("tables/" . $file);
 
     }
 

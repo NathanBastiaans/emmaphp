@@ -13,10 +13,64 @@ abstract class EmmaTable implements ITable
     private $keyValue;
     private $joinsString;
 
-    function constructor ()
+    public function __construct ()
     {
 
         $this->db = Database::getInstance ();
+        $this->initialize ($this->getTable (get_called_class()));
+
+    }
+
+    private function getProperTableName ($tableNameArray, $i)
+    {
+
+        // Lowercase the first letter
+        array_splice
+        (
+            $tableNameArray,
+            0,
+            1,
+            strtolower ($tableNameArray[0])
+        );
+
+        // If Array index is a capitol
+        if (ctype_upper ($tableNameArray[$i]))
+        {
+
+            // Add an underscore before that index
+            array_splice
+            (
+                $tableNameArray,
+                $i,
+                0,
+                "_"
+            );
+
+            // Lowercase the index
+            array_splice
+            (
+                $tableNameArray,
+                $i + 1,
+                1,
+                strtolower ($tableNameArray[$i + 1])
+            );
+            $i++;
+
+        }
+
+        return $i < (count ($tableNameArray) - 1)
+            ? $this->getProperTableName ($tableNameArray, ++$i)
+            : str_replace ("_table", "", implode ($tableNameArray));
+
+    }
+
+    public function getTable ($tableName)
+    {
+
+        $i = 2;
+        $tableNameArray = str_split ($tableName);
+
+        return $this->getProperTableName ($tableNameArray, $i);
 
     }
 
