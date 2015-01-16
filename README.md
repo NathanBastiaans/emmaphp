@@ -1,7 +1,7 @@
 EmmaPHP
 =======
 
-Extremely Lightweight PHP Framework 
+Lightweight PHP Framework 
 focusing on rapid development of complex applications using as little code as possible.
 All in all it's pretty good, actually.
 
