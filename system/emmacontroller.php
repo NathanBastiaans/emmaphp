@@ -80,7 +80,7 @@ abstract class EmmaController implements IController {
 
     }
 
-    protected function getPostArray ($param_postname) {
+    protected function postArray ($param_postname) {
 
         return isset ($_POST[$param_postname]) 
             ? $_POST[$param_postname]
@@ -88,7 +88,7 @@ abstract class EmmaController implements IController {
 
     }
 
-    protected function getPost ($param_postname)
+    protected function post ($param_postname)
     {
 
         return isset ($_POST[$param_postname]) 
@@ -97,7 +97,7 @@ abstract class EmmaController implements IController {
 
     }
 
-    protected function getGet ($param_getname)
+    protected function get ($param_getname)
     {
 
         return isset ($_GET[$param_getname]) 
@@ -106,7 +106,7 @@ abstract class EmmaController implements IController {
 
     }
     
-    protected function getGetArray ($param_getname)
+    protected function getArray ($param_getname)
     {
 
         return isset ($_GET[$param_getname]) 
