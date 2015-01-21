@@ -45,7 +45,7 @@ abstract class EmmaController implements IController {
         
     }
 
-    protected function generateSalt ()
+    protected function generateRandomStringWithPseudoBytes ($length)
     {
 
         return sha1 (openssl_random_pseudo_bytes (100));
