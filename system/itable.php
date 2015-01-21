@@ -17,6 +17,7 @@ interface ITable
     function leftJoin ($table, $on, $thisOn);
     function rightJoin ($table, $on, $thisOn);
     function innerJoin ($table, $on, $thisOn);
+    function outerJoin ($table, $on, $thisOn);
     function count ($tablerow);
 
 }

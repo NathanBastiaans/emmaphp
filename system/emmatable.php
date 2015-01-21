@@ -11,13 +11,14 @@ abstract class EmmaTable implements ITable
 
     private $key;
     private $keyValue;
+    private $joinedKeys;
     private $joinsString;
 
     public function __construct ()
     {
 
         $this->db = Database::getInstance ();
-        $this->initialize ($this->getTable (get_called_class()));
+        $this->initialize ($this->getTable (get_called_class ()));
 
     }
 
@@ -79,7 +80,8 @@ abstract class EmmaTable implements ITable
     public function initialize ($name)
     {
 
-        $this->tableName = $name;
+        $this->tableName   = $name;
+        $this->joinedKeys  = array ();
 
     }
 
@@ -149,17 +151,13 @@ abstract class EmmaTable implements ITable
         // Add all properties to the "UPDATE SET"
         $i = 0;
         foreach ($this->properties as $prop)
-            if ($prop != "id")
-                $i++ == 0
-                    ? $query .= "$prop = ?"
-                    : $query .= ", $prop = ? ";
+            if ($prop != "id" && ! in_array($prop, $this->joinedKeys))
+                    $i++ == 0
+                        ? $query .= "$prop = ?"
+                        : $query .= ", $prop = ? ";
 
         // Update by the supplied key via the find () method
         $query .= " WHERE $this->tableName." . $this->key . " = '" . $this->keyValue . "'";
-
-//        $query .= " LIMIT 1;";
-
-//        die (var_dump ($query));
 
         if (DB)
         {
@@ -179,7 +177,7 @@ abstract class EmmaTable implements ITable
             foreach ($this->properties as $prop)
             {
 
-                if ($prop != "id")
+                if ($prop != "id" && ! in_array($prop, $this->joinedKeys))
                 {
 
                     array_push ($propertiesArray, $prop);
@@ -208,8 +206,14 @@ abstract class EmmaTable implements ITable
     public function join ($table, $on, $thisOn)
     {
 
+        if ($on == $this->key)
+            die ("[" . $this->tableName .
+                 "] AMBIGIUOUS KEYS CRASH. JOINED TABLE DETECTED WITH IDENTICLE KEY TO ORIGINAL TABLE.");
+
+        array_push ($this->joinedKeys, $on);
+
         $this->joinsString .= <<<SQL
-            JOIN $table ON $table.$on = $this->tableName.$thisOn
+            JOIN $table ON ($table.$on = $this->tableName.$thisOn)
 SQL;
 
     }
@@ -217,8 +221,14 @@ SQL;
     public function leftJoin ($table, $on, $thisOn)
     {
 
+        if ($on == $this->key)
+            die ("[" . $this->tableName .
+                 "] AMBIGIUOUS KEYS CRASH. JOINED TABLE DETECTED WITH IDENTICLE KEY TO ORIGINAL TABLE.");
+
+        array_push ($this->joinedKeys, $on);
+
         $this->joinsString .= <<<SQL
-            LEFT JOIN $table ON $table.$on = $this->tableName.$thisOn
+            LEFT JOIN $table ON ($table.$on = $this->tableName.$thisOn)
 SQL;
 
     }
@@ -226,8 +236,14 @@ SQL;
     public function rightJoin ($table, $on, $thisOn)
     {
 
+        if ($on == $this->key)
+            die ("[" . $this->tableName .
+                 "] AMBIGIUOUS KEYS CRASH. JOINED TABLE DETECTED WITH IDENTICLE KEY TO ORIGINAL TABLE.");
+
+        array_push ($this->joinedKeys, $on);
+
         $this->joinsString .= <<<SQL
-            RIGHT JOIN $table ON $table.$on = $this->tableName.$thisOn
+            RIGHT JOIN $table ON ($table.$on = $this->tableName.$thisOn)
 SQL;
 
     }
@@ -235,9 +251,29 @@ SQL;
     public function innerJoin ($table, $on, $thisOn)
     {
 
-        $this->joinsString .= <<<SQL
-            INNER JOIN $table ON $on = $thisOn
+        if ($on == $this->key)
+            die ("[" . $this->tableName .
+                 "] AMBIGIUOUS KEYS CRASH. JOINED TABLE DETECTED WITH IDENTICLE KEY TO ORIGINAL TABLE.");
 
+        array_push ($this->joinedKeys, $on);
+
+        $this->joinsString .= <<<SQL
+            INNER JOIN $table ON ($table.$on = $this->tableName.$thisOn)
+SQL;
+
+    }
+
+    public function outerJoin ($table, $on, $thisOn)
+    {
+
+        if ($on == $this->key)
+            die ("[" . $this->tableName .
+                 "] AMBIGIUOUS KEYS CRASH. JOINED TABLE DETECTED WITH IDENTICLE KEY TO ORIGINAL TABLE.");
+
+        array_push ($this->joinedKeys, $on);
+
+        $this->joinsString .= <<<SQL
+            OUTER JOIN $table ON ($table.$on = $this->tableName.$thisOn)
 SQL;
 
     }
@@ -295,12 +331,18 @@ SQL;
                 foreach ($data_array as $data)
                 {
 
-                    $ran++ == 0 ? prev ($data_array) : false;
+                    if ( ! in_array ($data, $this->properties))
+                    {
 
-                    $key        = key ($data_array);
-                    array_push ($this->properties, $key);
-                    $this->$key = $data;
-                    next ($data_array);
+                        $ran++ == 0 ? prev ($data_array) : false;
+
+                        $key        = key ($data_array);
+                        array_push ($this->properties, $key);
+                        $this->$key = $data;
+                        next ($data_array);
+
+                    }
+
 
                 }
 
