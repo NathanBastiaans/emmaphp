@@ -127,30 +127,6 @@ class Loader implements ISystemComponent
 
     }
 
-//    public function table ($param_table)
-//    {
-//
-//        // Find the file and include it
-//        $table_file_name = str_replace ("Table", "", $param_table);
-//        $table_name_actual = ucfirst ($param_table);
-//        require_once ("tables/" . strtolower ($table_file_name) . ".php");
-//
-//        // Create Table object
-//        $table_object = new $table_name_actual ($table_name_actual);
-//        $table_object->constructor ();
-//        if (method_exists($table_object, "init"))
-//            $table_object->init ();
-//
-//        // Link the table to the loader to load and initialize it
-//        self::$table        =& $table_object;
-//        self::$table_name   =  $table_name_actual;
-//
-//        // Load and initialize the table into the controller as an object
-//        EmmaController::$instance->$table_name_actual =& self::$table;
-//        EmmaController::$instance->$table_name_actual->initialize ($this->getTable ($param_table));
-//
-//    }
-
     public function view ($param_view)
     {
         
