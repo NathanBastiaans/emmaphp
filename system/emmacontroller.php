@@ -52,6 +52,11 @@ abstract class EmmaController implements IController {
 
     }
 
+    protected function generateRandomString ($length)
+    {
+
+        return substr (sha1 (mt_rand (0, 100)), 0, $length);
+
     }
 
     protected function encrypt ($string)
