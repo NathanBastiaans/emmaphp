@@ -22,7 +22,7 @@ class Mods implements ISystemComponent
         
         $mod_files = scandir ("mods");
         
-        for ($i = 0; $i <= 2; $i++) 
+        for ($i = 0; $i <= 1; $i++) 
             array_splice ($mod_files, 0, 1);
         
         foreach ($mod_files as $file)

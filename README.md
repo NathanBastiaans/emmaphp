@@ -11,6 +11,8 @@ Made by Bob Desaunois
 
 Website: bobdesaunois.github.io / bobdesaunois.github.io/emmaphp
 
+Currently @thies4321 is building a community website on www.emmaphp.nl
+
 Email: bobdesaunois@gmail.com
 
 Twitter: @Developer_Bob
