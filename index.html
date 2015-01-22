@@ -693,6 +693,7 @@ $users->save ();
 $users = new UsersTable ();
 $users->join ("PersonalDataTable", "user_id", "id");
 $users->join ("DriversLicensesTable", "user_id", "id");
+$users->find ("email", "numberphilic_dude_1995@hotmail.com");
 
 $users->insurance_number = 192837465;
 $users->license_number   = 133780085;
