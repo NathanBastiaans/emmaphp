@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Made by Thies Verhave
+ * @author Thies Verhave
  * Instructions on http://bobdesaunois.github.io/emmaphp/
  */
 
