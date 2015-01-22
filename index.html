@@ -72,7 +72,7 @@ She's a beaut, isn't she?
             <!--section_1-->
             <div class="section" id="section_1">
                 
-                Version <b>1.0.0</b>
+                Version <b>1.1.0</b>
                 
                 <!--section_1_content-->
                 <div class="content" id="section_1_content">
@@ -83,7 +83,7 @@ She's a beaut, isn't she?
                     
                     <!--description-->
                     <div class="center" id="description">
-                        The cutest PHP MVTC Framework out there.
+                        The cutest PHP MVC Framework out there.
                     </div>
                     <!--description end-->
                     
@@ -179,8 +179,8 @@ She's a beaut, isn't she?
 						Please set the "BASEPATH" constant to the URL location of the framework.<br/>
                         You can set the "TITLE" constant to whatever you wish to be the title in the HTML head.<br/>
                         and then there's autoload.php, this is the configuration file for the <span class="pink">AutoLoader</span><br/>
-                        The <span class="pink">AutoLoader</span> is configured with two separate autoloading arrays.<br/>
-                        More about those arrays in the <span class="pink">AutoLoader</span> section.
+                        The <span class="pink">AutoLoader</span> is configured with an array,<br/>
+                        more about that in the <span class="pink">AutoLoader</span> section.
 
                     </div>
                     <!--configuration end-->
@@ -605,13 +605,9 @@ class UsersTable extends EmmaTable
                         You can load an <span class="pink">EmmaTable</span> at any given time with the following code:<br/>
                         <br/>
 <pre>
-$this->load->table ("UsersTable");
+$users = new UsersTable ();
 </pre>
 <br/>
-                        <b><i>However</i> please note that the proper way of loading tables is by using the <span class="pink">AutoLoader</span>.<br/>
-                        The only scenario in which loading a table inside a controller is justified,<br/>
-                        is when you need a table specifically in that and <i>only</i> that controller.</b><br/>
-                        <br/>
 
                         <br/><h2><b>Fetching data with Tables</b></h2>
                         <br/>
@@ -631,7 +627,7 @@ $this->load->table ("UsersTable");
                         If I wanted to search for data in the Users table I could search by the users their ID like so:<br/>
                         <br/>
 <pre>
-$this->UsersTable->find ("id", 3);
+$users->find ("id", 3);
 </pre>
                         <br/>
                         When issued this command your <span class="pink">EmmaTable</span> will go and search the database<br/>
@@ -641,7 +637,7 @@ $this->UsersTable->find ("id", 3);
                         This is how I'd find him:<br/>
                         <br/>
 <pre>
-$this->UsersTable->find ("email", "cool_girl1337@gmail.com");
+$users->find ("email", "cool_girl1337@gmail.com");
 </pre>
                         <br/>
                         <b>Returned Table object</b><br/>
@@ -667,7 +663,7 @@ $this->UsersTable->find ("email", "cool_girl1337@gmail.com");
                         this is how you would update it:<br/>
                         <br/>
 <pre>
-$user = $this->UsersTable->find ("email", "cool_girl1337@gmail.com");
+$user = $users->find ("email", "cool_girl1337@gmail.com");
 
 $user->fullname = "Emma Awesome";
 
@@ -681,12 +677,34 @@ $user->save ();
                         You could even do this in 2 lines like so!<br/>
                         <br/>
 <pre>
-$this->UsersTable->find ("email", "cool_girl1337@gmail.com")->fullname = "Emma Awesome";
+$users->find ("email", "cool_girl1337@gmail.com")->fullname = "Emma Awesome";
 
-$this->UsersTable->save ();
+$users->save ();
 </pre>
                         <br/>
                         <b>Please do note that there are a set of rules when it comes down to editing table data.</b><br/>
+                        <br/><br/>
+                        <h2><b>Joining Tables</b></h2><br/>
+                        <span class="pink">EmmaTables</span> can also join tables.<br/>
+                        Joining EmmaTables to then fetch something is done like so:<br/>
+                        <br>
+<pre>
+$users = new UsersTable ();
+$users->join ("PersonalDataTable", "user_id", "id");
+$users->join ("DriversLicensesTable", "user_id", "id");
+
+$users->insurance_number = 192837465;
+$users->license_number   = 133780085;
+
+$users->save ();
+
+</pre>
+                        <br/>
+                        As you can tell joining is done by three parameters.<br/>
+                        The first one requires the table you want to join with, the second one the key you want to join on from that table.<br/>
+                        And the third one is the key that your original table needs to join with.<br/>
+                        <br/>
+
                         <br/>
                         <b>EmmaTables cannot fetch more than one row</b><br/>
                         This one should be obvious since it has been stressed enough; <b>never use <span class="pink">EmmaTables</span> for big tasks.</b><br/>
@@ -865,20 +883,20 @@ class MyController extends EmmaController
 					Getting $_POST and $_GET variables goes via methods built into the base controller in <span class="pink">EmmaPHP</span>.<br/>
 					They are always available and do not need to be loaded.<br/>
                     <br/>
-                    <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span> automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span><br/>
+                    <span class="pink">$this->post ()</span> and <span class="pink">$this->get ()</span> automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span><br/>
                     <br/><br/>
                     <pre>
 public function index () 
 {
 
-    if ($this->getPost ("login_submit")) 
+    if ($this->post ("login_submit"))
     {
 
-        $this->login ($this->getPost ("username"), $this->getPost ("password"));
+        $this->login ($this->post ("username"), $this->getPost ("password"));
 
     }
 
-    if ($username = $this->getGet ("username")) 
+    if ($username = $this->get ("username"))
     {
 
         $this->profile ($username);
@@ -887,6 +905,8 @@ public function index ()
 
 }
                     </pre>
+                        <br/>
+                        There's also <span class="pink">$this->postArray()</span> and <span class="pink">$this->getArray()</span> for when dealing with arrays.
 
 					</div>
 					<!--end requests-->
@@ -954,7 +974,7 @@ $this->session->nullify ("email");
                         <h1 class="pink"><b>EmmaPHP::Autoloader</b></h1><br/>
                         The <span class="pink">AutoLoader</span> is a <span class="pink">System Component</span> that automatically loads <span class="pink">Models</span> and <span class="pink">Tables</span> into the <span class="pink">Controller</span>.<br/>
                         All it requires is a little configuration done in the <span class="pink">config/autoload.php</span><br/>
-                        All you need to do is put the names of the <span class="pink">Models</span> and <span class="pink">Tables</span> their class names into the array like so:<br/>
+                        All you need to do is put the names of the <span class="pink">Models</span> their class names into the array like so:<br/>
                         <br/>
 <pre>
 $autoloadModels = array 
@@ -963,17 +983,9 @@ $autoloadModels = array
     "DataModel", 
     "BikiniModel"
 );
-
-$autoloadTables = array 
-(
-    "UsersTable",
-    "ClientsTable",
-    "ProductsTable"
-);
 </pre>
                         <br/>
                         This will load the <span class="pink">UserModel</span>, the <span class="pink">DataModel</span> and the <span class="pink">BikiniModel</span> if they are present.<br/>
-                        Next to that it also loads the <span class="pink">UsersTable</span>, <span class="pink">ClientsTable</span> and the <span class="pink">ProductsTable</span>.<br/>
                         <br/>
                         <b>Please make sure you make good use of the <span class="pink">AutoLoader</span>.<br/>
                             It helps keep <span class="pink">Controllers</span> clean and readable.</b>
@@ -986,11 +998,11 @@ $autoloadTables = array
                         The methods I speak of are the following;<br/>
                         <br/>
                         There's <span class="pink">$this->encrypt ()</span> which accepts a string to encrypt, it uses the SHA1 encryption method.<br/>
-                        And then there's the <span class="pink">$this->generateSalt ()</span> method which generates a salt.<br/>
-                        The salt is an encrypted string of 100 random pseudo bytes<br/>
-                        because PHP's <span class="pink">rand ()</span> & <span class="pink">mt_rand ()</span> are not random enough.<br/>
+                        And then there's the <span class="pink">$this->generateRandomString ()</span> method which generates a random string<br/>
+                        as long as you supply as parameter,<br/>
+                        so a random string with 80 characters would be <span class="pink">$this->generateRandomString (80);</span>
                         <br/>
-                        On the topic of security it is also very useful to know that <span class="pink">$this->getPost ()</span> and <span class="pink">$this->getGet ()</span><br/>
+                        On the topic of security it is also very useful to know that <span class="pink">$this->post ()</span> and <span class="pink">$this->get ()</span><br/>
                         automatically filter the input with <span class="pink">FILTER_SANITIZE_FULL_SPECIAL_CHARS</span>
 
                     </div>
@@ -1046,6 +1058,11 @@ EchoBack::echoBack ("Hello, Mods!");
 <br/>
                         It's that easy.<br/>
                         And remember, you can call a <span class="pink">Mod</span> anywhere after it's been loaded in by the <span class="pink">Core</span>.
+
+                        <br/><br/>
+                        <b>Getting a database connection in a mod</b>
+                        <br/>
+                        If you require a database connection for your mod please use <span class="pink">Loader::$database</span>.
 
                     </div>
 
