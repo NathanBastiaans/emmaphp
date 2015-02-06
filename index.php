@@ -4,11 +4,11 @@
  * EmmaPHP Model View Table Controller Framework.
  * @author Bob Desaunois
  * 
- * @version v1.1.0
+ * @version v1.2.1
  */
 
 // Define version
-define ("VERSION", "v1.1.0");
+define ("VERSION", "v1.2.1");
 
 // Include application config
 require_once ("config/application_config.php");
