@@ -115,11 +115,42 @@ abstract class EmmaController implements IController {
 
     }
 
-    protected function redirect ($url)
+    protected function redirect ($url, $status = 0)
     {
 
         if (isset ($url))
         {
+            
+            if ( $status != 0 ) {
+                
+                switch ( $status ) {
+                    
+                    case 301: 
+                        header('HTTP/1.1 301 Moved Permanently');
+                        break;
+                        
+                    case 307:
+                        header('HTTP/1.1 307 Temporary Redirect');
+                        break;
+                        
+                    case 401:
+                        header('HTTP/1.1 401 Unauthorized');
+                        break;
+                    
+                    case 403:
+                        header('HTTP/1.1 403 Forbidden');
+                        break;
+                        
+                    case 404: 
+                        header('HTTP/1.1 404 Not Found');
+                        break;
+                        
+                    default:
+                        header('HTTP/1.1 307 Temporary Redirect');
+                        break;
+                }
+                
+            }
 
             header ("Location: " . $url);
             exit (0);
