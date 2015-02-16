@@ -1,6 +1,6 @@
 <?php
 
-class Session implements ISystemComponent
+class Session
 {
 
     function __construct ()
@@ -40,14 +40,6 @@ class Session implements ISystemComponent
     {
 
         $_SESSION[$var_name] = null;
-
-    }
-
-
-    public static function getInstance ()
-    {
-
-        return new Session;
 
     }
     

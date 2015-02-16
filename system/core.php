@@ -31,7 +31,6 @@ final class Core
         require_once ("system/emmacontroller.php");
         require_once ("system/emmamodel.php");
         require_once ("system/emmatable.php");
-        require_once ("system/session.php");
         require_once ("system/autoloader.php");
         
         /*

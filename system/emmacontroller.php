@@ -28,8 +28,8 @@ abstract class EmmaController implements IController {
         $this->load = Loader::$instance;
         self::$instance =& $this;
 
-        //create the session object
-        self::$instance->session = new Session ();
+        //create the session object [OBSOLETE]
+//         self::$instance->session = new Session ();
 
         //Method and argument back references.
         if (isset ($_GET["m"])) 
