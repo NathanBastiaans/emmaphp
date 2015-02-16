@@ -1,2 +1,5 @@
 /nbproject/
 /.idea/
+.buildpath
+.project
+.settings
