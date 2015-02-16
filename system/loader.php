@@ -110,7 +110,7 @@ class Loader implements ISystemComponent
         //Find, include and make the model ready
         $model_file_name = str_replace ("Model", "", $param_model);
         $model_name      = ucfirst ($param_model);
-        require_once ("models/" . strtolower ($model_file_name) . ".php");
+        require_once ("application/models/" . strtolower ($model_file_name) . ".php");
 
         //Create the model object
         $model_object = new $model_name ();

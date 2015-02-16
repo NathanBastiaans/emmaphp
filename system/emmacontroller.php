@@ -43,6 +43,12 @@ abstract class EmmaController implements IController {
 
         AutoLoader::getInstance ();
         
+		/*
+		 * Changing the working directory to "application"
+		 * since we don't really need anything from the system folder.
+		 */
+        chdir ("application");
+        
     }
 
     protected function generateRandomStringWithPseudoBytes ($length)

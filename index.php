@@ -11,7 +11,7 @@
 define ("VERSION", "v1.2.1");
 
 // Include application config
-require_once ("config/application_config.php");
+require_once ("application/config/application_config.php");
 
 // Include core
 require_once ("system/core.php");
