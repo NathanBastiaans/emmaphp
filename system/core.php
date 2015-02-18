@@ -38,11 +38,8 @@ final class Core
          * the default controller.
          * If the controller is set we use it. 
          */
-        if ( ! isset ($_GET["c"]))
-            if (isset ($_SESSION["controller"]))
-                $_GET["c"] = $_SESSION["controller"];
-            else
-                $_GET["c"] = DEFAULT_CONTROLLER;
+         if ( ! isset ($_GET["c"]))
+         	$_GET["c"] = DEFAULT_CONTROLLER;
 
         // Check for the controller's actual file.
         if ( ! file_exists ("application/controllers/" . $_GET["c"] . ".php"))
