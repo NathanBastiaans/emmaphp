@@ -17,21 +17,21 @@ final class Core
 
 
         // Include all interfaces
-        require_once ("system/isystemcomponent.php");
-        require_once ("system/isystemcomponentdatacompatible.php");
-        require_once ("system/icontroller.php");
-        require_once ("system/imodel.php");
-        require_once ("system/itable.php");
+        require_once ("system/interfaces/isystemcomponent.php");
+        require_once ("system/interfaces/isystemcomponentdatacompatible.php");
+        require_once ("system/interfaces/icontroller.php");
+        require_once ("system/interfaces/imodel.php");
+        require_once ("system/interfaces/itable.php");
 
         // Include all components
-        require_once ("system/loader.php");
-        require_once ("system/dataobject.php");
-        require_once ("system/mods.php");
-        require_once ("system/database.php");
-        require_once ("system/emmacontroller.php");
-        require_once ("system/emmamodel.php");
-        require_once ("system/emmatable.php");
-        require_once ("system/autoloader.php");
+        require_once ("system/components/loader.php");
+        require_once ("system/components/dataobject.php");
+        require_once ("system/components/mods.php");
+        require_once ("system/components/database.php");
+        require_once ("system/components/emmacontroller.php");
+        require_once ("system/components/emmamodel.php");
+        require_once ("system/components/emmatable.php");
+        require_once ("system/components/autoloader.php");
         
         /*
          * If controller is not set default to
