@@ -16,8 +16,8 @@ class Session
     public function getAndNullify ($var_name)
     {
         
-        $val = $this->get ($var_name);
-        $this->nullify ($var_name);
+        $val = self::get ($var_name);
+        self::nullify ($var_name);
         return $val;
         
     }
