@@ -1,5 +1,9 @@
 <?php
 
+/*****************
+ *  ! UNTESTED ! *
+ *****************/
+
 class Cookie
 {
     
@@ -30,7 +34,7 @@ class Cookie
     static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly = false)
     {
 
-        setcookie($varName, $value, $time, "/", BASEPATH, $secure, $httpOnly);
+        setcookie ($varName, $value, $time, "/", BASEPATH, $secure, $httpOnly);
 
     }
 
