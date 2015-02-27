@@ -8,6 +8,13 @@ final class Core
 
     static $controller;
 
+    /**
+     * Constructor for the core
+     * it loads in all configuration and interfaces
+     * and then continues to load all components.
+     * When that's done the Loader component will be loaded in an instructed
+     * to load the designated controller.
+     */
     public function __construct ()
     {
         
@@ -59,5 +66,12 @@ final class Core
         Core::$controller = $this->load->controller ($controllerActual);
 
     }
+    
+    static function getRekt ()
+    {
+
+		throw new Exception ("Get #REKT", 1337);
+    	
+	}
     
 }
