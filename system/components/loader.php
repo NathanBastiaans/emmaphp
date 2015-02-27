@@ -16,16 +16,12 @@ class Loader implements ISystemComponent
     static $controller;
     static $database;
     
+    /**
+     * Prepares the loader to do whatever necessary.
+     */
     function __construct ()
     {
         
-        $this->initialize ();
-
-    }
-    
-    private function initialize ()
-    {
-
         // Load database
         self::$database = Database::getInstance();
 
@@ -34,9 +30,14 @@ class Loader implements ISystemComponent
         
         //Load all mods
         ModLoader::getInstance ();
-        
+
     }
 
+    /**
+     * Loads a controller into the framework
+     * 
+     * @param string $paramController
+     */
     public function controller ($paramController)
     {
         
@@ -104,6 +105,11 @@ class Loader implements ISystemComponent
         
     }
     
+    /**
+     * Loads a model into the framework
+     * 
+     * @param string $paramModel
+     */
     public function model ($paramModel)
     {
         
@@ -127,6 +133,11 @@ class Loader implements ISystemComponent
 
     }
 
+    /**
+     * Instructs the controller to load and render a view
+     * 
+     * @param string $paramView
+     */
     public function view ($paramView)
     {
         
@@ -135,10 +146,17 @@ class Loader implements ISystemComponent
         
     }
 
+    /**
+     * Instance control
+     * 
+     * @return Loader
+     */
     public static function getInstance ()
     {
 
-        return new Loader;
+        return self::$instance === null
+        	? self::$instance = new self
+        	: $ref =& self::$instance;
 
     }
     

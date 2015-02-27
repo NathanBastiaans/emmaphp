@@ -3,24 +3,28 @@
 class DataObject implements ISystemComponentDataCompatible
 {
 
-    function __construct ($data_array)
+	/**
+	 * Assume a data structure much like an array does
+	 * @param array $dataArray
+	 */
+    function __construct ($dataArray)
     {
 
-        foreach ($data_array as $data)
+        foreach ($dataArray as $data)
         {
 
-            $key        = key ($data_array);
+            $key        = key ($dataArray);
             $this->$key = $data;
-            next ($data_array);
+            next ($dataArray);
 
         }
 
     }
 
-    public static function getInstance ($data_array)
+    public static function getInstance ($dataArray)
     {
 
-        return new DataObject ($data_array);
+        return new DataObject ($dataArray);
 
     }
 

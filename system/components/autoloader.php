@@ -3,6 +3,11 @@
 class AutoLoader implements ISystemComponent
 {
 
+	/**
+	 * Constructor autoloader
+	 * Loads all models assigned to the autoloader
+	 * and passively loads all tables
+	 */
     function __construct ()
     {
 
@@ -13,12 +18,12 @@ class AutoLoader implements ISystemComponent
                 EmmaController::$instance->load->model ($model);
 
         // Load all tables
-        $table_files = scandir ("application/tables");
+        $tableFiles = scandir ("application/tables");
 
         for ($i = 0; $i <= 2; $i++)
-            array_splice ($table_files, 0, 1);
+            array_splice ($tableFiles, 0, 1);
 
-        foreach ($table_files as $file)
+        foreach ($tableFiles as $file)
             require_once ("application/tables/" . $file);
 
     }

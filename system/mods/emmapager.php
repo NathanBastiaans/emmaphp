@@ -25,11 +25,11 @@ class EmmaPager {
         
         $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         
-        $data_objects = array ();
+        $dataObjects = array ();
             foreach ($result as $results)
-                array_push ($data_objects, DataObject::getInstance ($results));
+                array_push ($dataObjects, DataObject::getInstance ($results));
 
-            return $result ? $data_objects : false;
+            return $result ? $dataObjects : false;
         
     }
     

@@ -15,6 +15,9 @@ abstract class EmmaController implements IController {
     protected $method;
     protected $arg;
 
+    /**
+     * @see IController::constructor()
+     */
     public function constructor ()
     {
         
@@ -51,6 +54,13 @@ abstract class EmmaController implements IController {
         
     }
 
+    /**
+     * Generates a random string using OpenSSL of pseudobytes based on the supplied length.
+     * This requires openssl.
+     * 
+     * @param integer $length
+     * @return string
+     */
     protected function generateRandomStringWithPseudoBytes ($length)
     {
 
@@ -58,6 +68,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Generates a random string based on the supplied length
+     * 
+     * @param integer $length
+     * @return string
+     */
     protected function generateRandomString ($length)
     {
 
@@ -65,6 +81,13 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Applies a sha1 encryption on the supplied string
+     * and returns it back to the user
+     * 
+     * @param string $string
+     * @return string
+     */
     protected function encrypt ($string)
     {
 
@@ -72,6 +95,11 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Loads a view to return to the user
+     * 
+     * @param string $paramView
+     */
     private function doInitView ($paramView)
     {
 
@@ -79,6 +107,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * A static way to call the active controller instance
+     * to set a view to render for the user
+     * 
+     * @param string $paramView
+     */
     static function initView ($paramView)
     {
 
@@ -86,6 +120,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Returns a post global that's an array
+     * 
+     * @param string $paramPostName
+     * @return Ambigous <boolean, array>
+     */
     protected function postArray ($paramPostName) {
 
         return isset ($_POST[$paramPostName]) 
@@ -94,6 +134,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Returns the requested post global
+     * 
+     * @param string $paramPostName
+     * @return Ambigous <boolean, string>
+     */
     protected function post ($paramPostName)
     {
 
@@ -103,6 +149,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Returns the request get global
+     * 
+     * @param string $paramGetName
+     * @return Ambigous <boolean, string>
+     */
     protected function get ($paramGetName)
     {
 
@@ -111,7 +163,13 @@ abstract class EmmaController implements IController {
             : false;
 
     }
-    
+
+    /**
+     * Returns a get global that's an array
+     * 
+     * @param string $paramGetName
+     * @return Ambigous <boolean, array>
+     */
     protected function getArray ($paramGetName)
     {
 
@@ -121,6 +179,12 @@ abstract class EmmaController implements IController {
 
     }
 
+    /**
+     * Redirects the user to an URL
+     * 
+     * @param string $url
+     * @param integer $status
+     */
     protected function redirect ($url, $status = 0)
     {
 
@@ -164,7 +228,10 @@ abstract class EmmaController implements IController {
         }
 
     }
-    
+
+    /**
+     * Renders the customizable 404 page
+     */
     protected function fourOhFour ()
     {
         

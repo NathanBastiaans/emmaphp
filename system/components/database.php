@@ -5,6 +5,10 @@ class Database
 
     public $connection;
 
+    /**
+     * By defining a private final constructor we restrict manual
+     * instancing of the database class from the outside.
+     */
     private final function __construct ()
     {
         
@@ -12,8 +16,16 @@ class Database
         
     }
 
+    /**
+     * By defining a private final __clone () 
+     * we restrict the usage of the cloning statement 
+     * on all instances of our database object.
+     */
     private final function __clone () {}
     
+    /**
+     * Establishes a database connection using the PDO object.
+     */
     private function initialize ()
     {
         
@@ -31,6 +43,11 @@ class Database
         
     }
 
+    /**
+     * Either returns a new Database instance if there isn't one in place already
+     * or returns a reference to the already in place database object
+     * @return Ambigous <Database, &Database>
+     */
     public static function getInstance ()
     {
 
