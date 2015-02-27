@@ -24,14 +24,13 @@ final class Core
         require_once ("system/interfaces/itable.php");
 
         // Include all components
-        require_once ("system/components/loader.php");
-        require_once ("system/components/dataobject.php");
-        require_once ("system/components/modloader.php");
-        require_once ("system/components/database.php");
-        require_once ("system/components/emmacontroller.php");
-        require_once ("system/components/emmamodel.php");
-        require_once ("system/components/emmatable.php");
-        require_once ("system/components/autoloader.php");
+        $sys_files = scandir ("system/components");
+        
+        for ($i = 0; $i <= 1; $i++) 
+            array_splice ($sys_files, 0, 1);
+        
+        foreach ($sys_files as $file)
+            require_once ("system/components/" . $file);
         
         /*
          * If controller is not set default to
