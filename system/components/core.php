@@ -26,7 +26,7 @@ final class Core
         // Include all components
         require_once ("system/components/loader.php");
         require_once ("system/components/dataobject.php");
-        require_once ("system/components/mods.php");
+        require_once ("system/components/modloader.php");
         require_once ("system/components/database.php");
         require_once ("system/components/emmacontroller.php");
         require_once ("system/components/emmamodel.php");

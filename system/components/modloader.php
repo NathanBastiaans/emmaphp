@@ -1,16 +1,9 @@
 <?php
 
-class Mods implements ISystemComponent
+class ModLoader implements ISystemComponent
 {
     
     public function __construct()
-    {
-        
-        $this->initialize ();
-        
-    }
-    
-    private function initialize ()
     {
         
         $this->loadAllMods ();
@@ -33,7 +26,7 @@ class Mods implements ISystemComponent
     public static function getInstance()
     {
         
-        return new Mods ();
+        return new self ();
         
     }
 

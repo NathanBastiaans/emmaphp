@@ -33,7 +33,7 @@ class Loader implements ISystemComponent
         self::$instance =& $this;
         
         //Load all mods
-        new Mods ();
+        ModLoader::getInstance ();
         
     }
 
