@@ -8,10 +8,9 @@ class IndexController extends EmmaController
 
     public function index ()
     {
-
-	   	$this->page ();
-// 	   	Core::getRekt();
     	
+	   	$this->page ();
+
     }
     
     public function page ($page = "welcome")
@@ -20,7 +19,7 @@ class IndexController extends EmmaController
         if ( ! file_exists ("views/pages/" . $page . ".php"))
         {
             
-            $this->show_404 ();
+            $this->fourOhFour ();
             
         }
         else
