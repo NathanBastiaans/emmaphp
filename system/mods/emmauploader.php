@@ -86,7 +86,7 @@ class EmmaUploader
 		
     }
 
-	public function image_fix_orientation ( $filename )
+	public function imageFixOrientation ( $filename )
 	{
 	
 		$exif = exif_read_data ( $filename );
