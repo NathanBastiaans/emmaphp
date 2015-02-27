@@ -8,11 +8,11 @@ class Loader implements ISystemComponent
     
     static $instance;
     static $model;
-    static $model_name;
+    static $modelName;
 //    static $table;
 //    static $table_name;
     static $mod;
-    static $mod_name;
+    static $modName;
     static $controller;
     static $database;
     
@@ -37,11 +37,11 @@ class Loader implements ISystemComponent
         
     }
 
-    public function controller ($param_controller)
+    public function controller ($paramController)
     {
         
         // Create given controller object
-        $controller = new $param_controller ();
+        $controller = new $paramController ();
         $controller->constructor ();
         if (method_exists ($controller, "init"))
             $controller->init ();
@@ -104,34 +104,34 @@ class Loader implements ISystemComponent
         
     }
     
-    public function model ($param_model)
+    public function model ($paramModel)
     {
         
         //Find, include and make the model ready
-        $model_file_name = str_replace ("Model", "", $param_model);
-        $model_name      = ucfirst ($param_model);
-        require_once ("application/models/" . strtolower ($model_file_name) . ".php");
+        $modelFileName = str_replace ("Model", "", $paramModel);
+        $modelName      = ucfirst ($paramModel);
+        require_once ("application/models/" . strtolower ($modelFileName) . ".php");
 
         //Create the model object
-        $model_object = new $model_name ();
-        $model_object->constructor ();
-        if (method_exists ($model_object, "init"))
-            $model_object->init ();
+        $modelObject = new $modelName ();
+        $modelObject->constructor ();
+        if (method_exists ($modelObject, "init"))
+            $modelObject->init ();
 
         //Link the model to the loader to load and initialize it
-        self::$model        =& $model_object;
-        self::$model_name   =  $model_name;
+        self::$model       =& $modelObject;
+        self::$modelName   =  $modelName;
 
         //Load and initialize it into the controller as an object
-        EmmaController::$instance->$model_name =& self::$model;
+        EmmaController::$instance->$modelName =& self::$model;
 
     }
 
-    public function view ($param_view)
+    public function view ($paramView)
     {
         
         //Load a view
-        EmmaController::$instance->initView ($param_view);
+        EmmaController::$instance->initView ($paramView);
         
     }
 

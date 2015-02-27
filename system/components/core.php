@@ -24,12 +24,12 @@ final class Core
         require_once ("system/interfaces/itable.php");
 
         // Include all components
-        $sys_files = scandir ("system/components");
+        $sysFiles = scandir ("system/components");
         
         for ($i = 0; $i <= 1; $i++) 
-            array_splice ($sys_files, 0, 1);
+            array_splice ($sysFiles, 0, 1);
         
-        foreach ($sys_files as $file)
+        foreach ($sysFiles as $file)
             require_once ("system/components/" . $file);
         
         /*
@@ -49,14 +49,14 @@ final class Core
         require_once ("application/controllers/" . $_GET["c"] . ".php");
 
         // Link it, detach the GET request and add the Controller affix.
-        $controller_actual = $_GET["c"] . "Controller";
+        $controllerActual = $_GET["c"] . "Controller";
         $_GET["c"] = null;
         
         // Define the loader
         $this->load = new Loader ();
         
         // Use the loader to load the controller
-        Core::$controller = $this->load->controller ($controller_actual);
+        Core::$controller = $this->load->controller ($controllerActual);
 
     }
     

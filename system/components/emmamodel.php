@@ -85,12 +85,12 @@ abstract class EmmaModel implements IModel
                 if ($error[0] != "00000")
                     die (print_r ($this->db->connection->errorInfo ()));
 
-            $data_objects = array ();
+            $dataObjects = array ();
             foreach ($results as $result)
-                array_push ($data_objects, DataObject::getInstance ($result));
+                array_push ($dataObjects, DataObject::getInstance ($result));
 
             //Send all data objects in an array
-            return $results ? $data_objects : false;
+            return $results ? $dataObjects : false;
 
         }
         

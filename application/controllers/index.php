@@ -9,8 +9,10 @@ class IndexController extends EmmaController
     public function index ()
     {
 
-        $this->page ();
-
+//     	Cookie::set("TestCookie", 15, $time);
+    	
+//         $this->page ();
+       	
     }
     
     public function page ($page = "welcome")

@@ -3,35 +3,35 @@
 class Session
 {
     
-    static function getAndNullify ($var_name)
+    static function getAndNullify ($varName)
     {
         
-        $val = self::get ($var_name);
-        self::nullify ($var_name);
+        $val = self::get ($varName);
+        self::nullify ($varName);
         return $val;
         
     }
 
-    static function get ($var_name)
+    static function get ($varName)
     {
 
-        return isset ($_SESSION[$var_name]) 
-        	? $_SESSION[$var_name] 
+        return isset ($_SESSION[$varName]) 
+        	? $_SESSION[$varName] 
         	: false;
 
     }
 
-    static function set ($var_name, $value)
+    static function set ($varName, $value)
     {
 
-        $_SESSION[$var_name] = $value;
+        $_SESSION[$varName] = $value;
 
     }
 
-    static function nullify ($var_name)
+    static function nullify ($varName)
     {
 
-        $_SESSION[$var_name] = null;
+        $_SESSION[$varName] = null;
 
     }
     

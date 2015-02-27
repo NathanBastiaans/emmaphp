@@ -72,51 +72,51 @@ abstract class EmmaController implements IController {
 
     }
 
-    private function doInitView ($param_view)
+    private function doInitView ($paramView)
     {
 
-        include ("views/" . $param_view);
+        include ("views/" . $paramView);
 
     }
 
-    static function initView ($param_view)
+    static function initView ($paramView)
     {
 
-        self::$instance->doInitView ($param_view);
+        self::$instance->doInitView ($paramView);
 
     }
 
-    protected function postArray ($param_postname) {
+    protected function postArray ($paramPostName) {
 
-        return isset ($_POST[$param_postname]) 
-            ? $_POST[$param_postname]
+        return isset ($_POST[$paramPostName]) 
+            ? $_POST[$paramPostName]
         : false;
 
     }
 
-    protected function post ($param_postname)
+    protected function post ($paramPostName)
     {
 
-        return isset ($_POST[$param_postname]) 
-            ? filter_var ($_POST[$param_postname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
+        return isset ($_POST[$paramPostName]) 
+            ? filter_var ($_POST[$paramPostName], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
             : false;
 
     }
 
-    protected function get ($param_getname)
+    protected function get ($paramGetName)
     {
 
-        return isset ($_GET[$param_getname]) 
-            ? filter_var ($_GET[$param_getname], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
+        return isset ($_GET[$paramGetName]) 
+            ? filter_var ($_GET[$paramGetName], FILTER_SANITIZE_FULL_SPECIAL_CHARS) 
             : false;
 
     }
     
-    protected function getArray ($param_getname)
+    protected function getArray ($paramGetName)
     {
 
-        return isset ($_GET[$param_getname]) 
-            ? $_GET[$param_getname]
+        return isset ($_GET[$paramGetName]) 
+            ? $_GET[$paramGetName]
             : false;
 
     }
@@ -165,7 +165,7 @@ abstract class EmmaController implements IController {
 
     }
     
-    protected function show_404 ()
+    protected function fourOhFour ()
     {
         
         $this->load->view ("fourohfour.php");
