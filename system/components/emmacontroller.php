@@ -29,10 +29,13 @@ abstract class EmmaController implements IController {
         //Method and argument back references.
         if (isset ($_GET["m"])) 
             $m = filter_var ($_GET["m"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
         if (isset ($_GET["a"])) 
             $a = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        
         if (isset ($m)) 
             $this->method = $m;
+        
         if (isset ($a)) 
             $this->arg    = $a;
 
