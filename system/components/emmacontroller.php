@@ -20,14 +20,9 @@ abstract class EmmaController implements IController {
      */
     public function constructor ()
     {
-        
-        //Sanity check for session
-        if ( ! isset ($_SESSION))
-            session_start ();
             
         // Link loader to controller
         // and the controller instance to itself
-        $_SESSION["controller"] = $_GET["c"];
         $this->load = Loader::$instance;
         self::$instance =& $this;
 
