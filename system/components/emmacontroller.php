@@ -23,7 +23,7 @@ abstract class EmmaController implements IController {
             
         // Link loader to controller
         // and the controller instance to itself
-        $this->load = Loader::$instance;
+        $this->load 	= Loader::$instance;
         self::$instance =& $this;
 
         //Method and argument back references.
