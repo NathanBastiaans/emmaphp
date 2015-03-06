@@ -56,7 +56,7 @@ abstract class EmmaController implements IController {
      * @param integer $length
      * @return string
      */
-    protected function generateRandomStringWithPseudoBytes ($length)
+    protected function generateRandomStringWithPseudoBytes ($length = 8)
     {
 
         return substr (sha1 (openssl_random_pseudo_bytes (100)), 0, $length);
@@ -69,7 +69,7 @@ abstract class EmmaController implements IController {
      * @param integer $length
      * @return string
      */
-    protected function generateRandomString ($length)
+    protected function generateRandomString ($length = 8)
     {
 
         return substr (sha1 (mt_rand (0, 100)), 0, $length);
