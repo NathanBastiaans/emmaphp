@@ -149,7 +149,9 @@ abstract class EmmaTable implements ITable
             $stmt = $this->db->connection->prepare ($query);
 
             $stmt->execute ($valuesArray);
-
+            
+            return $this->db->connection->lastInsertId ();
+            
             $error = $this->db->connection->errorInfo ();
 
             if
