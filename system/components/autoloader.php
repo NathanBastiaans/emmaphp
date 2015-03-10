@@ -18,10 +18,7 @@ class AutoLoader implements ISystemComponent
                 EmmaController::$instance->load->model ($model);
 
         // Load all tables
-        $tableFiles = scandir ("application/tables");
-
-        for ($i = 0; $i <= 2; $i++)
-            array_splice ($tableFiles, 0, 1);
+        $tableFiles = glob ("application/tables/*.php");
 
         foreach ($tableFiles as $file)
             require_once ("application/tables/" . $file);
