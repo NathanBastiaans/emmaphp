@@ -13,11 +13,8 @@ class ModLoader implements ISystemComponent
     private function loadAllMods ()
     {
         
-        $modFiles = scandir ("system/mods");
-        
-        for ($i = 0; $i <= 1; $i++) 
-            array_splice ($modFiles, 0, 1);
-        
+        $modFiles = glob ("system/mods/*.php");
+
         foreach ($modFiles as $file)
             require_once ("system/mods/" . $file);
         
