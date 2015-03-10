@@ -32,11 +32,8 @@ final class Core
         require_once ("system/interfaces/itable.php");
 
         // Include all components
-        $sysFiles = scandir ("system/components");
-        
-        for ($i = 0; $i <= 1; $i++) 
-            array_splice ($sysFiles, 0, 1);
-        
+        $sysFiles = glob ("system/components/*.php");
+
         foreach ($sysFiles as $file)
             require_once ("system/components/" . $file);
         
