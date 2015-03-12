@@ -16,7 +16,7 @@ class ModLoader implements ISystemComponent
         $modFiles = glob ("system/mods/*.php");
 
         foreach ($modFiles as $file)
-            require_once ("system/mods/" . $file);
+            require_once ($file);
         
     }
 

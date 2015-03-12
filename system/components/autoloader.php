@@ -21,7 +21,7 @@ class AutoLoader implements ISystemComponent
         $tableFiles = glob ("application/tables/*.php");
 
         foreach ($tableFiles as $file)
-            require_once ("application/tables/" . $file);
+            require_once ($file);
 
     }
 

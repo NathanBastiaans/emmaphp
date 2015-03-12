@@ -35,7 +35,7 @@ final class Core
         $sysFiles = glob ("system/components/*.php");
 
         foreach ($sysFiles as $file)
-            require_once ("system/components/" . $file);
+            require_once ($file);
         
         /*
          * If controller is not set default to
