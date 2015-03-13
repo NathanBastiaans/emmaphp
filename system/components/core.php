@@ -6,7 +6,7 @@
 final class Core
 {
 
-	static $loader;
+    static $loader;
     static $controller;
 
     /**
@@ -61,7 +61,7 @@ final class Core
         $this->load = Loader::getInstance ();
         
         // Register the loader to the core
-		self::$loader = Loader::getInstance ();
+        self::$loader = Loader::getInstance ();
         
         // Use the loader to load the controller
         self::$controller = $this->load->controller ($controllerActual);
