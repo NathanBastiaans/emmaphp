@@ -94,7 +94,7 @@ class Loader implements ISystemComponent
                 $controller->index();
 
         }
-
+    
         // Link the controller to the loader
         self::$controller =& $controller;
         
@@ -138,10 +138,21 @@ class Loader implements ISystemComponent
      */
     public function view ($paramView)
     {
+    	
+    	if ( ! file_exists ("views/pages/" . $paramView . ".php"))
+    	{
+    	
+    		self::$controller->fourOhFour ();
+    	
+    	}
+    	else
+    	{
         
         //Load a view
-        EmmaController::$instance->initView ($paramView);
-        
+        self::$controller->initView ($paramView);
+		
+    	}
+    	
     }
 
     /**
