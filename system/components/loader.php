@@ -9,8 +9,6 @@ class Loader implements ISystemComponent
     static $instance;
     static $model;
     static $modelName;
-//    static $table;
-//    static $table_name;
     static $mod;
     static $modName;
     static $controller;
