@@ -70,17 +70,21 @@ class Loader implements ISystemComponent
                         . " is not a public method.");
 
                 }
+                //Check if arguments were supplied through GET
                 else if (isset ($_GET["a"]))
                 {
                     
-                    //Check if arguments should be supplied
+                	// Filter the arguments
                     $args = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    
+                    // Run the desired method with applied arguments
                     $controller->$_GET["m"] ($args);
 
                 }
                 else
                 {
 
+                	// Run the desired method without any arguments
                     $controller->$_GET["m"] ();
 
                 }
