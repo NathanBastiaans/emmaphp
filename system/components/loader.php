@@ -91,7 +91,9 @@ class Loader implements ISystemComponent
 
             }
 
-        } else { // if $_GET["m"] isn't set
+        } 
+        else
+        { // if $_GET["m"] isn't set
 
             // If the index method exists within the controller, we run it.
             if (method_exists($controller, "index"))
