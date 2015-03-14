@@ -63,7 +63,7 @@ final class Core
         self::$loader = Loader::getInstance ();
         
         // Use the loader to load the controller
-        self::$controller = $this->load->controller ($controllerActual);
+        $this->load->controller ($controllerActual);
 
     }
     
