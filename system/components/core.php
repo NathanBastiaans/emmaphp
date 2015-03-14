@@ -7,7 +7,6 @@ final class Core
 {
 
     static $loader;
-    static $controller;
 
     /**
      * Constructor for the core
