@@ -45,6 +45,9 @@ class Loader implements ISystemComponent
         if (method_exists ($controller, "init"))
             $controller->init ();
 
+        // Link the controller instance to the loader
+        self::$controller =& $controller;
+        
         /*
          * Check for a supplied method with the GET
          * If set we check if it's public and execute it if not
@@ -79,13 +82,15 @@ class Loader implements ISystemComponent
                     
                     // Run the desired method with applied arguments
                     $controller->$_GET["m"] ($args);
-
+					return;
+                    
                 }
                 else
                 {
 
                 	// Run the desired method without any arguments
                     $controller->$_GET["m"] ();
+                    return;
 
                 }
 
@@ -98,12 +103,11 @@ class Loader implements ISystemComponent
             // If the index method exists within the controller, we run it.
             if (method_exists($controller, "index"))
                 $controller->index();
+            
+            return;
 
         }
     
-        // Link the controller to the loader
-        self::$controller =& $controller;
-        
         // Return the reference to the controller instance back to the Core
         return self::$controller;
         
@@ -144,7 +148,7 @@ class Loader implements ISystemComponent
      */
     public function view ($paramView)
     {
-    	
+
     	if ( ! file_exists ("views/pages/" . $paramView . ".php"))
     	{
     	
