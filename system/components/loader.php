@@ -112,7 +112,7 @@ class Loader implements ISystemComponent
     {
         
         //Find, include and make the model ready
-        $modelFileName = str_replace ("Model", "", $paramModel);
+        $modelFileName  = str_replace ("Model", "", $paramModel);
         $modelName      = ucfirst ($paramModel);
         require_once ("application/models/" . strtolower ($modelFileName) . ".php");
 
@@ -148,8 +148,8 @@ class Loader implements ISystemComponent
     	else
     	{
         
-        //Load a view
-        self::$controller->initView ($paramView);
+	        //Load a view
+	        self::$controller->initView ($paramView);
 		
     	}
     	
