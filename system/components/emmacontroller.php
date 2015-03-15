@@ -227,7 +227,7 @@ abstract class EmmaController implements IController {
     /**
      * Renders the customizable 404 page
      */
-    protected function fourOhFour ()
+    public function fourOhFour ()
     {
         
         $this->load->view ("fourohfour.php");

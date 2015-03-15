@@ -139,10 +139,10 @@ class Loader implements ISystemComponent
      * 
      * @param string $paramView
      */
-    public function view ($paramView)
+    public static function view ($paramView)
     {
 
-    	if ( ! file_exists ("views/pages/" . $paramView . ".php"))
+    	if ( ! file_exists ("views/" . $paramView))
     	{
     	
     		self::$controller->fourOhFour ();

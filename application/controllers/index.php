@@ -16,9 +16,9 @@ class IndexController extends EmmaController
     public function page ($page = "welcome")
     {
             
-    	$this->load->view ("templates/header.php");
-    	$this->load->view ("pages/" . $page . ".php");
-    	$this->load->view ("templates/footer.php");
+    	Loader::view ("templates/header.php");
+    	Loader::view ("pages/" . $page . ".php");
+    	Loader::view ("templates/footer.php");
         
     }
 
