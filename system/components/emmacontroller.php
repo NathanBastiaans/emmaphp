@@ -9,11 +9,11 @@ abstract class EmmaController implements IController {
     static $instance;
     static $table;
     
-    public $load;
-
     protected $session;
     protected $method;
     protected $arg;
+
+    public $load;
 
     /**
      * @see IController::constructor()
@@ -26,7 +26,7 @@ abstract class EmmaController implements IController {
         $this->load 	= Loader::$instance;
         self::$instance =& $this;
 
-        //Method and argument back references.
+        // Method and argument back references.
         if (isset ($_GET["m"])) 
             $m = filter_var ($_GET["m"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         
