@@ -82,7 +82,6 @@ class Loader implements ISystemComponent
                     
                     // Run the desired method with applied arguments
                     $controller->$_GET["m"] ($args);
-					return;
                     
                 }
                 else
@@ -90,7 +89,6 @@ class Loader implements ISystemComponent
 
                 	// Run the desired method without any arguments
                     $controller->$_GET["m"] ();
-                    return;
 
                 }
 
@@ -103,13 +101,8 @@ class Loader implements ISystemComponent
             // If the index method exists within the controller, we run it.
             if (method_exists($controller, "index"))
                 $controller->index();
-            
-            return;
 
         }
-    
-        // Return the reference to the controller instance back to the Core
-        return self::$controller;
         
     }
     
