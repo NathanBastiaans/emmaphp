@@ -3,8 +3,6 @@
 interface ISystemComponentDataCompatible
 {
 
-    function __construct ($data);
-
-    public static function getInstance ($data);
+    static function getInstance ($data);
 
 }
