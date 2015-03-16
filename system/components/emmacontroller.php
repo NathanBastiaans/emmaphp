@@ -50,11 +50,7 @@ abstract class EmmaController implements IController {
     }
 
     /**
-     * Generates a random string using OpenSSL of pseudobytes based on the supplied length.
-     * This requires openssl.
-     * 
-     * @param integer $length
-     * @return string
+     * @see IController::generateRandomStringWithPseudoBytes()
      */
     protected function generateRandomStringWithPseudoBytes ($length = 8)
     {
@@ -64,10 +60,7 @@ abstract class EmmaController implements IController {
     }
 
     /**
-     * Generates a random string based on the supplied length
-     * 
-     * @param integer $length
-     * @return string
+     * @see IController::generateRandomString()
      */
     protected function generateRandomString ($length = 8)
     {
@@ -77,11 +70,7 @@ abstract class EmmaController implements IController {
     }
 
     /**
-     * Applies a sha1 encryption on the supplied string
-     * and returns it back to the user
-     * 
-     * @param string $string
-     * @return string
+     * @see IController::encrypt()
      */
     protected function encrypt ($string)
     {
@@ -91,9 +80,7 @@ abstract class EmmaController implements IController {
     }
 
     /**
-     * Loads a view to return to the user
-     * 
-     * @param string $paramView
+     * @see IController::doInitView()
      */
     private function doInitView ($paramView)
     {
@@ -103,10 +90,7 @@ abstract class EmmaController implements IController {
     }
 
     /**
-     * A static way to call the active controller instance
-     * to set a view to render for the user
-     * 
-     * @param string $paramView
+     * @see IController::initView()
      */
     static function initView ($paramView)
     {
