@@ -23,7 +23,6 @@ abstract class EmmaTable implements ITable
     }
 
     /**
-     * Returns a proper tablename
      * @see ITable::getProperTableName()
      */
     public function getProperTableName ($tableNameArray, $i)
@@ -70,7 +69,6 @@ abstract class EmmaTable implements ITable
     }
 
     /**
-     * Returns the properly formatted table name
      * @see ITable::getTable()
      */
     public function getTable ($tableName)
@@ -84,13 +82,11 @@ abstract class EmmaTable implements ITable
     }
 
     /**
-     * Returns the previously set table name for the object instance
      * @see ITable::getTableName()
      */
     public function getTableName () { return $this->tableName; }
 
     /**
-     * Initializes all variables
      * @see ITable::initialize()
      */
     public function initialize ($name)
@@ -102,7 +98,6 @@ abstract class EmmaTable implements ITable
     }
 
     /**
-     * Allows for inserting data into the database
      * @see ITable::insert()
      */
     public function insert ($dataArray)
@@ -228,7 +223,6 @@ abstract class EmmaTable implements ITable
     }
 
     /**
-     * Joins tables through the mysql JOIN statement
      * @see ITable::join()
      */
     public function join ($table, $on, $thisOn)
@@ -247,7 +241,6 @@ SQL;
     }
 
     /**
-     * Joins tables through the mysql LEFT JOIN statement
      * @see ITable::leftJoin()
      */
     public function leftJoin ($table, $on, $thisOn)
@@ -266,7 +259,6 @@ SQL;
     }
 
     /**
-     * Joins tables through the mysql RIGHT JOIN statement
      * @see ITable::rightJoin()
      */
     public function rightJoin ($table, $on, $thisOn)
@@ -285,7 +277,6 @@ SQL;
     }
 
     /**
-     * Joins tables through the mysql INNER JOIN statement
      * @see ITable::innerJoin()
      */
     public function innerJoin ($table, $on, $thisOn)
@@ -304,7 +295,6 @@ SQL;
     }
 
     /**
-     * Joins tables through the mysql OUTER JOIN statement
      * @see ITable::outerJoin()
      */
     public function outerJoin ($table, $on, $thisOn)
@@ -323,8 +313,6 @@ SQL;
     }
 
     /**
-     * Allows for searching data by a column and it's key using
-     * the mysql SELECT statement
      * @see ITable::find()
      */
     public function find ($column, $key)
@@ -406,8 +394,6 @@ SQL;
     }
 
     /**
-     * Returns the amount of rows found by using
-     * the mysql COUNT statement
      * @see ITable::count()
      */
     public function count ($tableRow)
@@ -449,8 +435,6 @@ SQL;
     }
 
     /**
-     * Allows for deleting data through
-     * the mysql DELETE statement
      * @see ITable::delete()
      */
     public function delete ($column, $key)
