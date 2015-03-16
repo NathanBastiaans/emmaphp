@@ -3,26 +3,24 @@
 interface IModel
 {
 
-    function constructor ();
-    
     /**
      * Accepts a SQL query as a string
      * and execute it into the database.
      */
-    function query ();
+    function query ($query, $params = NULL);
     
     /**
      * Accepts a SQL query as a string
      * and executes it into the database.
      * Afterwards it returns the selected data as a DataObject.
      */
-    function fetch ();
+    function fetch ($query, $params = NULL);
     
     /**
      * Accepts a SQL query as a string
      * and executes it into the database.
      * Afterwards it returns the selected data as an array with DataObjects.
      */
-    function fetchAll ();
+    function fetchAll ($query, $params = NULL);
 
 }

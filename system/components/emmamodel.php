@@ -14,6 +14,9 @@ abstract class EmmaModel implements IModel
 
     }
     
+    /**
+     * @see IModel::query()
+     */
     public function query ($query, $params = NULL)
     {
 
@@ -36,6 +39,9 @@ abstract class EmmaModel implements IModel
             
     }
 
+    /**
+     * @see IModel::fetch()
+     */
     public function fetch ($query, $params = NULL)
     {
 
@@ -65,6 +71,9 @@ abstract class EmmaModel implements IModel
             
     }
     
+    /**
+     * @see IModel::fetchAll()
+     */
     public function fetchAll ($query, $params = NULL)
     {
 
