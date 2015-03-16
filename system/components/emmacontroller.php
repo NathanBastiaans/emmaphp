@@ -52,7 +52,7 @@ abstract class EmmaController implements IController {
     /**
      * @see IController::generateRandomStringWithPseudoBytes()
      */
-    protected function generateRandomStringWithPseudoBytes ($length = 8)
+    public function generateRandomStringWithPseudoBytes ($length = 8)
     {
 
         return substr (sha1 (openssl_random_pseudo_bytes (100)), 0, $length);
@@ -62,7 +62,7 @@ abstract class EmmaController implements IController {
     /**
      * @see IController::generateRandomString()
      */
-    protected function generateRandomString ($length = 8)
+    public function generateRandomString ($length = 8)
     {
 
         return substr (sha1 (mt_rand (0, 100)), 0, $length);
@@ -72,7 +72,7 @@ abstract class EmmaController implements IController {
     /**
      * @see IController::encrypt()
      */
-    protected function encrypt ($string)
+    public function encrypt ($string)
     {
 
         return sha1 ($string);
@@ -105,7 +105,7 @@ abstract class EmmaController implements IController {
      * @param string $paramPostName
      * @return Ambigous <boolean, array>
      */
-    protected function postArray ($paramPostName) {
+    public function postArray ($paramPostName) {
 
         return isset ($_POST[$paramPostName]) 
             ? $_POST[$paramPostName]
@@ -119,7 +119,7 @@ abstract class EmmaController implements IController {
      * @param string $paramPostName
      * @return Ambigous <boolean, string>
      */
-    protected function post ($paramPostName)
+    public function post ($paramPostName)
     {
 
         return isset ($_POST[$paramPostName]) 
@@ -134,7 +134,7 @@ abstract class EmmaController implements IController {
      * @param string $paramGetName
      * @return Ambigous <boolean, string>
      */
-    protected function get ($paramGetName)
+    public function get ($paramGetName)
     {
 
         return isset ($_GET[$paramGetName]) 
@@ -149,7 +149,7 @@ abstract class EmmaController implements IController {
      * @param string $paramGetName
      * @return Ambigous <boolean, array>
      */
-    protected function getArray ($paramGetName)
+    public function getArray ($paramGetName)
     {
 
         return isset ($_GET[$paramGetName]) 
@@ -164,7 +164,7 @@ abstract class EmmaController implements IController {
      * @param string $url
      * @param integer $status
      */
-    protected function redirect ($url, $status = 0)
+    public function redirect ($url, $status = 0)
     {
 
         if (isset ($url))

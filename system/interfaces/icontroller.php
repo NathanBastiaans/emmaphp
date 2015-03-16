@@ -10,7 +10,7 @@ interface IController
      * @param integer $length
      * @return string
      */
-    protected function generateRandomStringWithPseudoBytes ();
+    function generateRandomStringWithPseudoBytes ();
     
     /**
      * Generates a random string based on the supplied length
@@ -18,7 +18,7 @@ interface IController
      * @param integer $length
      * @return string
      */
-    protected function generateRandomString ($length = 8);
+    function generateRandomString ($length = 8);
 
     /**
      * Applies a sha1 encryption on the supplied string
@@ -27,14 +27,7 @@ interface IController
      * @param string $string
      * @return string
      */
-    function encrypt ($length = 8);
-    
-    /**
-     * Encrypts a string and returns it encrypted with SHA-1.
-     * 
-     * @param string $string
-     */
-    protected function encrypt ($string);
+    function encrypt ($string);
     
     /**
      * A static way to call the active controller instance
@@ -47,31 +40,31 @@ interface IController
     /**
      * Returns a POST request ment for Arrays.
      */
-    protected function postArray ($paramPostName);
+    function postArray ($paramPostName);
     
     /**
      * Returns a POST request.
      */
-    protected function post ($paramPostName);
+    function post ($paramPostName);
     
     /**
      * Returns a GET request.
      */
-    protected function get ($paramGetName);
+    function get ($paramGetName);
     
     /**
      * Returns a GET request ment for Arrays.
      */
-    protected function getArray ($paramGetName);
+    function getArray ($paramGetName);
     
     /**
      * Redirects the user to the specified URL.
      */
-    protected function redirect ($url, $status = 0);
+    function redirect ($url, $status = 0);
     
     /**
      * Instructs the Loader to load the designated 404 page.
      */
-    public function fourOhFour ();
+    function fourOhFour ();
     
 }
