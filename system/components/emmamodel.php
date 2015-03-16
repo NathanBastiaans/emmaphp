@@ -95,20 +95,6 @@ abstract class EmmaModel implements IModel
         }
         
     }
-
-    protected function generateSalt ()
-    {
-
-        return sha1 (openssl_random_pseudo_bytes (100));
-
-    }
-
-    protected function encrypt ($string)
-    {
-
-        return sha1 ($string);
-
-    }
     
 }
 
