@@ -39,14 +39,14 @@ abstract class EmmaController implements IController {
         if (isset ($a)) 
             $this->arg    = $a;
 
-        AutoLoader::getInstance ();
-        
 		/*
 		 * Changing the working directory to "application"
 		 * since we don't really need anything from the system folder.
 		 */
         chdir ("application");
-        
+
+        AutoLoader::getInstance ();
+
     }
 
     /**

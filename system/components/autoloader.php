@@ -11,7 +11,7 @@ class AutoLoader implements ISystemComponent
     function __construct ()
     {
 
-        include ("application/config/autoload.php");
+        include ("config/autoload.php");
 
         if (count ($autoloadModels) > 0)
             foreach ($autoloadModels as $model)

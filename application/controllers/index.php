@@ -13,7 +13,7 @@ class IndexController extends EmmaController
 
     }
     
-    public function page ($page = "welcome")
+    public function welcome ($page = "welcome")
     {
             
     	Loader::view ("templates/header.php");
