@@ -70,8 +70,8 @@ final class Core
     static function getRekt ()
     {
 
-		throw new Exception ("Get #REKT", 1337);
+	trigger_error ("You just got #REKT");
     	
-	}
+    }
     
 }
