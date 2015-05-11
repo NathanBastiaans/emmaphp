@@ -154,6 +154,9 @@ abstract class EmmaTable implements ITable
             )
                 die (print_r ($this->db->connection->errorInfo ()));
 
+        
+            return $this->db->connection->lastInsertId ();
+            
         }
 
     }
