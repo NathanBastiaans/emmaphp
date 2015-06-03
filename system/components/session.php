@@ -2,7 +2,11 @@
 
 class Session
 {
-    
+
+    /**
+     * @param $varName
+     * @return bool
+     */
     static function getAndNullify ($varName)
     {
         
@@ -12,6 +16,10 @@ class Session
         
     }
 
+    /**
+     * @param $varName
+     * @return bool
+     */
     static function get ($varName)
     {
 
@@ -21,6 +29,10 @@ class Session
 
     }
 
+    /**
+     * @param $varName
+     * @param $value
+     */
     static function set ($varName, $value)
     {
 
@@ -28,6 +40,10 @@ class Session
 
     }
 
+
+    /**
+     * @param $varName
+     */
     static function nullify ($varName)
     {
 

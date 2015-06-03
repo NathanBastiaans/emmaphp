@@ -5,6 +5,7 @@ class DataObject implements ISystemComponentDataCompatible
 
 	/**
 	 * Assume a data structure much like an array does
+     *
 	 * @param array $dataArray
 	 */
     function __construct ($dataArray)
@@ -21,6 +22,10 @@ class DataObject implements ISystemComponentDataCompatible
 
     }
 
+    /**
+     * @param array $dataArray
+     * @return DataObject
+     */
     public static function getInstance ($dataArray)
     {
 
