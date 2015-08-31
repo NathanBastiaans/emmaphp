@@ -36,29 +36,40 @@ interface IController
      * @param string $paramView
      */
     static function initView ($paramView);
-    
+
     /**
      * Returns a POST request ment for Arrays.
+     * @param $paramPostName
+     * @return
      */
     function postArray ($paramPostName);
-    
+
     /**
      * Returns a POST request.
+     * @param $paramPostName
+     * @return
      */
     function post ($paramPostName);
-    
+
     /**
      * Returns a GET request.
+     * @param $paramGetName
+     * @return
      */
     function get ($paramGetName);
-    
+
     /**
      * Returns a GET request ment for Arrays.
+     * @param $paramGetName
+     * @return
      */
     function getArray ($paramGetName);
-    
+
     /**
      * Redirects the user to the specified URL.
+     * @param $url
+     * @param int $status
+     * @return
      */
     function redirect ($url, $status = 0);
     
