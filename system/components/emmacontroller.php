@@ -13,17 +13,13 @@ abstract class EmmaController implements IController {
     protected $method;
     protected $arg;
 
-    public $load;
-
     /**
      * @see IController::constructor()
      */
     public function constructor ()
     {
             
-        // Link loader to controller
         // and the controller instance to itself
-        $this->load 	= Loader::$instance;
         self::$instance =& $this;
 
         // Method and argument back references.
@@ -214,7 +210,7 @@ abstract class EmmaController implements IController {
     public function fourOhFour ()
     {
         
-        $this->load->view ("fourohfour.php");
+        Loader::view ("fourohfour.php");
         
     }
    
