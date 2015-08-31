@@ -10,7 +10,7 @@ interface IController
      * @param integer $length
      * @return string
      */
-    function generateRandomStringWithPseudoBytes ();
+    function generateRandomStringWithPseudoBytes ($length = 8);
     
     /**
      * Generates a random string based on the supplied length
