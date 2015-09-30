@@ -39,7 +39,17 @@ class Session
         $_SESSION[$varName] = $value;
 
     }
-
+    
+    /**
+     * @param $key
+     * @param $value
+     */
+	static function push ( $key, $value )
+	{
+		
+		array_push ( $_SESSION [$key], $value );
+		
+	}
 
     /**
      * @param $varName
