@@ -78,7 +78,7 @@ class EmmaUploader
 		if ( $return != 2 && ( $extension == "jpeg" || $extension == "jpg" ) )
 		{
 		
-			self::image_fix_orientation( $assumedLocation );
+			self::imageFixOrientation ( $assumedLocation );
 
 		}
 
