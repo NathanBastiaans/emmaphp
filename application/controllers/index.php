@@ -12,6 +12,16 @@ class IndexController extends EmmaController
 	   	$this->page ();
 
     }
+
+    public function page2 ($id)
+    {
+
+        echo 'ID: #'.$id;
+
+        // Routing by state
+        #Router::goToState('home');
+
+    }
     
     public function page ($page = "welcome")
     {
