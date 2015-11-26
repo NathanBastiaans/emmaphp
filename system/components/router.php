@@ -70,7 +70,7 @@ class Router {
     */
     public static function fixSubdirUrls() {
 	$base = dirname($_SERVER['PHP_SELF']);
-	$_SERVER['REQUEST_URI'] = substr($_SERVER['REQUEST_URI'], strlen($base));
+	$_SERVER['REQUEST_URI'] = str_replace($base, '', $_SERVER['REQUEST_URI']);
 	$_SERVER['REQUEST_URI'] = ($_SERVER['REQUEST_URI'] == "") ? '/' : '/'.ltrim($_SERVER['REQUEST_URI'], '/');
     }
 
