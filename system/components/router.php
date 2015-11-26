@@ -64,6 +64,15 @@ class Router {
         array_push(self::$methods, strtoupper($method));
         array_push(self::$callbacks, $callback);
     }
+    
+    /**
+    * Fixing request_uri for subdirs
+    */
+    public static function fixSubdirUrls() {
+	$base = dirname($_SERVER['PHP_SELF']);
+	$_SERVER['REQUEST_URI'] = substr($_SERVER['REQUEST_URI'], strlen($base));
+	$_SERVER['REQUEST_URI'] = ($_SERVER['REQUEST_URI'] == "") ? '/' : '/'.ltrim($_SERVER['REQUEST_URI'], '/');
+    }
 
     /**
     * Go to state, redirect based on route name
@@ -71,6 +80,9 @@ class Router {
     * @param string $name - Name of route, will redirect if found
     */
     public static function goToState($name) {
+    	
+    	// Fix subdir URL
+    	self::fixSubdirUrls();
 
         if(isset(self::$names[$name])) {
 			$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -92,6 +104,9 @@ class Router {
     * Dispatch, runs the routes and check for match
     */
     public static function dispatch() {
+    	
+    	// Fix subdir URL
+    	self::fixSubdirUrls();
 
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $method = $_SERVER['REQUEST_METHOD'];  
