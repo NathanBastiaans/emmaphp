@@ -3,6 +3,7 @@
 // Router::get('stateName', 'URI', 'Controller@method')
 
 Router::get('home', '/', 'Index@index');
-Router::get('page2', '/page/(:any)', 'Index@page2');
+Router::get("defaultPage", "/page", "Index@page");
+Router::get('page', '/page/(:any)', 'Index@page');
 
 ?>
