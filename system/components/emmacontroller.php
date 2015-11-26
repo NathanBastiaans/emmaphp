@@ -1,5 +1,8 @@
 <?php
 
+// "Cannot modify header information" - Fix
+ob_start();
+
 /**
  * Base controller of the EmmaPHP MVC Framework
  */
@@ -21,19 +24,6 @@ abstract class EmmaController implements IController {
             
         // and the controller instance to itself
         self::$instance =& $this;
-
-        // Method and argument back references.
-        if (isset ($_GET["m"])) 
-            $m = filter_var ($_GET["m"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        if (isset ($_GET["a"])) 
-            $a = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        
-        if (isset ($m)) 
-            $this->method = $m;
-        
-        if (isset ($a)) 
-            $this->arg    = $a;
 
 		/*
 		 * Changing the working directory to "application"
@@ -215,3 +205,4 @@ abstract class EmmaController implements IController {
     }
    
 }
+ob_clean();
