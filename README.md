@@ -9,7 +9,7 @@ Started 18th of June 2014.
 
 Made by Bob Desaunois
 
-Website: bobdesaunois.github.io / bobdesaunois.github.io/emmaphp
+Website: bobdesaunois.github.io/emmaphp
 
 Active contributors:
 @bobdesaunois
