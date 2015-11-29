@@ -8,5 +8,12 @@
     </head>
     <body>
         <h1>Four, oh four! page not found :(</h1>
+
+    	<?php
+    	if($this->errorMsg) {
+    		echo '<h4>'.$this->errorMsg.'</h4>';
+    	}
+    	?>
+
     </body>
 </html>
