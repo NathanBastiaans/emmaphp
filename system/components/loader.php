@@ -38,11 +38,17 @@ class Loader implements ISystemComponent
      */
     public function controller ($paramController)
     {
-        
+
+        $copyParamController = $paramController;
+
         // Check for the controller's actual file
         if( ! file_exists("application/controllers/" . $paramController->segments[0] . ".php")) {
-            if(DEBUG_MODE)
-                die ("Couldn't find controller: " . $paramController->segments[0] . " :(");
+
+            $paramController->matched = array("Couldn't find controller: ".$copyParamController->segments[0]);
+            $paramController->segments = array(
+                'Error', 'index'
+            );
+
         }
 
         // Require controller file
@@ -65,9 +71,14 @@ class Loader implements ISystemComponent
          * Load method from controller
          */
         if( ! method_exists($controller, $paramController->segments[1])) {
-           
-            die ("Couldn't find method: " . $paramController->segments[1]
-                . " <br/>In controller: " . $paramController->segments[0] . " :(");
+            
+            $paramController->matched = array("Couldn't find method: " . $copyParamController->segments[1] 
+            . " <br/>In controller: " . $copyParamController->segments[0] . " :(");
+            $paramController->segments = array(
+                'Error', 'index'
+            );
+            chdir('../');
+            $this->controller($paramController);
 
         } else {
 
@@ -75,11 +86,15 @@ class Loader implements ISystemComponent
             // Check if the supplied method is public
             $reflection = new ReflectionMethod ($controller, $paramController->segments[1]);
             if ( ! $reflection->isPublic ()) {
-
-                if (DEBUG_MODE)
-                    die("Method: " . $paramController->segments[1] . " from"
-                    . " Controller: " . $paramController->segments[0]
-                    . " is not a public method.");
+            
+                $paramController->matched = array("Method: " . $copyParamController->segments[1] . " from"
+                        . " Controller: " . $copyParamController->segments[0]
+                        . " is not a public method.");
+                $paramController->segments = array(
+                    'Error', 'index'
+                );
+                chdir('../');
+                $this->controller($paramController);
 
             } else {
 
@@ -142,7 +157,7 @@ class Loader implements ISystemComponent
         }
         else
         {
-        
+
             //Load a view
             self::$controller->initView ($paramView);
         

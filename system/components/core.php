@@ -48,16 +48,16 @@ final class Core
          */
         if($route == false) {
 
-            if(DEBUG_MODE)
-                die("Couldn't find that route.");
-
             $route = (object) array(
                 'segments' => array(
-                    DEFAULT_CONTROLLER, 'index'
+                    'Error', 'index'
+                ),
+                'matched' => array(
+                    "Couldn't find that route."
                 )
             );
-        }
 
+        }
         
         // Define the loader
         $this->load = Loader::getInstance ();

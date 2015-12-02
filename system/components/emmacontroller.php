@@ -70,9 +70,9 @@ abstract class EmmaController implements IController {
      */
     private function doInitView ($paramView)
     {
-
+        
         include ("views/" . $paramView);
-
+    
     }
 
     /**
@@ -201,7 +201,7 @@ abstract class EmmaController implements IController {
     {
         
         Loader::view ("fourohfour.php");
-        
+
     }
    
 }
