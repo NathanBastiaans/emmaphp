@@ -95,7 +95,7 @@ abstract class EmmaController implements IController {
 
         return isset ($_POST[$paramPostName]) 
             ? $_POST[$paramPostName]
-        	: false;
+            : false;
 
     }
 
