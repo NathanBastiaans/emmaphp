@@ -41,7 +41,7 @@ final class Core
         require_once ("application/config/routes.php");
 
         // Route dispatcher. Find route
-        $route = Router::dispatch();
+        $route = Router::dispatch ();
 
         /*
          * If route doesn't exist set default
@@ -73,7 +73,7 @@ final class Core
     static function getRekt ()
     {
 
-    trigger_error ("You just got #REKT");
+        trigger_error ("You just got #REKT");
         
     }
     
