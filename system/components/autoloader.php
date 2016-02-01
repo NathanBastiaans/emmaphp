@@ -3,6 +3,8 @@
 class AutoLoader implements ISystemComponent
 {
 
+    static $autoloadModels = array ();
+
 	/**
 	 * Constructor autoloader
 	 * Loads all models assigned to the autoloader
@@ -11,10 +13,8 @@ class AutoLoader implements ISystemComponent
     function __construct ()
     {
 
-        include ("config/autoload.php");
-
-        if (count ($autoloadModels) > 0)
-            foreach ($autoloadModels as $model)
+        if (count (self::$autoloadModels) > 0)
+            foreach (self::$autoloadModels as $model)
                 EmmaController::$instance->load->model ($model);
 
         // Load all tables
@@ -28,7 +28,7 @@ class AutoLoader implements ISystemComponent
     public static function getInstance ()
     {
 
-        return new AutoLoader ();
+        return new AutoLoader();
 
     }
 }

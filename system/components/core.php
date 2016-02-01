@@ -20,8 +20,6 @@ final class Core
         
         // Include all configurations
         require_once ("application/config/config.php");
-        require_once ("application/config/database.php");
-
 
         // Include all interfaces
         require_once ("system/interfaces/isystemcomponent.php");
