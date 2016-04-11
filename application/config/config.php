@@ -15,12 +15,6 @@ if (DEBUG_MODE)
 else
     ini_set ("display_errors", "off");
 
-//Session
-if ( ! isset ($_SESSION))
-    session_start ();
-
-
-
 /****************************************************
  *                    Database                      *
  ****************************************************/
