@@ -38,6 +38,10 @@ final class Core
         // Include routes
         require_once ("application/config/routes.php");
 
+        //Session
+        if ( ! isset ($_SESSION))
+            session_start ();
+
         // Route dispatcher. Find route
         $route = Router::dispatch ();
 
