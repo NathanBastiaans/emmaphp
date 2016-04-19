@@ -2,7 +2,7 @@
 
 class Cookie
 {
-    
+
     /**
      * 
      * @param string $varName
@@ -12,22 +12,29 @@ class Cookie
     {
 
         return isset ($_COOKIE[$varName]) 
-        	? $_COOKIE[$varName] 
-        	: false;
+            ? $_COOKIE[$varName] 
+            : false;
 
+    }
+    
+    static function getDefaultHttps ()
+    {
+        
+        return ( ! empty ( $_SERVER['HTTPS'] ) && $_SERVER['HTTPS'] !== 'off' ) || $_SERVER['SERVER_PORT'] == 443;
+        
     }
 
     /**
      * Sets a cookie using PHP's setcookie ()
      * Defaults to expire in a week.
      * 
-     * @param string 	$varName
-     * @param integer 	$value
-     * @param integer 	$time
-     * @param string 	$secure
-     * @param string 	$httpOnly
+     * @param string  $varName
+     * @param integer $value
+     * @param integer $time
+     * @param string  $secure
+     * @param string  $httpOnly
      */
-    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly = true )
+    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly = self::getDefaultHttps() )
     {
 
         setcookie ($varName, $value, $time, "/", BASEPATH, $secure, $httpOnly);
