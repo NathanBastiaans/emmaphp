@@ -19,7 +19,7 @@ final class Core
     {
         
         // Include all configurations
-        require_once ("application/config/config.php");
+        require_once ("config.php");
 
         // Include all interfaces
         require_once ("system/interfaces/isystemcomponent.php");
@@ -33,10 +33,6 @@ final class Core
 
         foreach ($sysFiles as $file)
             require_once ($file);
-        
-
-        // Include routes
-        require_once ("application/config/routes.php");
 
         //Session
         if ( ! isset ($_SESSION))
