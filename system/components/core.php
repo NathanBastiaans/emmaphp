@@ -17,10 +17,7 @@ final class Core
      */
     public function __construct ()
     {
-        
-        // Include all configurations
-        require_once ("config.php");
-
+    
         // Include all interfaces
         require_once ("system/interfaces/isystemcomponent.php");
         require_once ("system/interfaces/isystemcomponentdatacompatible.php");
@@ -33,6 +30,10 @@ final class Core
 
         foreach ($sysFiles as $file)
             require_once ($file);
+			
+		// Include all configurations
+        require_once ("config.php");
+
 
         //Session
         if ( ! isset ($_SESSION))

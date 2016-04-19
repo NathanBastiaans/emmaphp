@@ -34,9 +34,12 @@ class Cookie
      * @param string  $secure
      * @param string  $httpOnly
      */
-    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly = self::getDefaultHttps() )
+    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly)
     {
 
+		if ( empty ( $httpOnly ) )
+			$httpOnly = self::getDefaultHttps ();
+	
         setcookie ($varName, $value, $time, "/", BASEPATH, $secure, $httpOnly);
 
     }
