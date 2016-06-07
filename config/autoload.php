@@ -1,3 +1,0 @@
-<?php
-
-$autoloadModels = array ();
