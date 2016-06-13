@@ -21,9 +21,6 @@ final class Core
         if ( ! isset ($_SESSION))
             session_start ();
 
-        // Include the configuration
-        require_once ("config.php");
-
         // Include all interfaces
         require_once ("system/interfaces/isystemcomponent.php");
         require_once ("system/interfaces/isystemcomponentdatacompatible.php");
@@ -36,7 +33,10 @@ final class Core
 
         foreach ($sysFiles as $file)
             require_once ($file);
-        
+
+        // Include the configuration
+        require_once ("config.php");
+
         /*
          * If controller is not set default to
          * the default controller.

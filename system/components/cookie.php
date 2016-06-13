@@ -31,10 +31,10 @@ class Cookie
      * @param string  $varName
      * @param integer $value
      * @param integer $time
-     * @param string  $secure
-     * @param string  $httpOnly
+     * @param bool  $secure
+     * @param bool  $httpOnly
      */
-    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly)
+    static function set ($varName, $value, $time = 604800, $secure = false, $httpOnly )
     {
 
 		if ( empty ( $httpOnly ) )
