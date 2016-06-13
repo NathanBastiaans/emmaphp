@@ -36,7 +36,9 @@ abstract class EmmaModel implements IModel
                     die ($this->db->connection->errorInfo ());
 
         }
-            
+
+        return $this->db->connection->lastInsertId();
+
     }
 
     /**

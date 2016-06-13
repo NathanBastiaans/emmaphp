@@ -17,7 +17,13 @@ final class Core
      */
     public function __construct ()
     {
-    
+        // Start session if one isn't started
+        if ( ! isset ($_SESSION))
+            session_start ();
+
+        // Include the configuration
+        require_once ("config.php");
+
         // Include all interfaces
         require_once ("system/interfaces/isystemcomponent.php");
         require_once ("system/interfaces/isystemcomponentdatacompatible.php");
@@ -30,33 +36,26 @@ final class Core
 
         foreach ($sysFiles as $file)
             require_once ($file);
-			
-		// Include all configurations
-        require_once ("config.php");
-
-
-        //Session
-        if ( ! isset ($_SESSION))
-            session_start ();
-
-        // Route dispatcher. Find route
-        $route = Router::dispatch ();
-
+        
         /*
-         * If route doesn't exist set default
+         * If controller is not set default to
+         * the default controller.
+         * If the controller is set we use it. 
          */
-        if($route == false) {
+         if ( ! isset ($_GET["c"]))
+         	$_GET["c"] = DEFAULT_CONTROLLER;
 
-            $route = (object) array(
-                'segments' => array(
-                    'Error', 'index'
-                ),
-                'matched' => array(
-                    "Couldn't find that route."
-                )
-            );
+        // Check for the controller's actual file.
+        if ( ! file_exists ("application/controllers/" . $_GET["c"] . ".php"))
+            if (DEBUG_MODE)
+                die ("Couldn't find controller: " . $_GET["c"] . " :(");
 
-        }
+        // Get it.
+        require_once ("application/controllers/" . $_GET["c"] . ".php");
+
+        // Link it, detach the GET request and add the Controller affix.
+        $controllerActual = $_GET["c"] . "Controller";
+        $_GET["c"] = null;
         
         // Define the loader
         $this->load = Loader::getInstance ();
@@ -65,15 +64,15 @@ final class Core
         self::$loader = Loader::getInstance ();
         
         // Use the loader to load the controller
-        $this->load->controller ($route);
+        $this->load->controller ($controllerActual);
 
     }
     
     static function getRekt ()
     {
 
-        trigger_error ("You just got #REKT");
-        
+	    trigger_error ("You just got #REKT");
+    	
     }
     
 }

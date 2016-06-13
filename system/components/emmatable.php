@@ -153,10 +153,7 @@ abstract class EmmaTable implements ITable
                 && $error[0] != "00000"
             )
                 die (print_r ($this->db->connection->errorInfo ()));
-                
-            return $this->db->connection->lastInsertId();
 
-        
             return $this->db->connection->lastInsertId ();
             
         }

@@ -38,27 +38,9 @@ class Loader implements ISystemComponent
      */
     public function controller ($paramController)
     {
-
-        $copyParamController = $paramController;
-
-        // Check for the controller's actual file
-        if( ! file_exists("application/controllers/" . $paramController->segments[0] . ".php")) {
-
-            $paramController->matched = array("Couldn't find controller: ".$copyParamController->segments[0]);
-            $paramController->segments = array(
-                'Error', 'index'
-            );
-
-        }
-
-        // Require controller file
-        require_once ("application/controllers/" . $paramController->segments[0] . ".php");
         
-        // Add Controller affix
-        $paramController->segments[0] = $paramController->segments[0].'Controller';
-
         // Create given controller object
-        $controller = new $paramController->segments[0] ();
+        $controller = new $paramController ();
         $controller->constructor ();
         if (method_exists ($controller, "init"))
             $controller->init ();
@@ -66,48 +48,59 @@ class Loader implements ISystemComponent
         // Link the controller instance to the loader
         self::$controller =& $controller;
         
-
         /*
-         * Load method from controller
+         * Check for a supplied method with the GET
+         * If set we check if it's public and execute it if not
+         * we throw an error
          */
-        if( ! method_exists($controller, $paramController->segments[1])) {
-            
-            $paramController->matched = array("Couldn't find method: " . $copyParamController->segments[1] 
-            . " <br/>In controller: " . $copyParamController->segments[0] . " :(");
-            $paramController->segments = array(
-                'Error', 'index'
-            );
-            chdir('../');
-            $this->controller($paramController);
+        if (isset ($_GET["m"]))
+        {
 
-        } else {
+            if ( ! method_exists ($controller, $_GET["m"]))
+                die ("Couldn't find method: " . $_GET["m"]
+                    . " <br/>In controller: " . $_GET["c"] . " :(");
+            else
+            {
 
+                // Check if the supplied method is public
+                $reflection = new ReflectionMethod ($controller, $_GET["m"]);
+                if ( ! $reflection->isPublic ())
+                {
 
-            // Check if the supplied method is public
-            $reflection = new ReflectionMethod ($controller, $paramController->segments[1]);
-            if ( ! $reflection->isPublic ()) {
-            
-                $paramController->matched = array("Method: " . $copyParamController->segments[1] . " from"
-                        . " Controller: " . $copyParamController->segments[0]
+                    if (DEBUG_MODE)
+                        die("Method: " . $_GET["m"] . " from"
+                        . " Controller: " . $_GET["c"]
                         . " is not a public method.");
-                $paramController->segments = array(
-                    'Error', 'index'
-                );
-                chdir('../');
-                $this->controller($paramController);
 
-            } else {
+                }
+                //Check if arguments were supplied through GET
+                else if (isset ($_GET["a"]))
+                {
+                    
+                	// Filter the arguments
+                    $args = filter_var ($_GET["a"], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+                    
+                    // Run the desired method with applied arguments
+                    $controller->$_GET["m"] ($args);
+                    
+                }
+                else
+                {
 
-                // If route has any matched vars from regex route. Pass to method
-                // Else just run method
-                if(isset($paramController->matched)) {
-                    call_user_func_array(array($controller, $paramController->segments[1]), $paramController->matched);
-                } else {
-                    $method = $paramController->segments[1];
-                    $controller->$method(); 
+                	// Run the desired method without any arguments
+                    $controller->$_GET["m"] ();
+
                 }
 
             }
+
+        } 
+        else
+        { // if $_GET["m"] isn't set
+
+            // If the index method exists within the controller, we run it.
+            if (method_exists($controller, "index"))
+                $controller->index();
 
         }
         
@@ -149,20 +142,20 @@ class Loader implements ISystemComponent
     public static function view ($paramView)
     {
 
-        if ( ! file_exists ("views/" . $paramView))
-        {
+    	if ( ! file_exists ("views/" . $paramView))
+    	{
+    	
+    		self::$controller->fourOhFour ();
+    	
+    	}
+    	else
+    	{
         
-            self::$controller->fourOhFour ();
-        
-        }
-        else
-        {
-
-            //Load a view
-            self::$controller->initView ($paramView);
-        
-        }
-        
+	        //Load a view
+	        self::$controller->initView ($paramView);
+		
+    	}
+    	
     }
 
     /**
@@ -174,8 +167,8 @@ class Loader implements ISystemComponent
     {
 
         return self::$instance === null
-            ? self::$instance = new self
-            : $ref =& self::$instance;
+        	? self::$instance = new self
+        	: $ref =& self::$instance;
 
     }
     
