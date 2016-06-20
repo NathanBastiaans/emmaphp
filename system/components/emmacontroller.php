@@ -8,6 +8,8 @@ abstract class EmmaController implements IController {
     static $model;
     static $instance;
     static $table;
+	
+	public $load;
     
     protected $session;
     protected $method;
@@ -19,7 +21,10 @@ abstract class EmmaController implements IController {
     public function constructor ()
     {
             
-        // and the controller instance to itself
+			
+		$this->load = Loader::$instance;
+        
+		// and the controller instance to itself
         self::$instance =& $this;
 
         // Method and argument back references.
